@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cramer Services | Home</title>
+  <meta name="description" content="Cramer Services — reliable home & property services hub. Fast response, warranties on every job, and subscription plans that earn credits." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f8f9fb;
+      --card:#ffffff;
+      --accent:#0d6efd;
+      --accent-2:#ffb703;
+      --text:#1b1f24;
+      --muted:#6c757d;
+      --ring: 0 0 0 3px rgba(13,110,253,.25);
+      --green:#198754;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1100px;margin:auto;padding:0 1rem}
+    header{background:var(--card);border-bottom:1px solid #dee2e6;position:sticky;top:0;z-index:50}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0}
+    .brand{display:flex;gap:.6rem;align-items:center;font-weight:800}
+    .brand-logo{width:36px;height:36px;background:var(--accent);color:#fff;display:grid;place-items:center;border-radius:8px;font-weight:700}
+    nav ul{display:flex;gap:1rem;list-style:none;margin:0;padding:0}
+    nav a{padding:.5rem .7rem;border-radius:6px}
+    nav a:hover{background:#f1f3f5;text-decoration:none}
+    .cta{background:var(--accent);color:#fff;font-weight:600;padding:.65rem 1rem;border:0;border-radius:6px;cursor:pointer}
+    .cta:hover{background:#0b5ed7}
+
+    /* Hero */
+    .hero{padding:3rem 0;display:grid;gap:2rem;grid-template-columns:1.2fr 1fr;align-items:center}
+    .headline{font-size:2.5rem;font-weight:800;line-height:1.2;margin:.5rem 0}
+    .sub{color:var(--muted);font-size:1.1rem}
+    .hero-card img{width:100%;border-radius:12px}
+
+    section{padding:2.5rem 0}
+    h2{font-size:1.8rem;margin-bottom:.5rem}
+    .muted{color:var(--muted)}
+
+    /* Cards (grid layouts) */
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-top:1rem}
+    .card{background:var(--card);border:1px solid #dee2e6;border-radius:12px;padding:1rem;transition:box-shadow .2s}
+    .card:hover{box-shadow:0 6px 18px rgba(0,0,0,.08)}
+
+    /* Choose Us (no boxes) */
+    .icon{font-size:2rem;margin-bottom:.5rem;display:block}
+    .choose-us{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;margin-top:1rem}
+    .choose-us-item{text-align:center;padding:0}
+
+    /* Who We Help */
+    .who-wrap{display:grid;gap:2.5rem;margin-top:.5rem}
+    .who{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;background:transparent}
+    .who:nth-child(even){grid-template-columns:.9fr 1.1fr}
+    .who h3{margin:.2rem 0 .6rem;color:var(--green);font-weight:800}
+    .who p{color:var(--muted);margin:.4rem 0}
+    .who figure{margin:0;position:relative}
+    .who img{width:100%;height:auto;border-radius:14px;box-shadow:0 16px 36px rgba(0,0,0,.12);display:block}
+    @media (max-width: 900px){.who,.who:nth-child(even){grid-template-columns:1fr}}
+
+    /* Accordion (FAQ) */
+    .accordion{max-width:1100px;margin-top:1rem}
+    details{background:transparent;border-top:1px solid #e5e7eb;padding:.8rem 0}
+    details:last-child{border-bottom:1px solid #e5e7eb}
+    summary{cursor:pointer;list-style:none;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+    summary::-webkit-details-marker{display:none}
+    .chev{transition:transform .2s}
+    details[open] .chev{transform:rotate(180deg)}
+    .answer{color:var(--muted);margin:.6rem 0 0 0}
+
+    /* Forms */
+    form{display:grid;gap:.8rem;margin-top:1rem}
+    input,select,textarea{width:100%;padding:.75rem;border:1px solid #ced4da;border-radius:6px;font-family:inherit}
+    input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:var(--ring)}
+
+    footer{background:var(--card);border-top:1px solid #dee2e6;padding:1.5rem 0;color:var(--muted)}
+
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#home">
+        <span class="brand-logo">CS</span>
+        <b>Cramer Services</b>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#plans">Subscriptions</a></li>
+          <li><a href="#quote">Request a Quote</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <a class="cta" href="#quote">Get a Quote</a>
+    </div>
+  </header>
+
+<main id="home" class="container hero">
+  <div>
+    <h1 class="headline">Your All-in-One Hub for Home & Property Services</h1>
+    <p class="sub">From urgent repairs to planned upgrades, Cramer Services connects you with trusted professionals to get the job done right—fast, and backed by our guarantees.</p>
+    <a class="cta" href="#quote">Book a Free Walk-Through</a>
+  </div>
+  <div class="hero-card">
+    <img src="ChatGPT Image Aug 13, 2025, 04_01_24 PM.png" alt="Happy family in front of home"/>
+  </div>
+</main>
+
+  <section id="services" class="container">
+    <h2>What We Do</h2>
+    <p class="muted">A single place to plan, book, and manage all your home and property projects.</p>
+    <div class="cards">
+      <div class="card"><h3>Repairs</h3><p class="muted">Fix issues quickly and effectively—clear communication and no surprises.</p></div>
+      <div class="card"><h3>Installations</h3><p class="muted">Appliances, fixtures, hardware, and more—professionally installed.</p></div>
+      <div class="card"><h3>Projects & Renovations</h3><p class="muted">From planning to completion, we handle all the moving parts.</p></div>
+      <div class="card"><h3>Maintenance</h3><p class="muted">Seasonal tune‑ups and checklists to keep things running smoothly.</p></div>
+      <div class="card"><h3>Emergency Help</h3><p class="muted">After‑hours support to stabilize urgent problems and outline next steps.</p></div>
+      <div class="card"><h3>Custom Requests</h3><p class="muted">Have something unique in mind? We’ll scope it and quote it.</p></div>
+    </div>
+  </section>
+
+  <section id="plans" class="container">
+    <h2>Subscriptions</h2>
+    <p class="muted">Members get priority scheduling, seasonal checkups, and credits back toward future work.</p>
+    <div class="cards">
+      <div class="card"><h3>Essential</h3><p>$20/mo • Seasonal check • 25% back in credits</p></div>
+      <div class="card"><h3>Plus</h3><p>$35/mo • 2 seasonal checks • 40% back in credits</p></div>
+      <div class="card"><h3>Pro</h3><p>$50/mo • Quarterly checks • 50% back in credits</p></div>
+    </div>
+    <p class="muted" style="margin-top:.6rem">Combine with our Filter Replacement Program: <b>$20</b> + filter type price − $5 member discount.</p>
+  </section>
+
+  <!-- Who Cramer Services Helps -->
+  <section id="who-we-help" class="container">
+    <h2>Who Cramer Services Helps</h2>
+    <div class="who-wrap">
+      <article class="who">
+        <div>
+          <h3>The Homeowner Facing an Urgent Repair</h3>
+          <p>A pipe has burst, the heat is out, or the power has failed—and waiting days for help isn’t an option. You’ve invested in your home, but sudden emergencies are turning your comfort into stress.</p>
+          <p>You need a trusted team that responds fast, fixes the problem right, and helps you get back to normal without the hassle.</p>
+        </div>
+        <figure>
+          <img src="sandbox:/mnt/data/ChatGPT Image Aug 13, 2025, 02_58_39 PM.png" alt="Smiling homeowner standing outside their house">
+        </figure>
+      </article>
+
+      <article class="who">
+        <figure>
+          <img src="sandbox:/mnt/data/ChatGPT Image Aug 13, 2025, 03_01_32 PM.png" alt="Small business owner smiling in front of a shop with an OPEN sign">
+        </figure>
+        <div>
+          <h3>The Small Business Owner with Maintenance Issues or in Need of Repairs</h3>
+          <p>Your equipment is failing, and the building needs urgent repairs—but you can’t afford long downtime. You’ve worked hard to build your business, but unexpected breakdowns are disrupting operations and frustrating customers.</p>
+          <p>Finding reliable help fast is difficult, and every hour spent waiting is money lost.</p>
+        </div>
+      </article>
+
+      <article class="who">
+        <div>
+          <h3>The Home Seller Preparing to List</h3>
+          <p>You’re ready to put your home on the market, but small repairs and updates are standing in the way. Buyers notice every detail, and you don’t want inspection issues or curb appeal problems slowing down your sale.</p>
+          <p>You need a skilled team to handle fixes quickly, boost your home’s presentation, and help you get top dollar.</p>
+        </div>
+        <figure>
+          <img src="sandbox:/mnt/data/ChatGPT Image Aug 13, 2025, 03_03_37 PM.png" alt="Happy homeowner holding a coffee mug in front of their home">
+        </figure>
+      </article>
+    </div>
+  </section>
+
+  <section id="faq" class="container">
+    <h2>Frequently Asked Questions</h2>
+    <div class="accordion">
+      <details>
+        <summary>What types of services do you offer?<span class="chev">▾</span></summary>
+        <p class="answer">We handle repairs, installations, renovations, maintenance, emergency help, and custom requests. If it’s not listed, ask—we’ll advise and quote options.</p>
+      </details>
+      <details>
+        <summary>Do you offer warranties or guarantees on your work?<span class="chev">▾</span></summary>
+        <p class="answer">Yes. Install/renovation warranties align with product/material coverage. Most repairs include a limited warranty. If we can’t diagnose during our visit, you don’t pay the diagnostic fee.</p>
+      </details>
+      <details>
+        <summary>Can you handle multiple types of projects at once?<span class="chev">▾</span></summary>
+        <p class="answer">Yes. Our all‑in‑one team coordinates trades so you can bundle tasks in a single plan and schedule.</p>
+      </details>
+      <details>
+        <summary>How do I request a quote?<span class="chev">▾</span></summary>
+        <p class="answer">Use the form below or call <a href="tel:+13142678594">314‑267‑8594</a>. Share details, materials you prefer, and target dates—we’ll reply with options and pricing.</p>
+      </details>
+      <details>
+        <summary>Do you offer emergency services?<span class="chev">▾</span></summary>
+        <p class="answer">We provide after‑hours stabilization and next‑step planning. Members on Plus/Pro get priority access.</p>
+      </details>
+      <details>
+        <summary>How soon can you start on my project?<span class="chev">▾</span></summary>
+        <p class="answer">Scheduling depends on scope and parts availability. We’ll offer the soonest slots and keep you updated.</p>
+      </details>
+      <details>
+        <summary>How do your subscriptions work?<span class="chev">▾</span></summary>
+        <p class="answer">Monthly plans include checkups, priority scheduling, and credits you can use toward repairs or installs. We’ll show your credit balance on estimates.</p>
+      </details>
+      <details>
+        <summary>Are your technicians licensed and insured?<span class="chev">▾</span></summary>
+        <p class="answer">Yes. Our professionals follow code and manufacturer specifications, and we carry appropriate insurance.</p>
+      </details>
+      <details>
+        <summary>Do you work with both residential and commercial clients?<span class="chev">▾</span></summary>
+        <p class="answer">Yes, we support homeowners, landlords, property managers, and small businesses.</p>
+      </details>
+      <details>
+        <summary>How do I contact Cramer Services?<span class="chev">▾</span></summary>
+        <p class="answer">Call <a href="tel:+13142678594">314‑267‑8594</a> or email <a href="mailto:CramerServicesLLC@Gmail.Com">CramerServicesLLC@Gmail.Com</a>. You can also submit the quote form below.</p>
+      </details>
+    </div>
+  </section>
+
+ <section id="choose-us" class="container">
+  <h2 style="text-align:center;">Why Choose Cramer Services?</h2>
+  <div class="choose-us">
+    <div class="choose-us-item">
+      <span class="icon">🛠️</span>
+      <h3>All-in-One Expertise</h3>
+      <p class="muted">From repairs to renovations, we handle it all under one roof. Our team’s diverse skills mean you can count on one trusted partner for every project, saving you time, money, and hassle.</p>
+    </div>
+    <div class="choose-us-item">
+      <span class="icon">✅</span>
+      <h3>Work We Stand By</h3>
+      <p class="muted">Our work is backed by warranties, guarantees, and our promise that if we can’t diagnose the issue, you don’t pay. It’s our way of showing that your trust means everything to us.</p>
+    </div>
+    <div class="choose-us-item">
+      <span class="icon">🤝</span>
+      <h3>Customer-Focused Services</h3>
+      <p class="muted">We prioritize clear communication, honest recommendations, and dependable timelines. From your first call to project completion, we aim to make the process easy, transparent, and stress-free.</p>
+    </div>
+  </div>
+</section>
+
+<section id="quote" class="container">
+  <h2>Contact us</h2>
+  <p class="muted">Tell us what you need. Include preferred materials and photos (optional). We’ll confirm your warranty terms in the estimate.</p>
+  <form id="quoteForm" novalidate>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
+      <input id="name" name="name" placeholder="Full Name" required>
+      <input id="phone" name="phone" placeholder="Phone" required>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
+      <input id="email" name="email" type="email" placeholder="Email">
+      <select id="service" name="service">
+        <option value="">Select Service…</option>
+        <option>Repairs</option>
+        <option>Installations</option>
+        <option>Renovations</option>
+        <option>Maintenance</option>
+        <option>Emergency</option>
+        <option>Custom</option>
+        <option>Multiple / Not sure</option>
+      </select>
+    </div>
+    <input id="address" name="address" placeholder="Service Address (Street, City, State)">
+    <textarea id="details" name="details" rows="4" placeholder="Project Details (brand/model, symptoms, preferred materials, links, photos)" required></textarea>
+    <div style="display:grid;grid-template-columns:1fr;gap:.8rem">
+      <select id="plan" name="plan">
+        <option>Are you Interested intested in our subscriptions?</option>
+        <option>Not Interested at This Time</option>
+        <option>Essential</option>
+        <option>Plus</option>
+        <option>Pro</option>
+      </select>
+    </div>
+    <button class="cta" type="submit">Submit Request</button>
+    <p id="formMsg" class="muted" style="font-size:.9rem"></p>
+  </form>
+</section>
+
+
+  <section id="contact" class="container">
+    <h2>Contact</h2>
+    <p class="muted">📞 <a href="tel:+13142678594">314‑267‑8594</a> • ✉️ <a href="mailto:CramerServicesLLC@Gmail.Com">CramerServicesLLC@Gmail.Com</a> • 📍 St. Louis, MO</p>
+  </section>
+
+  <footer>
+    <div class="container">© <span id="year"></span> Cramer Services. All rights reserved.</div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('quoteForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const f=new FormData(this);
+      if(!f.get('name')||!f.get('phone')||!f.get('email')||!f.get('service')){
+        document.getElementById('formMsg').textContent='Please complete all required fields.';return;
+      }
+      const subject=encodeURIComponent('Quote Request — '+f.get('name'));
+      const body=encodeURIComponent(
+        `Name: ${f.get('name')}\nPhone: ${f.get('phone')}\nEmail: ${f.get('email')}\nService: ${f.get('service')}\nAddress: ${f.get('address')||''}\nPlan: ${f.get('plan')||'None'}\nTarget Date: ${f.get('date')||''}\n\nDetails:\n${f.get('details')||''}`
+      );
+      window.location.href=`mailto:CramerServicesLLC@Gmail.Com?subject=${subject}&body=${body}`;
+      document.getElementById('formMsg').textContent='Opening your email app… If nothing happens, email us at CramerServicesLLC@Gmail.Com';
+      this.reset();
+    });
+  </script>
+</body>
+</html>
