@@ -287,7 +287,7 @@
 
   <section id="contact" class="container">
     <h2>Contact</h2>
-    <p class="muted">📞 <a href="tel:+13142678594">314‑267‑8594</a> • ✉️ <a href="mailto:CramerServicesLLC@Gmail.Com">CramerServicesLLC@Gmail.Com</a> • 📍 St. Louis, MO</p>
+    <p class="muted">📞 <a href="tel:+13142678594">314‑267‑8594</a> • ✉️ <a href="mailto:CramerServicesLLC@Gmail.Com">CramerServicesLLC@Gmail.Com</a> • 📍 Saint Louis, MO</p>
   </section>
 
   <footer>
