@@ -34,28 +34,19 @@
     nav a:hover{background:#f1f3f5;text-decoration:none}
     .cta{background:var(--accent);color:#fff;font-weight:600;padding:.65rem 1rem;border:0;border-radius:6px;cursor:pointer}
     .cta:hover{background:#0b5ed7}
-
-    /* Hero */
     .hero{padding:3rem 0;display:grid;gap:2rem;grid-template-columns:1.2fr 1fr;align-items:center}
     .headline{font-size:2.5rem;font-weight:800;line-height:1.2;margin:.5rem 0}
     .sub{color:var(--muted);font-size:1.1rem}
     .hero-card img{width:100%;border-radius:12px}
-
     section{padding:2.5rem 0}
     h2{font-size:1.8rem;margin-bottom:.5rem}
     .muted{color:var(--muted)}
-
-    /* Cards (grid layouts) */
     .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-top:1rem}
     .card{background:var(--card);border:1px solid #dee2e6;border-radius:12px;padding:1rem;transition:box-shadow .2s}
     .card:hover{box-shadow:0 6px 18px rgba(0,0,0,.08)}
-
-    /* Choose Us (no boxes) */
     .icon{font-size:2rem;margin-bottom:.5rem;display:block}
     .choose-us{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;margin-top:1rem}
     .choose-us-item{text-align:center;padding:0}
-
-    /* Who We Help */
     .who-wrap{display:grid;gap:2.5rem;margin-top:.5rem}
     .who{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;background:transparent}
     .who:nth-child(even){grid-template-columns:.9fr 1.1fr}
@@ -64,8 +55,6 @@
     .who figure{margin:0;position:relative}
     .who img{width:100%;height:auto;border-radius:14px;box-shadow:0 16px 36px rgba(0,0,0,.12);display:block}
     @media (max-width: 900px){.who,.who:nth-child(even){grid-template-columns:1fr}}
-
-    /* Accordion (FAQ) */
     .accordion{max-width:1100px;margin-top:1rem}
     details{background:transparent;border-top:1px solid #e5e7eb;padding:.8rem 0}
     details:last-child{border-bottom:1px solid #e5e7eb}
@@ -74,18 +63,12 @@
     .chev{transition:transform .2s}
     details[open] .chev{transform:rotate(180deg)}
     .answer{color:var(--muted);margin:.6rem 0 0 0}
-
-    /* Forms */
     form{display:grid;gap:.8rem;margin-top:1rem}
     input,select,textarea{width:100%;padding:.75rem;border:1px solid #ced4da;border-radius:6px;font-family:inherit}
     input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:var(--ring)}
     [aria-live]{min-height:1.2em}
-
     footer{background:var(--card);border-top:1px solid #dee2e6;padding:1.5rem 0;color:var(--muted)}
-
-    @media (max-width: 900px){
-      .hero{grid-template-columns:1fr}
-    }
+    @media (max-width: 900px){.hero{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -309,9 +292,9 @@
   <!-- Your EmailJS wiring -->
   <script>
     // ====== CONFIG: replace with your actual values ======
-    const EMAILJS_PUBLIC_KEY = 'TDIki3rqftcomcjJC';       // e.g. "A1b2C3D4..."
-    const EMAILJS_SERVICE_ID = 'service_ebrskb5';       // e.g. "service_xxxxx"
-    const EMAILJS_TEMPLATE_ID = 'template_b95xw46';     // e.g. "template_yyyyy"
+    const EMAILJS_PUBLIC_KEY = 'TDIki3rqftcomcjJC';
+    const EMAILJS_SERVICE_ID = 'service_ebrskb5';
+    const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
     // =====================================================
 
     function showMsg(text, isError=false) {
@@ -321,15 +304,14 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      // SDK loaded?
       if (!window.emailjs) {
         console.error('EmailJS SDK failed to load');
         showMsg('Could not load mail service. Please refresh and try again.', true);
         return;
       }
 
-      // Init with PUBLIC key
-      emailjs.init({ publicKey: "TDIki3rqftcomcjJC" });
+      // Init with PUBLIC key (use the constant)
+      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
       const form = document.getElementById('quoteForm');
       if (!form) return;
@@ -343,14 +325,16 @@
           return;
         }
 
+        // SAFE field access
+        const el = form.elements;
         const data = {
-          name:    form.name.value.trim(),
-          phone:   form.phone.value.trim(),
-          email:   form.email.value.trim(),
-          service: form.service.value,
-          address: form.address.value.trim(),
-          plan:    form.plan.value,
-          details: form.details.value.trim(),
+          name:    (el['name']?.value || '').trim(),
+          phone:   (el['phone']?.value || '').trim(),
+          email:   (el['email']?.value || '').trim(),
+          service: (el['service']?.value || ''),
+          address: (el['address']?.value || '').trim(),
+          plan:    (el['plan']?.value || ''),
+          details: (el['details']?.value || '').trim(),
           time:    new Date().toLocaleString()
         };
 
@@ -365,7 +349,9 @@
         btn.disabled = true; btn.textContent = 'Sending…'; showMsg('');
 
         try {
-          emailjs.send("service_ebrskb5","template_b95xw46");
+          // *** SEND WITH DATA ***
+          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
+
           showMsg('Thanks! Your request has been sent. We’ll get back to you soon.');
           form.reset();
         } catch (err) {
