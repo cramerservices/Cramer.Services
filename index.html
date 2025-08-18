@@ -286,10 +286,10 @@
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 
-  <!-- EmailJS SDK (must be before your script that calls emailjs) -->
+  <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-  <!-- Your EmailJS wiring -->
+  <!-- EmailJS wiring -->
   <script>
     // ====== CONFIG: replace with your actual values ======
     const EMAILJS_PUBLIC_KEY = 'TDIki3rqftcomcjJC';
@@ -310,7 +310,6 @@
         return;
       }
 
-      // Init with PUBLIC key (use the constant)
       emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
       const form = document.getElementById('quoteForm');
@@ -325,21 +324,26 @@
           return;
         }
 
-        // SAFE field access
         const el = form.elements;
+
+        // Build data safely; include service + subject
+        const name    = (el['name']?.value || '').trim();
+        const phone   = (el['phone']?.value || '').trim();
+        const email   = (el['email']?.value || '').trim();
+        const service = (el['service']?.value || '').trim();
+        const address = (el['address']?.value || '').trim();
+        const plan    = (el['plan']?.value || '').trim();
+        const details = (el['details']?.value || '').trim();
+        const time    = new Date().toLocaleString();
+
         const data = {
-          name:    (el['name']?.value || '').trim(),
-          phone:   (el['phone']?.value || '').trim(),
-          email:   (el['email']?.value || '').trim(),
-          service: (el['service']?.value || ''),
-          address: (el['address']?.value || '').trim(),
-          plan:    (el['plan']?.value || ''),
-          details: (el['details']?.value || '').trim(),
-          time:    new Date().toLocaleString()
+          name, phone, email, service, address, plan, details, time,
+          // Optional: override subject in your EmailJS template with {{subject}}
+          subject: `New service request — ${service || 'Service'} — ${name || 'Customer'}`
         };
 
-        // Minimal validation
-        if (!data.name || !data.phone || !data.email || !data.service) {
+        // Validation
+        if (!name || !phone || !email || !service) {
           showMsg('Please complete all required fields.', true);
           return;
         }
@@ -349,9 +353,7 @@
         btn.disabled = true; btn.textContent = 'Sending…'; showMsg('');
 
         try {
-          // *** SEND WITH DATA ***
           await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
-
           showMsg('Thanks! Your request has been sent. We’ll get back to you soon.');
           form.reset();
         } catch (err) {
