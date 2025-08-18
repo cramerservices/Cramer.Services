@@ -364,7 +364,7 @@
         btn.disabled = true; btn.textContent = 'Sending…'; showMsg('');
 
         try {
-          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
+          emailjs.send("service_ebrskb5","template_b95xw46");
           showMsg('Thanks! Your request has been sent. We’ll get back to you soon.');
           form.reset();
         } catch (err) {
