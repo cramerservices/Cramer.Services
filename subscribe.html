@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Subscribe | Cramer Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f8f9fb; --card:#ffffff; --accent:#0d6efd; --text:#1b1f24; --muted:#6c757d; --ring:0 0 0 3px rgba(13,110,253,.25);
+    }
+    *{box-sizing:border-box} html,body{margin:0}
+    body{font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    .container{max-width:900px;margin:auto;padding:24px}
+    .card{background:var(--card);border:1px solid #dee2e6;border-radius:12px;padding:20px}
+    h1{margin:.3rem 0 1rem}
+    .muted{color:var(--muted)}
+    form{display:grid;gap:.8rem;margin-top:1rem}
+    input,select,textarea{width:100%;padding:.75rem;border:1px solid #ced4da;border-radius:6px}
+    input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:var(--ring)}
+    .row{display:grid;grid-template-columns:1fr 1fr; gap:.8rem}
+    .cta{background:var(--accent);color:#fff;font-weight:600;padding:.7rem 1rem;border:0;border-radius:6px;cursor:pointer}
+    [aria-live]{min-height:1.2em}
+    a{color:var(--accent);text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="./">&larr; Back</a>
+    <div class="card">
+      <h1>Start your subscription</h1>
+      <p class="muted" id="planLine">Selected plan: <b id="planName">—</b></p>
+
+      <!-- Contact / Service details you want to receive before payment -->
+      <form id="subForm" novalidate>
+        <!-- Honeypot -->
+        <input type="text" name="_company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
+
+        <div class="row">
+          <input id="name"   name="name"   placeholder="Full Name" required>
+          <input id="phone"  name="phone"  placeholder="Phone" required>
+        </div>
+        <div class="row">
+          <input id="email"  name="email"  type="email" placeholder="Email" required>
+          <input id="address" name="address" placeholder="Service Address (Street, City, State)">
+        </div>
+        <textarea id="details" name="details" rows="4" placeholder="Anything we should know (brand/model, symptoms, notes)"></textarea>
+
+        <button class="cta" type="submit" id="payBtn">Continue to Secure Checkout</button>
+        <p id="msg" class="muted" aria-live="polite"></p>
+      </form>
+      <p class="muted" style="margin-top:.6rem">You’ll be taken to a secure Stripe page to enter your card details and complete the subscription.</p>
+    </div>
+  </div>
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    // ===== copy your existing EmailJS config =====
+    const EMAILJS_PUBLIC_KEY = 'TDIki3rqftcomcjJC';
+    const EMAILJS_SERVICE_ID = 'service_ebrskb5';
+    const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
+
+    // Map the plan in the URL to your Stripe Payment Links
+    const PAYMENT_LINKS = {
+      essential:  'https://buy.stripe.com/PAYMENT_LINK_ESSENTIAL',   // <- replace
+      plus:       'https://buy.stripe.com/PAYMENT_LINK_PLUS',         // <- replace
+      pro:        'https://buy.stripe.com/PAYMENT_LINK_PRO',          // <- replace
+      commercial: 'https://buy.stripe.com/PAYMENT_LINK_COMMERCIAL'    // <- replace
+    };
+
+    function qs(key){ return new URLSearchParams(location.search).get(key) || ''; }
+    function show(t,err=false){ const el=document.getElementById('msg'); el.textContent=t; el.style.color=err?'#dc3545':'#6c757d'; }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // init EmailJS
+      if (!window.emailjs){ show('Could not load mail service. Refresh and try again.', true); return; }
+      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+      // set chosen plan
+      const planParam = (qs('plan') || 'essential').toLowerCase();
+      const planMap = {essential:'Essential HVAC PLAN', plus:'Plus HVAC PLAN', pro:'Pro HVAC PLAN', commercial:'Commercial HVAC PLAN'};
+      document.getElementById('planName').textContent = planMap[planParam] || 'Essential HVAC PLAN';
+
+      const form = document.getElementById('subForm');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (form._company && form._company.value){ show('Submission blocked.', true); return; }
+
+        const data = {
+          name:    form.name.value.trim(),
+          phone:   form.phone.value.trim(),
+          email:   form.email.value.trim(),
+          address: form.address.value.trim(),
+          details: form.details.value.trim(),
+          service: 'Subscription',
+          plan:    planMap[planParam] || 'Essential HVAC PLAN',
+          time:    new Date().toLocaleString(),
+          subject: `New subscription — ${(planMap[planParam]||'Plan')} — ${form.name.value.trim()||'Customer'}`
+        };
+
+        if (!data.name || !data.phone || !data.email){
+          show('Please complete name, phone, and email.', true); return;
+        }
+
+        const btn = document.getElementById('payBtn');
+        const prev = btn.textContent;
+        btn.disabled = true; btn.textContent = 'Saving…'; show('');
+
+        try{
+          // email you the details first (same template vars as your quote form)
+          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
+
+          // then send the customer to Stripe to pay
+          const link = PAYMENT_LINKS[planParam];
+          if (!link){ show('Checkout link not configured for this plan.', true); return; }
+
+          // Optional: pass their email to Stripe Payment Link (supported as a query param)
+          // e.g., https://buy.stripe.com/... ?prefilled_email=...
+          const url = new URL(link);
+          if (data.email) url.searchParams.set('prefilled_email', data.email);
+          window.location.href = url.toString();
+        } catch(err){
+          console.error(err);
+          show('Could not start checkout. Please try again or email us.', true);
+        } finally {
+          btn.disabled = false; btn.textContent = prev;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
