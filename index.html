@@ -69,6 +69,16 @@
     [aria-live]{min-height:1.2em}
     footer{background:var(--card);border-top:1px solid #dee2e6;padding:1.5rem 0;color:var(--muted)}
     @media (max-width: 900px){.hero{grid-template-columns:1fr}}
+    /* Services */
+.service-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1rem}
+.service-card{background:var(--card);border:1px solid #dee2e6;border-radius:12px;padding:1rem}
+.service-card h3{margin:.2rem 0 .25rem}
+.price{font-weight:700;margin:.1rem 0 .6rem}
+.price s{color:var(--muted);font-weight:400;margin-left:.4rem}
+.features{margin:.5rem 0 0;padding-left:1.1rem}
+.features li{margin:.35rem 0}
+.lead{font-weight:700;margin:.4rem 0}
+
   </style>
 </head>
 <body>
@@ -101,6 +111,52 @@
     </div>
   </main>
 
+<section id="hvac-services" class="container">
+  <h2>HVAC Services</h2>
+  <p class="muted">Clear, honest offerings—diagnostics, repairs, and install quotes.</p>
+
+  <div class="service-grid">
+    <!-- HVAC Repair Diagnostic -->
+    <article class="service-card">
+      <h3>HVAC Repair Diagnostic</h3>
+      <div class="price">$75.00 <s>$100.00</s></div>
+      <p class="lead">Accurate, Honest, and Risk-Free</p>
+      <ul class="features">
+        <li><b>Expert Diagnosis</b> — One of our certified technicians will assess your HVAC system and pinpoint the problem.</li>
+        <li><b>Credit Toward Repairs</b> — If you choose Cramer Services to complete your repair, the $75 diagnostic fee will be applied to your repair cost.</li>
+        <li><b>Warranty Protection</b> — All repair work is backed by a warranty. Coverage details depend on the type and scope of the repair.</li>
+        <li><b>No-Fix, No-Fee Guarantee</b> — If we can’t diagnose your problem, you don’t pay a cent.</li>
+      </ul>
+    </article>
+
+    <!-- HVAC Repair -->
+    <article class="service-card">
+      <h3>HVAC Repair</h3>
+      <div class="price">$75.00 <s>$100.00</s></div>
+      <ul class="features">
+        <li><b>Expert Diagnostics</b> — Our skilled technicians quickly identify and explain your HVAC issue.</li>
+        <li><b>Diagnostic Fee</b> — A $75 diagnostic fee applies if the customer declines the repair or if the repair is minor/simple.</li>
+        <li><b>Transparent Pricing</b> — Total cost is based on the specific repair needed—no hidden fees.</li>
+        <li><b>Repair Credit</b> — Earn <b>5% credit</b> toward future repairs or installations when you complete your repair with us.</li>
+        <li><b>Warranty Protection</b> — Enjoy a limited <b>1–5 year</b> warranty, depending on the type of repair performed.</li>
+      </ul>
+    </article>
+
+    <!-- HVAC Install Proposal -->
+    <article class="service-card">
+      <h3>HVAC Install Proposal</h3>
+      <div class="price">$0.00</div>
+      <ul class="features">
+        <li><b>On-Site Evaluation</b> — A Cramer Services professional visits your property, assesses your needs, and gathers the details for an accurate quote.</li>
+        <li><b>Expert Guidance</b> — Not sure what you need? We’ll present equipment options tailored to your space, budget, and comfort goals.</li>
+        <li><b>Quick Turnaround</b> — Receive your detailed, written quote within <b>48 hours</b> of the visit.</li>
+        <li><b>No-Obligation Quotes</b> — All installation quotes are free with no upfront payment required.</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+  
   <section id="services" class="container">
     <h2>What We Do</h2>
     <p class="muted">A single place to plan, book, and manage all your home and property projects.</p>
