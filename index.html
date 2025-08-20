@@ -136,7 +136,7 @@
 
   <!-- Book-now button -->
   <div style="margin-top:0.8rem">
-    <a class="cta" href="checkout-tuneup.html">Book $75 Tune-Up</a>
+    <a class="cta" href="index.html#quote?service=HVAC%20Tune-Up">Book $75 Tune-Up</a>
   </div>
 </article>
 
@@ -153,7 +153,7 @@
         <li><b>Warranty Protection</b> — Enjoy a limited <b>1–5 year</b> warranty, depending on the type of repair performed.</li>
       </ul>
       <div style="margin-top:0.8rem">
-  <a class="cta" href="install-proposal.html">Schedule Free Proposal</a>
+  <a class="cta" href="index.html#quote?service=HVAC%20Repair">Book Repair</a>
 </div>
     </article>
 
@@ -168,7 +168,7 @@
         <li><b>No-Obligation Quotes</b> — All installation quotes are free with no upfront payment required.</li>
       </ul>
       <div style="margin-top:0.8rem">
-  <a class="cta" href="install-proposal.html">Schedule Free Proposal</a>
+  <a class="cta" href="index.html#quote?service=HVAC%20Install%20Proposal">Schedule Free Proposal</a>
 </div>
     </article>
   </div>
@@ -465,6 +465,35 @@
           }
         } finally {
           btn.disabled = false; btn.textContent = prev;
+
+          <script>
+  (function () {
+    // If the URL looks like ...#quote?service=Something, grab it and set the select
+    const hash = window.location.hash || '';
+    if (!hash.includes('?')) return;
+    const [anchor, qs] = hash.split('?');
+    if (anchor !== '#quote') return;
+
+    const params = new URLSearchParams(qs);
+    const serviceFromLink = params.get('service');
+    if (!serviceFromLink) return;
+
+    // Try to set the dropdown to that value
+    const sel = document.getElementById('service');
+    if (sel) {
+      // If your option text matches exactly, this will select it
+      for (const opt of sel.options) {
+        if (opt.text.trim().toLowerCase() === serviceFromLink.trim().toLowerCase()) {
+          sel.value = opt.value || opt.text;
+          break;
+        }
+      }
+    }
+    // Smooth scroll to the form
+    document.getElementById('quote')?.scrollIntoView({ behavior: 'smooth' });
+  })();
+</script>
+
         }
       });
     });
