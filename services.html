@@ -22,43 +22,40 @@
   .header-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
   .header-bar h1{margin:0}
 
-  /* service tiles — SAME as index */
-  .services-tiles{
-    display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:1rem;margin-top:1rem
-    margin-bottom:2rem;
-  }
-  .service-tile{background:transparent;border:0;padding:0}
-  .service-tile h3{margin:.2rem 0 .6rem}
+ /* service tiles — SAME as index */
+.services-tiles{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1rem;
+  margin-top:1rem;        /* fixed */
+  margin-bottom:2rem;     /* now applied */
+}
+.service-tile{background:transparent;border:0;padding:0}
+.service-tile h3{margin:.2rem 0 .6rem}
 
-.service-imgwrap {
+.service-imgwrap{
   position:relative;
   border-radius:12px;
   overflow:hidden;
-  height:200px;          /* ✅ consistent image height */
-  margin-bottom:.5rem;   /* ✅ space under each image */
-  }
-.service-imgwrap img {
+  height:200px;            /* consistent height */
+  margin-bottom:.5rem;
+}
+.service-imgwrap img{
   width:100%;
   height:100%;
   object-fit:cover;
   display:block;
   border-radius:12px;
-  }
-  .service-overlay{
-    position:absolute;inset:0;background:rgba(0,0,0,.55);color:#fff;
-    opacity:0;transition:opacity .2s;display:flex;align-items:center;
-    justify-content:center;text-align:center;padding:1rem
-  }
-  .service-imgwrap:hover .service-overlay{opacity:1}
+}
+.service-overlay{
+  position:absolute; inset:0; background:rgba(0,0,0,.55); color:#fff;
+  opacity:0; transition:opacity .2s; display:flex; align-items:center;
+  justify-content:center; text-align:center; padding:1rem;
+}
+.service-imgwrap:hover .service-overlay{opacity:1}
 
-  .muted{color:var(--muted)}
+.more-services{display:inline-block; margin-top:1rem;}
 
-  /* SAME placement/appearance as the index "More Services" button */
-  .more-services{
-    display:inline-block;
-    margin-top:1rem;
-  }
 </style>
 </head>
 <body>
