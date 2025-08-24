@@ -398,114 +398,110 @@
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
   <!-- EmailJS wiring -->
-  <script>
-    // ====== CONFIG: replace with your actual values ======
-    const EMAILJS_PUBLIC_KEY = 'TDIki3rqftcomcjJC';
-    const EMAILJS_SERVICE_ID = 'service_ebrskb5';
-    const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
-    // =====================================================
+ <!-- EmailJS wiring (with post-contact redirect support) -->
+<script>
+  // ====== CONFIG: replace with your actual values ======
+  const EMAILJS_PUBLIC_KEY = 'TDIki3rqftcomcjJC';
+  const EMAILJS_SERVICE_ID = 'service_ebrskb5';
+  const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
+  // =====================================================
 
-    function showMsg(text, isError=false) {
-      const el = document.getElementById('formMsg');
-      el.textContent = text;
-      el.style.color = isError ? '#dc3545' : '#6c757d';
+  function showMsg(text, isError=false) {
+    const el = document.getElementById('formMsg');
+    el.textContent = text;
+    el.style.color = isError ? '#dc3545' : '#6c757d';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    if (!window.emailjs) {
+      console.error('EmailJS SDK failed to load');
+      showMsg('Could not load mail service. Please refresh and try again.', true);
+      return;
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      if (!window.emailjs) {
-        console.error('EmailJS SDK failed to load');
-        showMsg('Could not load mail service. Please refresh and try again.', true);
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+    const form = document.getElementById('quoteForm');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Honeypot check
+      if (form._company && form._company.value) {
+        showMsg('Submission blocked.', true);
         return;
       }
 
-      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+      const el = form.elements;
 
-      const form = document.getElementById('quoteForm');
-      if (!form) return;
+      // Build data safely; include service + subject
+      const name    = (el['name']?.value || '').trim();
+      const phone   = (el['phone']?.value || '').trim();
+      const email   = (el['email']?.value || '').trim();
+      const service = (el['service']?.value || '').trim();
+      const address = (el['address']?.value || '').trim();
+      const plan    = (el['plan']?.value || '').trim();
+      const details = (el['details']?.value || '').trim();
+      const time    = new Date().toLocaleString();
 
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+      const data = {
+        name, phone, email, service, address, plan, details, time,
+        // Optional: override subject in your EmailJS template with {{subject}}
+        subject: `New service request — ${service || 'Service'} — ${name || 'Customer'}`
+      };
 
-        // Honeypot check
-        if (form._company && form._company.value) {
-          showMsg('Submission blocked.', true);
-          return;
-        }
-
-        const el = form.elements;
-
-        // Build data safely; include service + subject
-        const name    = (el['name']?.value || '').trim();
-        const phone   = (el['phone']?.value || '').trim();
-        const email   = (el['email']?.value || '').trim();
-        const service = (el['service']?.value || '').trim();
-        const address = (el['address']?.value || '').trim();
-        const plan    = (el['plan']?.value || '').trim();
-        const details = (el['details']?.value || '').trim();
-        const time    = new Date().toLocaleString();
-
-        const data = {
-          name, phone, email, service, address, plan, details, time,
-          // Optional: override subject in your EmailJS template with {{subject}}
-          subject: `New service request — ${service || 'Service'} — ${name || 'Customer'}`
-        };
-
-        // Validation
-        if (!name || !phone || !email || !service) {
-          showMsg('Please complete all required fields.', true);
-          return;
-        }
-
-        const btn = form.querySelector('button[type="submit"]');
-        const prev = btn.textContent;
-        btn.disabled = true; btn.textContent = 'Sending…'; showMsg('');
-
-        try {
-          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
-          showMsg('Thanks! Your request has been sent. We’ll get back to you soon.');
-          form.reset();
-        } catch (err) {
-          console.error('EmailJS error:', err);
-          const msg = String(err?.text || err?.message || '');
-          if (msg.includes('The user ID is required')) {
-            showMsg('Email service not initialized. Check your PUBLIC key.', true);
-          } else if (msg.toLowerCase().includes('service')) {
-            showMsg('Service ID not found. Double-check your Service ID.', true);
-          } else if (msg.toLowerCase().includes('template')) {
-            showMsg('Template ID not found, or variable names differ from the form.', true);
-          } else {
-            showMsg('Could not send your request. Please try again or email us directly.', true);
-          }
-        } finally {
-          btn.disabled = false; btn.textContent = prev;
-        }
-      });
-    });
-  </script>
-
-  <!-- Prefill service from #quote?service=... -->
-  <script>
-    (function () {
-      const hash = window.location.hash || '';
-      if (!hash.includes('?')) return;
-      const [anchor, qs] = hash.split('?');
-      if (anchor !== '#quote') return;
-
-      const params = new URLSearchParams(qs);
-      const serviceFromLink = params.get('service');
-      if (!serviceFromLink) return;
-
-      const sel = document.getElementById('service');
-      if (sel) {
-        for (const opt of sel.options) {
-          if (opt.text.trim().toLowerCase() === serviceFromLink.trim().toLowerCase()) {
-            sel.value = opt.value || opt.text;
-            break;
-          }
-        }
+      // Validation
+      if (!name || !phone || !email || !service) {
+        showMsg('Please complete all required fields.', true);
+        return;
       }
-      document.getElementById('quote')?.scrollIntoView({ behavior: 'smooth' });
-    })();
-  </script>
+
+      const btn = form.querySelector('button[type="submit"]');
+      const prev = btn.textContent;
+      btn.disabled = true; btn.textContent = 'Sending…'; showMsg('');
+
+      try {
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
+
+        // Success UI
+        showMsg('Thanks! Your request has been sent. We’ll get back to you soon.');
+
+        // ✅ STEP 4: If #quote has a next=... param, redirect there after a short pause
+        try {
+          const hash = window.location.hash || '';
+          if (hash.startsWith('#quote') && hash.includes('?')) {
+            const qs = new URLSearchParams(hash.split('?')[1] || '');
+            const next = qs.get('next');
+            if (next) {
+              setTimeout(() => { window.location.href = next; }, 600);
+            }
+          }
+        } catch (e) {
+          // swallow—redirect is optional
+        }
+
+        // Clear the form (optional)
+        form.reset();
+
+      } catch (err) {
+        console.error('EmailJS error:', err);
+        const msg = String(err?.text || err?.message || '');
+        if (msg.includes('The user ID is required')) {
+          showMsg('Email service not initialized. Check your PUBLIC key.', true);
+        } else if (msg.toLowerCase().includes('service')) {
+          showMsg('Service ID not found. Double-check your Service ID.', true);
+        } else if (msg.toLowerCase().includes('template')) {
+          showMsg('Template ID not found, or variable names differ from the form.', true);
+        } else {
+          showMsg('Could not send your request. Please try again or email us directly.', true);
+        }
+      } finally {
+        btn.disabled = false; btn.textContent = prev;
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
