@@ -19,10 +19,8 @@
   .cta{background:var(--accent);color:#fff;font-weight:600;padding:.7rem 1rem;border:0;border-radius:8px;cursor:pointer;display:inline-block}
   .cta:hover{background:#0b5ed7}
   main{padding:2rem 0}
-  /* product layout */
   .product{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem}
-  @media (max-width: 900px){.product{grid-template-columns:1fr;}}
-  .product-media{background:var(--card);border:1px solid #e5e7eb;border-radius:14px;padding:10px}
+  @media (max-width: 900px){.product{grid-template-columns:1fr}}
   .product-media img{width:100%;height:auto;display:block;border-radius:12px;object-fit:cover;aspect-ratio:4/3}
   .crumbs{font-size:.9rem;color:var(--muted);margin-bottom:.5rem}
   h1{margin:.25rem 0 .25rem;font-size:1.8rem}
@@ -32,8 +30,8 @@
   .bullets{margin:.5rem 0 1rem;padding-left:1rem}
   .panel{background:var(--card);border:1px solid #e5e7eb;border-radius:12px;padding:1rem}
   .row{display:flex;gap:1rem;align-items:center;margin:.6rem 0}
-  input,select{padding:.65rem .75rem;border:1px solid #ced4da;border-radius:8px;font-family:inherit}
-  input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:var(--ring)}
+  input{padding:.65rem .75rem;border:1px solid #ced4da;border-radius:8px;font-family:inherit;flex:1}
+  input:focus{outline:none;border-color:var(--accent);box-shadow:var(--ring)}
   .inline-note{font-size:.9rem;color:var(--muted)}
 </style>
 </head>
@@ -49,38 +47,30 @@
   <nav class="crumbs"><a href="index.html">Home</a> / <a href="services.html">Services</a> / HVAC Tune-Up</nav>
 
   <div class="product">
-    <!-- LEFT: IMAGE -->
     <div class="product-media">
-      <!-- ✅ Replace with your preferred photo if needed -->
-      <img src="HVAC_IMG_1.JPG" alt="HVAC Tune-Up">
+      <img src="HVAC_IMG_4.JPG" alt="HVAC Tune-Up">
     </div>
 
-    <!-- RIGHT: DETAILS -->
     <div>
       <h1>HVAC Tune-Up</h1>
       <div class="price">$75.00 <s>$100.00</s></div>
-      <p class="desc">
-        Seasonal maintenance to keep your system efficient, safe, and reliable.
-      </p>
-
+      <p class="desc">Seasonal maintenance to keep your system efficient, safe, and reliable.</p>
       <ul class="bullets">
         <li>Thermostat check &amp; calibration</li>
         <li>Tighten electrical connections; verify motor volts/amps</li>
         <li>Lubricate moving parts where applicable</li>
         <li>Clean/inspect coils; clear condensate drain</li>
-        <li>Check refrigerant level; inspect for leaks (cooling/heat pump)</li>
-        <li>Replace/inspect air filter; verify airflow and temperature split</li>
-        <li>Safety checks (gas pressure/heat exchanger/CO where applicable)</li>
+        <li>Check refrigerant level; inspect for leaks</li>
+        <li>Replace/inspect air filter; verify airflow</li>
+        <li>Safety checks (gas pressure, heat exchanger, CO)</li>
       </ul>
 
       <div class="panel">
         <div class="row">
-          <label class="inline-note">Service Address</label>
-          <input id="addr" placeholder="Street, City, State" style="flex:1">
+          <input placeholder="Service Address (Street, City, State)">
         </div>
         <div class="row">
           <a class="cta" href="checkout-tuneup.html">Continue to Checkout</a>
-          <span class="inline-note">You can review your info before paying.</span>
         </div>
       </div>
     </div>
@@ -88,4 +78,3 @@
 </main>
 </body>
 </html>
-
