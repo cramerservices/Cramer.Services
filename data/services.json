@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "hvac-tuneup",
+    "name": "HVAC Tune-Up",
+    "price": 100,
+    "sales_price": 75,
+    "image": "HVAC_IMG_4.JPG",
+    "description": "Seasonal maintenance to keep your system efficient, safe, and reliable.",
+    "bullets": [
+      "Thermostat check & calibration",
+      "Tighten electrical connections; verify motor volts/amps",
+      "Lubricate moving parts where applicable",
+      "Clean/inspect coils; clear condensate drain",
+      "Check refrigerant level; inspect for leaks",
+      "Replace/inspect air filter; verify airflow",
+      "Safety checks (gas pressure, heat exchanger, CO)"
+    ],
+    "contact_us": "yes",
+    "payment": "yes"
+  },
+  {
+    "slug": "hvac-repair",
+    "name": "HVAC Repair",
+    "price": 200,
+    "sales_price": 150,
+    "image": "HVAC_IMG_2.jpeg",
+    "description": "Fast, expert diagnostics and transparent pricing for needed fixes.",
+    "bullets": [
+      "Expert diagnostics",
+      "Transparent pricing",
+      "Warranty on repair"
+    ],
+    "contact_us": "no",
+    "payment": "yes"
+  },
+  {
+    "slug": "fiber-sedan",
+    "name": "Fiber Optic Lights — Car Sedan",
+    "price": 999,
+    "sales_price": 800,
+    "image": "fiber-optic-sedan.MOV",
+    "description": "Star-ceiling headliner with RGBW, twinkle & music-sync. Professional install.",
+    "bullets": [
+      "RGBW light engine with app + remote",
+      "Twinkle/meteor & music-sync modes",
+      "Hundreds of fiber strands installed",
+      "Custom constellations available"
+    ],
+    "contact_us": "yes",
+    "payment": "yes"
+  }
+]
