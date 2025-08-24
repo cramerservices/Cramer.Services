@@ -12,137 +12,87 @@
   *{box-sizing:border-box}
   body{margin:0;font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--text)}
   .container{max-width:1100px;margin:auto;padding:1rem}
-
-  .cta{
-    background:var(--accent);color:#fff;font-weight:600;
-    padding:.65rem 1rem;border:0;border-radius:6px;cursor:pointer;text-decoration:none
-  }
-
-  /* header row with right-aligned Contact button */
+  .cta{background:var(--accent);color:#fff;font-weight:600;padding:.65rem 1rem;border:0;border-radius:6px;cursor:pointer;text-decoration:none}
   .header-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
   .header-bar h1{margin:0}
-
-  /* service tiles — SAME as index */
-  .services-tiles{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:1rem;
-    margin-top:1rem;
-    margin-bottom:2rem;
-  }
-  .service-tile{background:transparent;border:0;padding:0}
-  .service-tile h3{margin:.2rem 0 .6rem}
-
-  .service-imgwrap{
-    position:relative;
-    border-radius:12px;
-    overflow:hidden;          /* clip to rounded corners */
-    height:200px;             /* consistent image/video height */
-    margin-bottom:.5rem;      /* space under media */
-    display:block;
-  }
-  /* Images keep the same look */
-  .service-imgwrap img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-    border-radius:12px;
-  }
-  /* NEW: Make videos fit exactly like images */
-  .service-imgwrap video{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-    border-radius:12px;
-  }
-
-  .service-overlay{
-    position:absolute;inset:0;background:rgba(0,0,0,.55);color:#fff;
-    opacity:0;transition:opacity .2s;display:flex;align-items:center;
-    justify-content:center;text-align:center;padding:1rem
-  }
-  .service-imgwrap:hover .service-overlay{opacity:1}
-
   .muted{color:var(--muted)}
 
-  /* SAME placement/appearance as the index "More Services" button */
-  .more-services{
-    display:inline-block;
-    margin-top:1rem;
-  }
+  /* Tiles same look as your index */
+  .services-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1rem;margin-bottom:2rem}
+  .service-tile{background:transparent;border:0;padding:0}
+  .service-tile h3{margin:.2rem 0 .6rem}
+  .service-imgwrap{position:relative;border-radius:12px;overflow:hidden;height:200px;margin-bottom:.5rem}
+  .service-imgwrap img,.service-imgwrap video{width:100%;height:100%;object-fit:cover;display:block;border-radius:12px}
+  .service-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);color:#fff;opacity:0;transition:opacity .2s;display:flex;align-items:center;justify-content:center;text-align:center;padding:1rem}
+  .service-imgwrap:hover .service-overlay{opacity:1}
 </style>
 </head>
 <body>
   <main class="container">
-    <!-- Header with Contact Us button (same as index layout) -->
     <div class="header-bar">
       <h1>All Services</h1>
       <a class="cta" href="index.html#contact">Contact Us</a>
     </div>
 
     <p class="muted">Browse and select a service to view details and book.</p>
-
-    <!-- Note above services -->
     <p style="font-weight:600; margin:.5rem 0 1rem; color:var(--text);">
       Can’t find your service listed below? Reach out through our
       <a href="index.html#contact" style="color:var(--accent); font-weight:600;">Contact Us</a> button.
     </p>
 
-    <!-- Tiles — identical structure to index -->
-    <div class="services-tiles">
-      <article class="service-tile">
-        <h3>HVAC Tune-Up</h3>
-        <a class="service-imgwrap" href="service-tuneup.html">
-          <img src="HVAC_IMG_4.JPG" alt="HVAC Tune-Up">
-          <div class="service-overlay">Seasonal maintenance to keep your system efficient, safe, and reliable.</div>
-        </a>
-      </article>
+    <div id="servicesGrid" class="services-tiles"></div>
 
-      <article class="service-tile">
-        <h3>HVAC Repair</h3>
-        <a class="service-imgwrap" href="service-repair.html">
-          <img src="HVAC_IMG_2.jpeg" alt="HVAC Repair">
-          <div class="service-overlay">Fast, expert diagnostics and transparent pricing for needed fixes.</div>
-        </a>
-      </article>
-
-      <article class="service-tile">
-        <h3>HVAC Install Proposal (Free)</h3>
-        <a class="service-imgwrap" href="service-install.html">
-          <img src="HVAC_IMG_3.JPG" alt="HVAC Install Proposal">
-          <div class="service-overlay">On-site evaluation and written quote within 48 hours.</div>
-        </a>
-      </article>
-
-      <!-- Fiber Optic Lights — Car Sedan (VIDEO PREVIEW) -->
-      <article class="service-tile">
-        <h3>Fiber Optic Lights — Car Sedan</h3>
-        <a class="service-imgwrap" href="service-fiber-sedan.html">
-          <!-- Short video preview -->
-          <video autoplay loop muted playsinline>
-            <source src="fiber-optic-sedan.MOV" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-          <div class="service-overlay">
-            Star-ceiling headliner with RGBW, twinkle &amp; music-sync. Professional install.
-          </div>
-        </a>
-      </article>
-    </div>
-
-    <!-- Back to Home — SAME position/class as index's "More Services" -->
-    <a class="cta more-services" href="index.html">Back to Home</a>
+    <a class="cta" href="index.html">Back to Home</a>
   </main>
- <script>
-    // Slow down fiber optic preview video to 0.3x speed
-    document.addEventListener("DOMContentLoaded", () => {
-      const vid = document.getElementById("fiberVideo");
-      if (vid) {
-        vid.playbackRate = 0.3;
-      }
-    });
-  </script>
+
+<script>
+(async function(){
+  const grid = document.getElementById('servicesGrid');
+
+  const res = await fetch('data/services.json', {cache:'no-cache'});
+  if(!res.ok){ grid.innerHTML = '<p class="muted">Could not load services.</p>'; return; }
+  const services = await res.json();
+
+  const makeTile = (svc) => {
+    const a = document.createElement('a');
+    a.className = 'service-imgwrap';
+    a.href = `service.html?slug=${encodeURIComponent(svc.slug)}`;
+
+    const isVideo = /\.(mp4|mov|webm)$/i.test(svc.image || '');
+    let media;
+    if (isVideo) {
+      media = document.createElement('video');
+      media.src = svc.image;
+      media.muted = true;
+      media.loop = true;
+      media.playsInline = true;
+      media.autoplay = true;
+      media.onloadedmetadata = () => { try { media.playbackRate = 0.3; } catch(e){} };
+    } else {
+      media = document.createElement('img');
+      media.src = svc.image;
+      media.alt = svc.name || 'Service';
+      media.loading = 'lazy';
+    }
+    a.appendChild(media);
+
+    const overlay = document.createElement('div');
+    overlay.className = 'service-overlay';
+    overlay.textContent = svc.description || '';
+    a.appendChild(overlay);
+
+    const art = document.createElement('article');
+    art.className = 'service-tile';
+    const h3 = document.createElement('h3');
+    h3.textContent = svc.name || '';
+    art.appendChild(h3);
+    art.appendChild(a);
+
+    return art;
+  };
+
+  services.forEach(svc => grid.appendChild(makeTile(svc)));
+})();
+</script>
 </body>
 </html>
