@@ -26,16 +26,24 @@
   .services-tiles{
     display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
     gap:1rem;margin-top:1rem
+    margin-bottom:2rem;
   }
   .service-tile{background:transparent;border:0;padding:0}
   .service-tile h3{margin:.2rem 0 .6rem}
 
-  .service-imgwrap{
-    position:relative;border-radius:12px;overflow:hidden;
-    height:60px;margin-bottom:.75rem;
+.service-imgwrap {
+  position:relative;
+  border-radius:12px;
+  overflow:hidden;
+  height:200px;          /* ✅ consistent image height */
+  margin-bottom:.5rem;   /* ✅ space under each image */
   }
-  .service-imgwrap img{
-    width:100%;height:100%;object-fit:cover;display:block;border-radius:12px;
+.service-imgwrap img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  border-radius:12px;
   }
   .service-overlay{
     position:absolute;inset:0;background:rgba(0,0,0,.55);color:#fff;
