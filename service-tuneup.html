@@ -14,22 +14,24 @@
 </style>
 </head><body>
 <main class="container">
-  <h1>HVAC Tune-Up <span style="color:#6c757d;font-size:1rem">— $75 <s>$100</s></span></h1>
+  <h1>Book HVAC Tune-Up</h1>
+  <!-- Hero Image -->
+  <div class="hero-image">
+    <img src="HVAC_IMG_4.JPG" alt="HVAC Tune-Up Service">
+  </div>
+
   <div class="card">
     <p>Seasonal maintenance to keep your system efficient, safe, and reliable.</p>
     <ul>
-      <li>Thermostat check & calibration</li><li>Tighten electrical connections; check motor amps/volts</li>
-      <li>Lubricate moving parts (where applicable)</li><li>Clean/inspect coils; clear condensate drain</li>
-      <li>Check refrigerant level & scan for leaks</li><li>Inspect/replace air filter; verify airflow & temp split</li>
-      <li>Safety checks for heating components (as applicable)</li>
+      <li>Thermostat check & calibration</li>
+      <li>Tighten electrical connections; check motor amps/volts</li>
+      <!-- etc. -->
     </ul>
-    <p style="margin-top:1rem">
-      <!-- Step 1: go to contact form with service prefilled -->
-      <a class="cta" href="index.html#quote?service=HVAC%20Tune-Up">Contact Us About Tune-Up</a>
-      <!-- Step 2: checkout page (Stripe link lives there) -->
-      <a class="cta" href="checkout-tuneup.html" style="margin-left:.5rem">Proceed to Checkout</a>
-    </p>
+    <form id="tuneForm" novalidate>
+      <!-- form fields... -->
+      <button class="cta" type="submit">Continue to Payment</button>
+    </form>
   </div>
-  <p style="margin-top:1rem"><a class="cta" href="services.html">Back to Services</a></p>
 </main>
+
 </body></html>
