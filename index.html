@@ -69,16 +69,16 @@
     [aria-live]{min-height:1.2em}
     footer{background:var(--card);border-top:1px solid #dee2e6;padding:1.5rem 0;color:var(--muted)}
     @media (max-width: 900px){.hero{grid-template-columns:1fr}}
-    /* Services */
-.service-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1rem}
-.service-card{background:var(--card);border:1px solid #dee2e6;border-radius:12px;padding:1rem}
-.service-card h3{margin:.2rem 0 .25rem}
-.price{font-weight:700;margin:.1rem 0 .6rem}
-.price s{color:var(--muted);font-weight:400;margin-left:.4rem}
-.features{margin:.5rem 0 0;padding-left:1.1rem}
-.features li{margin:.35rem 0}
-.lead{font-weight:700;margin:.4rem 0}
 
+    /* --- Image Tile Services --- */
+    .services-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1rem}
+    .service-tile{background:var(--card);border:1px solid #dee2e6;border-radius:12px;padding:1rem}
+    .service-tile h3{margin:.2rem 0 .5rem}
+    .service-imgwrap{position:relative;border-radius:10px;overflow:hidden}
+    .service-imgwrap img{width:100%;height:100%;display:block;object-fit:cover;aspect-ratio:4/3}
+    .service-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);color:#fff;opacity:0;transition:opacity .2s;display:flex;align-items:center;justify-content:center;text-align:center;padding:1rem}
+    .service-imgwrap:hover .service-overlay{opacity:1}
+    .more-services{display:block;margin-top:1rem;text-align:center}
   </style>
 </head>
 <body>
@@ -111,71 +111,48 @@
     </div>
   </main>
 
-<section id="hvac-services" class="container">
-  <h2>HVAC Services</h2>
-  <p class="muted">Clear, honest offerings—diagnostics, repairs, and install quotes.</p>
-
-  <div class="service-grid">
-    <!-- HVAC Repair Diagnostic -->
-    <article class="service-card">
- <!-- HVAC Tune-Up -->
-<article class="service-card">
-  <h3>HVAC Tune-Up</h3>
-  <div class="price">$75.00 <s>$100.00</s></div>
-  <p class="lead">Seasonal maintenance to keep your system efficient, safe, and reliable.</p>
-  <ul class="features">
-    <li><b>Thermostat check & calibration</b> to ensure correct cycling and comfort.</li>
-    <li><b>Tighten electrical connections</b> and measure motor volt/amp draw.</li>
-    <li><b>Lubricate moving parts</b> (where applicable) to reduce wear and energy use.</li>
-    <li><b>Clean/inspect coils</b> (condenser & evaporator where accessible) for proper heat transfer.</li>
-    <li><b>Clear condensate drain</b> and pan to prevent leaks and mold.</li>
-    <li><b>Check refrigerant level & inspect for leaks</b> (cooling/heat pump systems).</li>
-    <li><b>Replace/inspect air filter</b> and verify airflow & temperature split.</li>
-    <li><b>Safety checks</b> (e.g., gas pressure/heat exchanger/CO tests on heating where applicable).</li>
-  </ul>
-
-  <!-- Book-now button -->
-  <div style="margin-top:0.8rem">
-    <a class="cta" href="index.html#quote?service=HVAC%20Tune-Up">Book $75 Tune-Up</a>
-  </div>
-</article>
-
-
-    <!-- HVAC Repair -->
-    <article class="service-card">
-      <h3>HVAC Repair</h3>
-      <div class="price">$75.00 <s>$100.00</s></div>
-      <ul class="features">
-        <li><b>Expert Diagnostics</b> — Our skilled technicians quickly identify and explain your HVAC issue.</li>
-        <li><b>Diagnostic Fee</b> — A $75 diagnostic fee applies if the customer declines the repair or if the repair is minor/simple.</li>
-        <li><b>Transparent Pricing</b> — Total cost is based on the specific repair needed—no hidden fees.</li>
-        <li><b>Repair Credit</b> — Earn <b>5% credit</b> toward future repairs or installations when you complete your repair with us.</li>
-        <li><b>Warranty Protection</b> — Enjoy a limited <b>1–5 year</b> warranty, depending on the type of repair performed.</li>
-      </ul>
-      <div style="margin-top:0.8rem">
-  <a class="cta" href="index.html#quote?service=HVAC%20Repair">Book Repair</a>
-</div>
-    </article>
-
-    <!-- HVAC Install Proposal -->
-    <article class="service-card">
-      <h3>HVAC Install Proposal</h3>
-      <div class="price">$0.00</div>
-      <ul class="features">
-        <li><b>On-Site Evaluation</b> — A Cramer Services professional visits your property, assesses your needs, and gathers the details for an accurate quote.</li>
-        <li><b>Expert Guidance</b> — Not sure what you need? We’ll present equipment options tailored to your space, budget, and comfort goals.</li>
-        <li><b>Quick Turnaround</b> — Receive your detailed, written quote within <b>48 hours</b> of the visit.</li>
-        <li><b>No-Obligation Quotes</b> — All installation quotes are free with no upfront payment required.</li>
-      </ul>
-      <div style="margin-top:0.8rem">
-  <a class="cta" href="index.html#quote?service=HVAC%20Install%20Proposal">Schedule Free Proposal</a>
-</div>
-    </article>
-  </div>
-</section>
-
-  
+  <!-- IMAGE TILE SERVICES -->
   <section id="services" class="container">
+    <h2>Services</h2>
+    <p class="muted">Tap a service to see details, pricing, and booking options.</p>
+
+    <div class="services-tiles">
+      <!-- Tune-Up -->
+      <article class="service-tile">
+        <h3>HVAC Tune-Up</h3>
+        <a class="service-imgwrap" href="service-tuneup.html">
+          <!-- 🔽 replace with your image -->
+          <img src="images/tuneup.jpg" alt="HVAC Tune-Up">
+          <div class="service-overlay">Seasonal maintenance to keep your system efficient, safe, and reliable.</div>
+        </a>
+      </article>
+
+      <!-- Repair -->
+      <article class="service-tile">
+        <h3>HVAC Repair</h3>
+        <a class="service-imgwrap" href="service-repair.html">
+          <!-- 🔽 replace with your image -->
+          <img src="images/repair.jpg" alt="HVAC Repair">
+          <div class="service-overlay">Fast, expert diagnostics and transparent pricing for needed fixes.</div>
+        </a>
+      </article>
+
+      <!-- Install Proposal -->
+      <article class="service-tile">
+        <h3>HVAC Install Proposal (Free)</h3>
+        <a class="service-imgwrap" href="service-install.html">
+          <!-- 🔽 replace with your image -->
+          <img src="images/install.jpg" alt="HVAC Install Proposal">
+          <div class="service-overlay">On-site evaluation and written quote within 48 hours.</div>
+        </a>
+      </article>
+    </div>
+
+    <a class="cta more-services" href="services.html">More Services</a>
+  </section>
+
+  <!-- WHAT WE DO (renamed id to avoid duplicate "services") -->
+  <section id="what-we-do" class="container">
     <h2>What We Do</h2>
     <p class="muted">A single place to plan, book, and manage all your home and property projects.</p>
     <div class="cards">
@@ -188,38 +165,37 @@
     </div>
   </section>
 
-<section id="plans" class="container">
-  <h2>Subscriptions</h2>
-  <p class="muted">Members get priority scheduling, seasonal checkups, and credits back toward future work.</p>
+  <section id="plans" class="container">
+    <h2>Subscriptions</h2>
+    <p class="muted">Members get priority scheduling, seasonal checkups, and credits back toward future work.</p>
 
-  <div class="cards">
-    <div class="card">
-      <h3>Essential HVAC PLAN</h3>
-      <p>$20/mo • Annual Checks • 25% back in credits</p>
-      <a class="cta" href="subscribe.html?plan=essential">Subscribe</a>
+    <div class="cards">
+      <div class="card">
+        <h3>Essential HVAC PLAN</h3>
+        <p>$20/mo • Annual Checks • 25% back in credits</p>
+        <a class="cta" href="subscribe.html?plan=essential">Subscribe</a>
+      </div>
+      <div class="card">
+        <h3>Plus HVAC PLAN</h3>
+        <p>$30/mo • Bi Annual Checks • 25% back in credits</p>
+        <a class="cta" href="subscribe.html?plan=plus">Subscribe</a>
+      </div>
+      <div class="card">
+        <h3>Pro HVAC PLAN</h3>
+        <p>$45/mo • Quarterly checks • 40% back in credits</p>
+        <a class="cta" href="subscribe.html?plan=pro">Subscribe</a>
+      </div>
+      <div class="card">
+        <h3>Commercial HVAC PLAN</h3>
+        <p>$60/mo • Quarterly checks • 10% back in credits</p>
+        <a class="cta" href="subscribe.html?plan=commercial">Subscribe</a>
+      </div>
     </div>
-    <div class="card">
-      <h3>Plus HVAC PLAN</h3>
-      <p>$30/mo • Bi Annual Checks • 25% back in credits</p>
-      <a class="cta" href="subscribe.html?plan=plus">Subscribe</a>
-    </div>
-    <div class="card">
-      <h3>Pro HVAC PLAN</h3>
-      <p>$45/mo • Quarterly checks • 40% back in credits</p>
-      <a class="cta" href="subscribe.html?plan=pro">Subscribe</a>
-    </div>
-    <div class="card">
-      <h3>Commercial HVAC PLAN</h3>
-      <p>$60/mo • Quarterly checks • 10% back in credits</p>
-      <a class="cta" href="subscribe.html?plan=commercial">Subscribe</a>
-    </div>
-  </div>
 
-  <p class="muted" style="margin-top:.6rem">
-    Prices listed are per unit. Adding additional units to your plan increases your credit percentage. Contact us today for more details.
-  </p>
-</section>
-
+    <p class="muted" style="margin-top:.6rem">
+      Prices listed are per unit. Adding additional units to your plan increases your credit percentage. Contact us today for more details.
+    </p>
+  </section>
 
   <!-- Who Cramer Services Helps -->
   <section id="who-we-help" class="container">
@@ -465,38 +441,34 @@
           }
         } finally {
           btn.disabled = false; btn.textContent = prev;
-
-          <script>
-  (function () {
-    // If the URL looks like ...#quote?service=Something, grab it and set the select
-    const hash = window.location.hash || '';
-    if (!hash.includes('?')) return;
-    const [anchor, qs] = hash.split('?');
-    if (anchor !== '#quote') return;
-
-    const params = new URLSearchParams(qs);
-    const serviceFromLink = params.get('service');
-    if (!serviceFromLink) return;
-
-    // Try to set the dropdown to that value
-    const sel = document.getElementById('service');
-    if (sel) {
-      // If your option text matches exactly, this will select it
-      for (const opt of sel.options) {
-        if (opt.text.trim().toLowerCase() === serviceFromLink.trim().toLowerCase()) {
-          sel.value = opt.value || opt.text;
-          break;
-        }
-      }
-    }
-    // Smooth scroll to the form
-    document.getElementById('quote')?.scrollIntoView({ behavior: 'smooth' });
-  })();
-</script>
-
         }
       });
     });
+  </script>
+
+  <!-- Prefill service from #quote?service=... (moved OUT of the EmailJS script) -->
+  <script>
+    (function () {
+      const hash = window.location.hash || '';
+      if (!hash.includes('?')) return;
+      const [anchor, qs] = hash.split('?');
+      if (anchor !== '#quote') return;
+
+      const params = new URLSearchParams(qs);
+      const serviceFromLink = params.get('service');
+      if (!serviceFromLink) return;
+
+      const sel = document.getElementById('service');
+      if (sel) {
+        for (const opt of sel.options) {
+          if (opt.text.trim().toLowerCase() === serviceFromLink.trim().toLowerCase()) {
+            sel.value = opt.value || opt.text;
+            break;
+          }
+        }
+      }
+      document.getElementById('quote')?.scrollIntoView({ behavior: 'smooth' });
+    })();
   </script>
 </body>
 </html>
