@@ -37,10 +37,19 @@
     position:relative;
     border-radius:12px;
     overflow:hidden;          /* clip to rounded corners */
-    height:200px;             /* consistent image height */
-    margin-bottom:.5rem;      /* space under image */
+    height:200px;             /* consistent image/video height */
+    margin-bottom:.5rem;      /* space under media */
+    display:block;
   }
-  .service-imgwrap img,
+  /* Images keep the same look */
+  .service-imgwrap img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    border-radius:12px;
+  }
+  /* NEW: Make videos fit exactly like images */
   .service-imgwrap video{
     width:100%;
     height:100%;
@@ -107,12 +116,13 @@
         </a>
       </article>
 
-      <!-- NEW: Fiber Optic Lights — Car Sedan (with video) -->
+      <!-- Fiber Optic Lights — Car Sedan (VIDEO PREVIEW) -->
       <article class="service-tile">
         <h3>Fiber Optic Lights — Car Sedan</h3>
         <a class="service-imgwrap" href="service-fiber-sedan.html">
-          <video id="fiberVideo" autoplay loop muted playsinline>
-            <source src="videos/fiber-optic-sedan.mp4" type="video/mp4">
+          <!-- Short video preview -->
+          <video autoplay loop muted playsinline>
+            <source src="fiber-optic-sedan.MOV" type="video/mp4">
             Your browser does not support the video tag.
           </video>
           <div class="service-overlay">
@@ -125,8 +135,7 @@
     <!-- Back to Home — SAME position/class as index's "More Services" -->
     <a class="cta more-services" href="index.html">Back to Home</a>
   </main>
-
-  <script>
+ <script>
     // Slow down fiber optic preview video to 0.3x speed
     document.addEventListener("DOMContentLoaded", () => {
       const vid = document.getElementById("fiberVideo");
