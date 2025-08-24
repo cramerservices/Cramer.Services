@@ -1,5 +1,8 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>All Services — Cramer Services</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -9,6 +12,8 @@
   *{box-sizing:border-box} body{margin:0;font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--text)}
   .container{max-width:1100px;margin:auto;padding:1rem}
   .cta{background:var(--accent);color:#fff;font-weight:600;padding:.65rem 1rem;border:0;border-radius:6px;cursor:pointer;text-decoration:none}
+  .header-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+  .header-bar h1{margin:0}
   /* reuse tile styles */
   .services-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1rem}
   .service-tile{background:var(--card);border:1px solid #dee2e6;border-radius:12px;padding:1rem}
@@ -18,16 +23,26 @@
   .service-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);color:#fff;opacity:0;transition:opacity .2s;display:flex;align-items:center;justify-content:center;text-align:center;padding:1rem}
   .service-imgwrap:hover .service-overlay{opacity:1}
 </style>
-</head><body>
+</head>
+<body>
   <main class="container">
-    <h1>All Services</h1>
+    <!-- Header with Contact Us button -->
+    <div class="header-bar">
+      <h1>All Services</h1>
+      <a class="cta" href="index.html#contact">Contact Us</a>
+    </div>
     <p class="muted">Browse and select a service to view details and book.</p>
+
+    <!-- Note above services -->
+    <p style="font-weight:600; margin:.5rem 0 1rem; color:var(--text);">
+      Can’t find your service listed below? Reach out through our <a href="index.html#contact" style="color:var(--accent); font-weight:600;">Contact Us</a> button.
+    </p>
 
     <div class="services-tiles">
       <article class="service-tile">
         <h3>HVAC Tune-Up</h3>
         <a class="service-imgwrap" href="service-tuneup.html">
-          <img src="images/tuneup.jpg" alt="HVAC Tune-Up">
+          <img src="HVAC_IMG_4.JPG" alt="HVAC Tune-Up">
           <div class="service-overlay">Seasonal maintenance to keep your system efficient, safe, and reliable.</div>
         </a>
       </article>
@@ -35,7 +50,7 @@
       <article class="service-tile">
         <h3>HVAC Repair</h3>
         <a class="service-imgwrap" href="service-repair.html">
-          <img src="images/repair.jpg" alt="HVAC Repair">
+          <img src="HVAC_IMG_2.jpeg" alt="HVAC Repair">
           <div class="service-overlay">Fast, expert diagnostics and transparent pricing for needed fixes.</div>
         </a>
       </article>
@@ -43,11 +58,14 @@
       <article class="service-tile">
         <h3>HVAC Install Proposal (Free)</h3>
         <a class="service-imgwrap" href="service-install.html">
-          <img src="images/install.jpg" alt="HVAC Install Proposal">
+          <img src="HVAC_IMG_3.JPG" alt="HVAC Install Proposal">
           <div class="service-overlay">On-site evaluation and written quote within 48 hours.</div>
         </a>
       </article>
     </div>
+
     <p style="margin-top:1rem"><a class="cta" href="index.html">Back to Home</a></p>
   </main>
-</body></html>
+</body>
+</html>
+
