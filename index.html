@@ -70,15 +70,55 @@
     footer{background:var(--card);border-top:1px solid #dee2e6;padding:1.5rem 0;color:var(--muted)}
     @media (max-width: 900px){.hero{grid-template-columns:1fr}}
 
-    /* --- Image Tile Services --- */
-    .services-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1rem}
-    .service-tile{background:var(--card);border:1px solid #dee2e6;border-radius:12px;padding:1rem}
-    .service-tile h3{margin:.2rem 0 .5rem}
-    .service-imgwrap{position:relative;border-radius:10px;overflow:hidden}
-    .service-imgwrap img{width:100%;height:100%;display:block;object-fit:cover;aspect-ratio:4/3}
-    .service-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);color:#fff;opacity:0;transition:opacity .2s;display:flex;align-items:center;justify-content:center;text-align:center;padding:1rem}
+    /* --- Image Tile Services (clean version) --- */
+    .services-tiles{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:1.25rem;
+      margin-top:1rem;
+      margin-bottom:1.5rem; /* space above More Services button */
+    }
+    .service-tile{
+      background:transparent; /* remove white tile */
+      border:0;
+      padding:0;
+    }
+    .service-tile h3{margin:.2rem 0 .6rem}
+    .service-imgwrap{
+      position:relative;
+      display:block;
+      border-radius:14px;   /* curved corners */
+      overflow:hidden;      /* clip overlay & image to radius */
+      box-shadow:0 8px 20px rgba(0,0,0,.08);
+    }
+    .service-imgwrap img{
+      width:100%;
+      height:auto;
+      display:block;
+      object-fit:cover;
+      aspect-ratio:4/3;
+      border-radius:14px;   /* curved corners on the image */
+    }
+    .service-overlay{
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,.55);
+      color:#fff;
+      opacity:0;
+      transition:opacity .2s;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:1rem;
+      border-radius:inherit; /* overlay matches corners */
+    }
     .service-imgwrap:hover .service-overlay{opacity:1}
-    .more-services{display:block;margin-top:1rem;text-align:center}
+    .more-services{
+      display:inline-block;
+      margin-top:.25rem;
+      text-align:center;
+    }
   </style>
 </head>
 <body>
@@ -121,7 +161,6 @@
       <article class="service-tile">
         <h3>HVAC Tune-Up</h3>
         <a class="service-imgwrap" href="service-tuneup.html">
-          <!-- 🔽 replace with your image -->
           <img src="HVAC_IMG_1.JPG" alt="HVAC Tune-Up">
           <div class="service-overlay">Seasonal maintenance to keep your system efficient, safe, and reliable.</div>
         </a>
@@ -131,7 +170,6 @@
       <article class="service-tile">
         <h3>HVAC Repair</h3>
         <a class="service-imgwrap" href="service-repair.html">
-          <!-- 🔽 replace with your image -->
           <img src="HVAC_IMG_2.jpeg" alt="HVAC Repair">
           <div class="service-overlay">Fast, expert diagnostics and transparent pricing for needed fixes.</div>
         </a>
@@ -141,7 +179,6 @@
       <article class="service-tile">
         <h3>HVAC Install Proposal (Free)</h3>
         <a class="service-imgwrap" href="service-install.html">
-          <!-- 🔽 replace with your image -->
           <img src="HVAC_IMG_3.JPG" alt="HVAC Install Proposal">
           <div class="service-overlay">On-site evaluation and written quote within 48 hours.</div>
         </a>
@@ -169,7 +206,7 @@
     <h2>Subscriptions</h2>
     <p class="muted">Members get priority scheduling, seasonal checkups, and credits back toward future work.</p>
 
-    <div class="cards">
+  <div class="cards">
       <div class="card">
         <h3>Essential HVAC PLAN</h3>
         <p>$20/mo • Annual Checks • 25% back in credits</p>
@@ -446,7 +483,7 @@
     });
   </script>
 
-  <!-- Prefill service from #quote?service=... (moved OUT of the EmailJS script) -->
+  <!-- Prefill service from #quote?service=... -->
   <script>
     (function () {
       const hash = window.location.hash || '';
