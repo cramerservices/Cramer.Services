@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Service | Cramer Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#f8f9fb;--card:#fff;--accent:#0d6efd;--text:#1b1f24;--muted:#6c757d;--ring:0 0 0 3px rgba(13,110,253,.25)}
+  *{box-sizing:border-box} html,body{margin:0}
+  body{font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--text)}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  .container{max-width:1100px;margin:auto;padding:0 1rem}
+  header{background:var(--card);border-bottom:1px solid #dee2e6}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0}
+  .brand{display:flex;gap:.6rem;align-items:center;font-weight:800}
+  .brand-logo{width:36px;height:36px;background:var(--accent);color:#fff;display:grid;place-items:center;border-radius:8px}
+  .cta{background:var(--accent);color:#fff;font-weight:600;padding:.7rem 1rem;border:0;border-radius:8px;cursor:pointer;display:inline-block}
+  .cta:hover{background:#0b5ed7}
+  main{padding:2rem 0}
+  .crumbs{font-size:.9rem;color:var(--muted);margin-bottom:.5rem}
+  .product{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem}
+  @media (max-width: 900px){.product{grid-template-columns:1fr}}
+  .media-box img,.media-box video{width:100%;height:auto;border-radius:12px;object-fit:cover;aspect-ratio:4/3;display:block}
+  h1{margin:.25rem 0 .25rem;font-size:1.8rem}
+  .price{font-weight:800;font-size:1.25rem;margin:.35rem 0}
+  .price s{font-weight:500;color:var(--muted);margin-left:.5rem}
+  .desc{color:var(--muted);line-height:1.6;margin:.75rem 0 1rem}
+  .bullets{margin:.5rem 0 1rem;padding-left:1rem}
+  .row{display:flex;gap:1rem;align-items:center;margin:1rem 0;flex-wrap:wrap}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <a class="brand" href="index.html"><span class="brand-logo">CS</span><b>Cramer Services</b></a>
+    <a class="cta" href="services.html">All Services</a>
+  </div>
+</header>
+
+<main class="container">
+  <nav class="crumbs"><a href="index.html">Home</a> / <a href="services.html">Services</a> / <span id="crumbName">Service</span></nav>
+
+  <div class="product">
+    <div class="media-box" id="mediaBox"></div>
+
+    <div>
+      <h1 id="svcName">Service</h1>
+      <div class="price" id="price"></div>
+      <p class="desc" id="desc"></p>
+      <ul class="bullets" id="bullets"></ul>
+
+      <div class="row">
+        <a id="btnContact" class="cta hidden" href="#">Contact Us</a>
+        <a id="btnCheckout" class="cta hidden" href="#">Proceed to Checkout</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){
+  const q = new URLSearchParams(location.search);
+  const slug = q.get('slug');
+
+  if(!slug){
+    document.body.innerHTML = '<main class="container"><p class="muted">Missing service.</p></main>';
+    return;
+  }
+
+  const $ = (id)=>document.getElementById(id);
+
+  fetch('data/services.json', {cache:'no-cache'})
+    .then(r=>r.json())
+    .then(list=>{
+      const svc = list.find(x=>String(x.slug) === String(slug));
+      if(!svc){ document.body.innerHTML = '<main class="container"><p class="muted">Service not found.</p></main>'; return; }
+
+      // Name + crumbs
+      $('svcName').textContent = svc.name || 'Service';
+      $('crumbName').textContent = svc.name || 'Service';
+
+      // Price
+      const priceBox = $('price');
+      const p = Number(svc.price || 0), sp = Number(svc.sales_price || 0);
+      if (sp && sp < p) {
+        priceBox.innerHTML = `$${sp.toFixed(2)} <s>$${p.toFixed(2)}</s>`;
+      } else if (p) {
+        priceBox.textContent = `$${p.toFixed(2)}`;
+      } else {
+        priceBox.textContent = '';
+      }
+
+      // Description
+      $('desc').textContent = svc.description || '';
+
+      // Bullets
+      const ul = $('bullets');
+      (svc.bullets || []).forEach(b=>{
+        const li = document.createElement('li');
+        li.textContent = b;
+        ul.appendChild(li);
+      });
+
+      // Media (image or video)
+      const box = $('mediaBox');
+      const isVideo = /\.(mp4|mov|webm)$/i.test(svc.image || '');
+      if (isVideo) {
+        const v = document.createElement('video');
+        v.src = svc.image;
+        v.muted = true;
+        v.loop = true;
+        v.autoplay = true;
+        v.playsInline = true;
+        v.onloadedmetadata = ()=>{ try { v.playbackRate = 0.3; } catch(e){} };
+        box.appendChild(v);
+      } else {
+        const img = document.createElement('img');
+        img.src = svc.image;
+        img.alt = svc.name || 'Service';
+        box.appendChild(img);
+      }
+
+      // Buttons logic
+      const wantsContact = String(svc.contact_us || '').toLowerCase() === 'yes';
+      const wantsPayment = String(svc.payment || '').toLowerCase() === 'yes';
+
+      const btnContact = $('btnContact');
+      const btnCheckout = $('btnCheckout');
+
+      // Contact-only
+      if (wantsContact && !wantsPayment) {
+        btnContact.classList.remove('hidden');
+        btnContact.href = `index.html#quote?service=${encodeURIComponent(svc.name || '')}`;
+      }
+
+      // Payment-only
+      if (!wantsContact && wantsPayment) {
+        btnCheckout.classList.remove('hidden');
+        // point to a generic checkout that reads slug (you can wire Stripe later)
+        btnCheckout.href = `checkout.html?slug=${encodeURIComponent(svc.slug)}`;
+      }
+
+      // Both: go to contact first, then redirect to checkout after form submit
+      if (wantsContact && wantsPayment) {
+        btnCheckout.classList.remove('hidden');
+        btnCheckout.textContent = 'Start Booking';
+        // pass "next" so the contact form can redirect to checkout after success
+        const next = `checkout.html?slug=${encodeURIComponent(svc.slug)}`;
+        btnCheckout.href = `index.html#quote?service=${encodeURIComponent(svc.name || '')}&next=${encodeURIComponent(next)}`;
+      }
+    })
+    .catch(()=>{
+      document.body.innerHTML = '<main class="container"><p class="muted">Could not load service.</p></main>';
+    });
+})();
+</script>
+</body>
+</html>
