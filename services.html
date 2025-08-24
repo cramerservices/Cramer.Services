@@ -37,10 +37,20 @@
     position:relative;
     border-radius:12px;
     overflow:hidden;          /* clip to rounded corners */
-    height:200px;             /* consistent image height */
-    margin-bottom:.5rem;      /* space under image */
+    height:200px;             /* consistent image/video height */
+    margin-bottom:.5rem;      /* space under media */
+    display:block;
   }
+  /* Images keep the same look */
   .service-imgwrap img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    border-radius:12px;
+  }
+  /* NEW: Make videos fit exactly like images */
+  .service-imgwrap video{
     width:100%;
     height:100%;
     object-fit:cover;
@@ -106,12 +116,15 @@
         </a>
       </article>
 
-      <!-- NEW: Fiber Optic Lights — Car Sedan -->
+      <!-- Fiber Optic Lights — Car Sedan (VIDEO PREVIEW) -->
       <article class="service-tile">
         <h3>Fiber Optic Lights — Car Sedan</h3>
         <a class="service-imgwrap" href="service-fiber-sedan.html">
-          <!-- replace with your actual image path if different -->
-          <img src="images/fiber-optic-sedan.jpg" alt="Fiber Optic Star Headliner (Sedan)">
+          <!-- Short video preview -->
+          <video autoplay loop muted playsinline>
+            <source src="videos/fiber-optic-sedan.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
           <div class="service-overlay">
             Star-ceiling headliner with RGBW, twinkle &amp; music-sync. Professional install.
           </div>
