@@ -1,33 +1,76 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>HVAC Repair — Cramer Services</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HVAC Repair | Cramer Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#f8f9fb;--card:#fff;--accent:#0d6efd;--text:#1b1f24;--muted:#6c757d}
-  *{box-sizing:border-box} body{margin:0;font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--text)}
-  .container{max-width:900px;margin:auto;padding:1rem}
-  .card{background:var(--card);border:1px solid #dee2e6;border-radius:12px;padding:1rem}
-  .cta{background:var(--accent);color:#fff;font-weight:600;padding:.7rem 1rem;border:0;border-radius:8px;text-decoration:none;display:inline-block}
-  ul{margin:.5rem 0 0 1.1rem}
+  :root{--bg:#f8f9fb;--card:#fff;--accent:#0d6efd;--text:#1b1f24;--muted:#6c757d;--ring:0 0 0 3px rgba(13,110,253,.25)}
+  *{box-sizing:border-box} html,body{margin:0} body{font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--text)}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  .container{max-width:1100px;margin:auto;padding:0 1rem}
+  header{background:var(--card);border-bottom:1px solid #dee2e6}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0}
+  .brand{display:flex;gap:.6rem;align-items:center;font-weight:800}
+  .brand-logo{width:36px;height:36px;background:var(--accent);color:#fff;display:grid;place-items:center;border-radius:8px}
+  .cta{background:var(--accent);color:#fff;font-weight:600;padding:.7rem 1rem;border:0;border-radius:8px;cursor:pointer;display:inline-block}
+  .cta:hover{background:#0b5ed7}
+  main{padding:2rem 0}
+  .product{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem}
+  @media (max-width: 900px){.product{grid-template-columns:1fr}}
+  .product-media{background:var(--card);border:1px solid #e5e7eb;border-radius:14px;padding:10px}
+  .product-media img{width:100%;border-radius:12px;object-fit:cover;aspect-ratio:4/3}
+  h1{margin:.25rem 0 .25rem;font-size:1.8rem}
+  .price{font-weight:800;font-size:1.25rem;margin:.35rem 0}
+  .price s{font-weight:500;color:var(--muted);margin-left:.5rem}
+  .desc{color:var(--muted);line-height:1.6;margin:.75rem 0 1rem}
+  .bullets{margin:.5rem 0 1rem;padding-left:1rem}
+  .panel{background:var(--card);border:1px solid #e5e7eb;border-radius:12px;padding:1rem}
+  .row{display:flex;gap:1rem;align-items:center;margin:.6rem 0}
+  input{padding:.65rem .75rem;border:1px solid #ced4da;border-radius:8px;font-family:inherit;flex:1}
+  input:focus{outline:none;border-color:var(--accent);box-shadow:var(--ring)}
+  .inline-note{font-size:.9rem;color:var(--muted)}
 </style>
-</head><body>
-<main class="container">
-  <h1>HVAC Repair <span style="color:#6c757d;font-size:1rem">— $75 diagnostic</span></h1>
-  <div class="card">
-    <ul>
-      <li>Expert diagnostics and clear explanation of the issue</li>
-      <li>Transparent pricing based on the specific repair</li>
-      <li>$75 diagnostic is waived/credited when you approve the repair</li>
-      <li>Limited 1–5 year repair warranty (varies by repair)</li>
-    </ul>
-    <p style="margin-top:1rem">
-      <a class="cta" href="index.html#quote?service=HVAC%20Repair">Contact Us About Repair</a>
-      <!-- Optional: create a checkout-repair.html later and link it here -->
-      <!-- <a class="cta" href="checkout-repair.html" style="margin-left:.5rem">Proceed to Checkout</a> -->
-    </p>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <a class="brand" href="index.html"><span class="brand-logo">CS</span><b>Cramer Services</b></a>
+    <a class="cta" href="index.html#services">All Services</a>
   </div>
-  <p style="margin-top:1rem"><a class="cta" href="services.html">Back to Services</a></p>
+</header>
+
+<main class="container">
+  <div class="product">
+    <div class="product-media">
+      <img src="HVAC_IMG_2.jpeg" alt="HVAC Repair">
+    </div>
+
+    <div>
+      <h1>HVAC Repair</h1>
+      <div class="price">$75.00 <s>$100.00</s></div>
+      <p class="desc">Expert diagnostics and transparent pricing. If you approve the repair, your diagnostic fee is applied to the final job.</p>
+      <ul class="bullets">
+        <li>Skilled tech diagnoses issue & explains options</li>
+        <li>Up-front pricing by repair, no hidden fees</li>
+        <li>Earn 5% credit toward future work when repairs are completed with us</li>
+        <li>Limited 1–5 year warranty depending on repair type</li>
+      </ul>
+
+      <div class="panel">
+        <div class="row">
+          <label class="inline-note">Service Address</label>
+          <input placeholder="Street, City, State">
+        </div>
+        <div class="row">
+          <a class="cta" href="checkout-repair.html">Continue to Checkout</a>
+          <span class="inline-note">Diagnostic fee due at scheduling.</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
-</body></html>
+</body>
+</html>
+
