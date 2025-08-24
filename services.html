@@ -28,28 +28,20 @@
     gap:1rem;margin-top:1rem
   }
 
-  /* 🔸 Remove white background & borders from tiles */
-  .service-tile{
-    background:transparent;   /* was var(--card) */
-    border:0;                 /* remove the gray border */
-    padding:0;                /* let the image sit flush */
-  }
-
+  /* No white background/border on tiles */
+  .service-tile{background:transparent;border:0;padding:0}
   .service-tile h3{margin:.2rem 0 .6rem}
 
-  /* IMAGE FIT + ROUNDED CORNERS (applies to all, including middle) */
+  /* IMAGE FIT + ROUNDED CORNERS + SMALLER HEIGHT */
   .service-imgwrap{
     position:relative;
     border-radius:12px;
-    overflow:hidden;          /* clips image to rounded corners */
-    height:220px;             /* keeps all tiles uniform; tweak if desired */
+    overflow:hidden;          /* clip to rounded corners */
+    height:160px;             /* smaller image height */
+    margin-bottom:.75rem;     /* space under images so buttons/links are clear */
   }
   .service-imgwrap img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-    border-radius:12px;       /* extra safety so every image shows rounded */
+    width:100%;height:100%;object-fit:cover;display:block;border-radius:12px;
   }
 
   .service-overlay{
@@ -107,3 +99,4 @@
   </main>
 </body>
 </html>
+
