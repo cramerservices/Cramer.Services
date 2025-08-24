@@ -9,19 +9,46 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
   :root{--bg:#f8f9fb;--card:#fff;--accent:#0d6efd;--text:#1b1f24;--muted:#6c757d;--ring:0 0 0 3px rgba(13,110,253,.25)}
-  *{box-sizing:border-box} body{margin:0;font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--text)}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--text)}
   .container{max-width:1100px;margin:auto;padding:1rem}
-  .cta{background:var(--accent);color:#fff;font-weight:600;padding:.65rem 1rem;border:0;border-radius:6px;cursor:pointer;text-decoration:none}
+
+  .cta{
+    background:var(--accent);color:#fff;font-weight:600;
+    padding:.65rem 1rem;border:0;border-radius:6px;cursor:pointer;text-decoration:none
+  }
+
+  /* header row with right-aligned Contact button */
   .header-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
   .header-bar h1{margin:0}
-  /* reuse tile styles */
-  .services-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1rem}
-  .service-tile{background:var(--card);border:1px solid #dee2e6;border-radius:12px;padding:1rem}
-  .service-tile h3{margin:.2rem 0 .5rem}
-  .service-imgwrap{position:relative;border-radius:10px;overflow:hidden}
-  .service-imgwrap img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;display:block}
-  .service-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);color:#fff;opacity:0;transition:opacity .2s;display:flex;align-items:center;justify-content:center;text-align:center;padding:1rem}
+
+  /* service tiles */
+  .services-tiles{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:1rem;margin-top:1rem
+  }
+  .service-tile{
+    background:var(--card);border:1px solid #dee2e6;border-radius:12px;padding:1rem
+  }
+  .service-tile h3{margin:.2rem 0 .6rem}
+
+  /* IMAGE FIT + ROUNDED CORNERS */
+  .service-imgwrap{
+    position:relative;border-radius:12px;overflow:hidden;
+    height:220px; /* keep tiles uniform; adjust if you want taller/shorter */
+  }
+  .service-imgwrap img{
+    width:100%;height:100%;object-fit:cover;display:block;border-radius:12px;
+  }
+
+  .service-overlay{
+    position:absolute;inset:0;background:rgba(0,0,0,.55);color:#fff;
+    opacity:0;transition:opacity .2s;display:flex;align-items:center;
+    justify-content:center;text-align:center;padding:1rem
+  }
   .service-imgwrap:hover .service-overlay{opacity:1}
+
+  .muted{color:var(--muted)}
 </style>
 </head>
 <body>
@@ -35,7 +62,8 @@
 
     <!-- Note above services -->
     <p style="font-weight:600; margin:.5rem 0 1rem; color:var(--text);">
-      Can’t find your service listed below? Reach out through our <a href="index.html#contact" style="color:var(--accent); font-weight:600;">Contact Us</a> button.
+      Can’t find your service listed below? Reach out through our
+      <a href="index.html#contact" style="color:var(--accent); font-weight:600;">Contact Us</a> button.
     </p>
 
     <div class="services-tiles">
@@ -68,4 +96,3 @@
   </main>
 </body>
 </html>
-
