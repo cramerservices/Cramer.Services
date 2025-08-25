@@ -7,8 +7,8 @@ on:
       - 'scripts/convert_services.py'     # rerun if your converter changes
       - '.github/workflows/excel-to-json.yml'
   workflow_dispatch:                       # allow manual run from Actions tab
-  # schedule:                             # optional daily run
-  #   - cron: '0 9 * * *'
+  schedule:                             # optional daily run
+   - cron: '0 9 * * *'
 
 permissions:
   contents: write                          # needed to push back to the repo
