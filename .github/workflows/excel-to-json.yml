@@ -3,28 +3,46 @@ name: Build services.json from Excel
 on:
   push:
     paths:
-      - 'Services.xlsx'
-      - 'scripts/convert_services.py'
+      - 'Services.xlsx'                   # rerun when Excel changes
+      - 'scripts/convert_services.py'     # rerun if your converter changes
       - '.github/workflows/excel-to-json.yml'
-  schedule:
-    - cron: '0 9 * * *'  # daily at 09:00 UTC (optional)
+  workflow_dispatch:                       # allow manual run from Actions tab
+  # schedule:                             # optional daily run
+  #   - cron: '0 9 * * *'
+
+permissions:
+  contents: write                          # needed to push back to the repo
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
-      - run: pip install pandas openpyxl
-      - run: python scripts/convert_services.py
-      - name: Commit services.json if changed
+
+      - name: Install dependencies
+        run: pip install pandas openpyxl
+
+      - name: Ensure data folder exists
+        run: mkdir -p data
+
+      - name: Convert Excel → JSON
+        run: python scripts/convert_services.py
+
+      - name: Commit data/services.json if changed
         run: |
-          if [ -n "$(git status --porcelain services.json)" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add services.json
-            git commit -m "Auto-build services.json from Services.xlsx"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain data/services.json)" ]; then
+            git add data/services.json
+            git commit -m "Auto-build data/services.json from Services.xlsx"
             git push
+          else
+            echo "No changes to commit."
           fi
