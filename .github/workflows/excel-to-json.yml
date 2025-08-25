@@ -1,0 +1,30 @@
+name: Build services.json from Excel
+
+on:
+  push:
+    paths:
+      - 'Services.xlsx'
+      - 'scripts/convert_services.py'
+      - '.github/workflows/excel-to-json.yml'
+  schedule:
+    - cron: '0 9 * * *'  # daily at 09:00 UTC (optional)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: pip install pandas openpyxl
+      - run: python scripts/convert_services.py
+      - name: Commit services.json if changed
+        run: |
+          if [ -n "$(git status --porcelain services.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add services.json
+            git commit -m "Auto-build services.json from Services.xlsx"
+            git push
+          fi
