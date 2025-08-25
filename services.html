@@ -11,20 +11,51 @@
   :root{--bg:#f8f9fb;--card:#fff;--accent:#0d6efd;--text:#1b1f24;--muted:#6c757d;--ring:0 0 0 3px rgba(13,110,253,.25)}
   *{box-sizing:border-box}
   body{margin:0;font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--text)}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
   .container{max-width:1100px;margin:auto;padding:1rem}
-  .cta{background:var(--accent);color:#fff;font-weight:600;padding:.65rem 1rem;border:0;border-radius:6px;cursor:pointer;text-decoration:none}
+  .cta{background:var(--accent);color:#fff;font-weight:600;padding:.65rem 1rem;border:0;border-radius:6px;cursor:pointer;display:inline-block}
+  .cta:hover{background:#0b5ed7}
   .header-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
   .header-bar h1{margin:0}
   .muted{color:var(--muted)}
 
-  /* Tiles same look as your index */
-  .services-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1rem;margin-bottom:2rem}
+  /* Tiles (match index look) */
+  .services-tiles{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:1rem;
+    margin-top:1rem;
+    margin-bottom:2rem;
+  }
   .service-tile{background:transparent;border:0;padding:0}
   .service-tile h3{margin:.2rem 0 .6rem}
-  .service-imgwrap{position:relative;border-radius:12px;overflow:hidden;height:200px;margin-bottom:.5rem}
-  .service-imgwrap img,.service-imgwrap video{width:100%;height:100%;object-fit:cover;display:block;border-radius:12px}
-  .service-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);color:#fff;opacity:0;transition:opacity .2s;display:flex;align-items:center;justify-content:center;text-align:center;padding:1rem}
+  .service-imgwrap{
+    position:relative;
+    border-radius:12px;
+    overflow:hidden;
+    height:200px;
+    margin-bottom:.5rem;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    display:block;
+  }
+  .service-imgwrap img,
+  .service-imgwrap video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    border-radius:12px;
+  }
+  .service-overlay{
+    position:absolute;inset:0;background:rgba(0,0,0,.55);color:#fff;
+    opacity:0;transition:opacity .2s;display:flex;align-items:center;
+    justify-content:center;text-align:center;padding:1rem;border-radius:12px
+  }
   .service-imgwrap:hover .service-overlay{opacity:1}
+
+  .price{font-weight:800}
+  .price s{font-weight:500;color:var(--muted);margin-left:.35rem}
 </style>
 </head>
 <body>
@@ -49,14 +80,39 @@
 (async function(){
   const grid = document.getElementById('servicesGrid');
 
-  const res = await fetch('data/services.json', {cache:'no-cache'});
-  if(!res.ok){ grid.innerHTML = '<p class="muted">Could not load services.</p>'; return; }
-  const services = await res.json();
+  const esc = (s='') => String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+
+  const money = v => {
+    if (v == null || v === '') return '';
+    const n = Number(String(v).replace(/[^0-9.-]/g,''));
+    return isFinite(n) ? n.toLocaleString(undefined,{style:'currency',currency:'USD'}) : esc(v);
+  };
+
+  let services = [];
+  try{
+    const res = await fetch('data/services.json', { cache:'no-cache' });
+    if (!res.ok) throw new Error(res.status);
+    services = await res.json();
+  }catch(err){
+    console.error('Could not load data/services.json:', err);
+    grid.innerHTML = '<p class="muted">Could not load services.</p>';
+    return;
+  }
 
   const makeTile = (svc) => {
+    const art = document.createElement('article');
+    art.className = 'service-tile';
+
+    const h3 = document.createElement('h3');
+    h3.textContent = svc.name || '';
+    art.appendChild(h3);
+
     const a = document.createElement('a');
     a.className = 'service-imgwrap';
-    a.href = `service.html?slug=${encodeURIComponent(svc.slug)}`;
+    a.href = `service.html?slug=${encodeURIComponent(svc.slug || '')}`;
 
     const isVideo = /\.(mp4|mov|webm)$/i.test(svc.image || '');
     let media;
@@ -81,12 +137,17 @@
     overlay.textContent = svc.description || '';
     a.appendChild(overlay);
 
-    const art = document.createElement('article');
-    art.className = 'service-tile';
-    const h3 = document.createElement('h3');
-    h3.textContent = svc.name || '';
-    art.appendChild(h3);
     art.appendChild(a);
+
+    // Optional price block (only if provided in JSON)
+    const hasPrice = svc.price != null && svc.price !== '';
+    const hasSale  = svc.salePrice != null && svc.salePrice !== '';
+    if (hasPrice || hasSale) {
+      const price = document.createElement('div');
+      price.className = 'price';
+      price.innerHTML = `${hasPrice ? money(svc.price) : ''}${hasSale ? ` <s>${money(svc.salePrice)}</s>` : ''}`;
+      art.appendChild(price);
+    }
 
     return art;
   };
