@@ -19,17 +19,22 @@
   .brand-logo{width:36px;height:36px;background:var(--accent);color:#fff;display:grid;place-items:center;border-radius:8px}
   .cta{background:var(--accent);color:#fff;font-weight:600;padding:.7rem 1rem;border:0;border-radius:8px;cursor:pointer;display:inline-block}
   .cta:hover{background:#0b5ed7}
+  .cta-secondary{background:#eef3ff;color:#0d6efd;font-weight:600;padding:.7rem 1rem;border:0;border-radius:8px;display:inline-block}
+  .cta-secondary:hover{background:#e1e9ff;text-decoration:none}
   main{padding:2rem 0}
   .crumbs{font-size:.9rem;color:var(--muted);margin-bottom:.5rem}
   .product{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem}
   @media (max-width: 900px){.product{grid-template-columns:1fr}}
   .media-box img,.media-box video{width:100%;height:auto;border-radius:12px;object-fit:cover;aspect-ratio:4/3;display:block}
+  /* NEW: make iframes behave like the video/image */
+  .media-box iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:12px;display:block}
   h1{margin:.25rem 0 .25rem;font-size:1.8rem}
   .price{font-weight:800;font-size:1.25rem;margin:.35rem 0}
   .price s{font-weight:500;color:var(--muted);margin-left:.5rem}
   .desc{color:var(--muted);line-height:1.6;margin:.75rem 0 1rem}
   .bullets{margin:.5rem 0 1rem;padding-left:1rem}
-  .row{display:flex;gap:1rem;align-items:center;margin:1rem 0;flex-wrap:wrap}
+  .row{display:flex;gap:.75rem;align-items:center;margin:1.25rem 0;flex-wrap:wrap}
+  .row.center{justify-content:center}
   .hidden{display:none}
 </style>
 </head>
@@ -53,8 +58,8 @@
       <p class="desc" id="desc"></p>
       <ul class="bullets" id="bullets"></ul>
 
-      <div class="row">
-        <a id="btnContact" class="cta hidden" href="#">Contact Us</a>
+      <div class="row center">
+        <a id="btnContact" class="cta-secondary hidden" href="#">Contact Us</a>
         <a id="btnCheckout" class="cta hidden" href="#">Proceed to Checkout</a>
       </div>
     </div>
@@ -76,7 +81,9 @@
   fetch('data/services.json', {cache:'no-cache'})
     .then(r=>r.json())
     .then(list=>{
-      const svc = list.find(x=>String(x.slug) === String(slug));
+      // list can be array or {services:[...]} — support both
+      const arr = Array.isArray(list) ? list : (Array.isArray(list.services) ? list.services : []);
+      const svc = arr.find(x=>String(x.slug) === String(slug));
       if(!svc){ document.body.innerHTML = '<main class="container"><p class="muted">Service not found.</p></main>'; return; }
 
       // Name + crumbs
@@ -85,7 +92,8 @@
 
       // Price
       const priceBox = $('price');
-      const p = Number(svc.price || 0), sp = Number(svc.sales_price || 0);
+      const p  = Number(svc.price || 0);
+      const sp = Number(svc.sales_price || svc.salePrice || 0);
       if (sp && sp < p) {
         priceBox.innerHTML = `$${sp.toFixed(2)} <s>$${p.toFixed(2)}</s>`;
       } else if (p) {
@@ -105,57 +113,144 @@
         ul.appendChild(li);
       });
 
-      // Media (image or video)
+      // ----- MEDIA (image OR video OR YouTube/Vimeo) from the same 'image' field -----
       const box = $('mediaBox');
-      const isVideo = /\.(mp4|mov|webm)$/i.test(svc.image || '');
-      if (isVideo) {
-        const v = document.createElement('video');
-        v.src = svc.image;
-        v.muted = true;
-        v.loop = true;
-        v.autoplay = true;
-        v.playsInline = true;
-        v.onloadedmetadata = ()=>{ try { v.playbackRate = 0.3; } catch(e){} };
-        box.appendChild(v);
-      } else {
-        const img = document.createElement('img');
-        img.src = svc.image;
-        img.alt = svc.name || 'Service';
-        box.appendChild(img);
-      }
+      const mediaUrl = (svc.image || '').trim();
+      const mediaEl = buildMedia(mediaUrl, svc.name || 'Service', msg => {
+        const alt = document.createElement('div');
+        alt.style.cssText='display:flex;align-items:center;justify-content:center;min-height:220px;background:#f5f6fb;color:#555;font-weight:600;border-radius:12px;text-align:center;padding:12px;';
+        alt.textContent = msg || 'Media could not be loaded';
+        box.appendChild(alt);
+      });
+      if (mediaEl) box.appendChild(mediaEl);
 
-      // Buttons logic
+      // ----- ACTION BUTTONS -----
+      // Uses your current schema flags:
+      // contact_us: "yes"/"no"  |  payment: "yes"/"no"
       const wantsContact = String(svc.contact_us || '').toLowerCase() === 'yes';
-      const wantsPayment = String(svc.payment || '').toLowerCase() === 'yes';
+      const wantsPayment = String(svc.payment    || '').toLowerCase() === 'yes';
 
-      const btnContact = $('btnContact');
+      const btnContact  = $('btnContact');
       const btnCheckout = $('btnCheckout');
 
-      // Contact-only
-      if (wantsContact && !wantsPayment) {
-        btnContact.classList.remove('hidden');
-        btnContact.href = `index.html#quote?service=${encodeURIComponent(svc.name || '')}`;
-      }
+      const contactHref  = `index.html#quote?service=${encodeURIComponent(svc.name || '')}`;
+      const checkoutHref = `checkout.html?slug=${encodeURIComponent(svc.slug)}`;
 
-      // Payment-only
-      if (!wantsContact && wantsPayment) {
-        btnCheckout.classList.remove('hidden');
-        // point to a generic checkout that reads slug (you can wire Stripe later)
-        btnCheckout.href = `checkout.html?slug=${encodeURIComponent(svc.slug)}`;
-      }
-
-      // Both: go to contact first, then redirect to checkout after form submit
       if (wantsContact && wantsPayment) {
+        // BOTH buttons visible
+        btnContact.classList.remove('hidden');
         btnCheckout.classList.remove('hidden');
-        btnCheckout.textContent = 'Start Booking';
-        // pass "next" so the contact form can redirect to checkout after success
-        const next = `checkout.html?slug=${encodeURIComponent(svc.slug)}`;
-        btnCheckout.href = `index.html#quote?service=${encodeURIComponent(svc.name || '')}&next=${encodeURIComponent(next)}`;
+        btnContact.href  = contactHref;
+        btnCheckout.href = checkoutHref;
+        btnCheckout.textContent = 'Checkout';
+      } else if (wantsContact) {
+        // CONTACT only
+        btnContact.classList.remove('hidden');
+        btnContact.href = contactHref;
+      } else if (wantsPayment) {
+        // CHECKOUT only
+        btnCheckout.classList.remove('hidden');
+        btnCheckout.href = checkoutHref;
+        btnCheckout.textContent = 'Checkout';
       }
     })
     .catch(()=>{
       document.body.innerHTML = '<main class="container"><p class="muted">Could not load service.</p></main>';
     });
+
+  // ------- helpers -------
+  function buildMedia(url, altText, onFail){
+    if (!url) return null;
+
+    // YouTube
+    const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_\-]+)/i);
+    if (yt) {
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${yt[1]}`;
+      iframe.title = 'YouTube video player';
+      iframe.loading = 'lazy';
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen','');
+      iframe.addEventListener('error', () => { console.error('YouTube load error:', url); onFail('Video unavailable'); });
+      return iframe;
+    }
+
+    // Vimeo
+    const vm = url.match(/vimeo\.com\/(\d+)/i);
+    if (vm) {
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://player.vimeo.com/video/${vm[1]}`;
+      iframe.title = 'Vimeo video player';
+      iframe.loading = 'lazy';
+      iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+      iframe.setAttribute('allowfullscreen','');
+      iframe.addEventListener('error', () => { console.error('Vimeo load error:', url); onFail('Video unavailable'); });
+      return iframe;
+    }
+
+    // Direct file by extension
+    const clean = url.split('?')[0].split('#')[0];
+    const ext = (clean.match(/\.(\w+)$/) || [,''])[1].toLowerCase();
+    const videoTypes = { mp4:'video/mp4', webm:'video/webm', ogv:'video/ogg', mov:'video/quicktime' };
+    const imageTypes = { jpg:1, jpeg:1, png:1, gif:1, webp:1, avif:1, svg:1 };
+
+    if (ext === 'mov') {
+      // Try same-name MP4 first (better browser support)
+      const mp4Guess = clean.replace(/\.mov$/i, '.mp4') + (url.includes('?') ? '?' + url.split('?')[1] : '');
+      return makeVideo(mp4Guess, { fallbackUrl: url, onFail });
+    }
+
+    if (videoTypes[ext]) return makeVideo(url, { onFail });
+    if (imageTypes[ext] || !ext) return makeImage(url, altText);
+
+    // Unknown: try image and if it fails, show a link
+    const img = makeImage(url, altText);
+    img.addEventListener('error', () => {
+      console.warn('Unknown media type and image failed:', url);
+      onFail('Open media');
+    });
+    return img;
+  }
+
+  function makeImage(url, altText){
+    const img = document.createElement('img');
+    img.src = url;
+    img.alt = altText || 'service image';
+    img.loading = 'lazy';
+    img.addEventListener('error', () => console.error('Image failed:', url));
+    return img;
+  }
+
+  function makeVideo(url, { fallbackUrl=null, onFail=()=>{} } = {}){
+    const v = document.createElement('video');
+    v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true; v.preload = 'metadata';
+
+    const src = document.createElement('source');
+    src.src = url;
+    const guessed = url.split('?')[0].split('#')[0].split('.').pop().toLowerCase();
+    if (guessed === 'mp4') src.type = 'video/mp4';
+    else if (guessed === 'webm') src.type = 'video/webm';
+    else if (guessed === 'ogv') src.type = 'video/ogg';
+    v.appendChild(src);
+    v.appendChild(document.createTextNode('Sorry, your browser doesn’t support embedded videos.'));
+
+    v.addEventListener('loadedmetadata', () => { try { v.playbackRate = 0.7; } catch(e){} });
+    v.addEventListener('error', () => {
+      console.error('Video error:', url, v.error);
+      if (fallbackUrl && fallbackUrl !== url) {
+        console.warn('Trying MOV fallback:', fallbackUrl);
+        src.src = fallbackUrl; v.load();
+      } else {
+        // show controls so user can attempt manual play (e.g., autoplay blocked)
+        v.controls = true;
+        onFail('Video could not be loaded');
+      }
+    });
+    // If autoplay blocked, reveal controls after a moment
+    setTimeout(() => { if (v.paused) v.controls = true; }, 1200);
+    return v;
+  }
 })();
 </script>
 </body>
