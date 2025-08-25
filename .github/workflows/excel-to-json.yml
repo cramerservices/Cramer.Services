@@ -6,12 +6,12 @@ on:
       - 'Services.xlsx'                   # rerun when Excel changes
       - 'scripts/convert_services.py'     # rerun if your converter changes
       - '.github/workflows/excel-to-json.yml'
-  workflow_dispatch:                       # allow manual run from Actions tab
-  schedule:                             # optional daily run
-   - cron: '0 9 * * *'
+  workflow_dispatch:                      # manual run from Actions tab
+  schedule:                               # optional daily run
+    - cron: '0 9 * * *'                   # 09:00 UTC
 
 permissions:
-  contents: write                          # needed to push back to the repo
+  contents: write                         # needed to push back to the repo
 
 jobs:
   build:
@@ -37,12 +37,11 @@ jobs:
 
       - name: Commit data/services.json if changed
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if [ -n "$(git status --porcelain data/services.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add data/services.json
-            git commit -m "Auto-build data/services.json from Services.xlsx"
+            git commit -m "Auto-build services.json from Services.xlsx"
             git push
-          else
-            echo "No changes to commit."
           fi
+
