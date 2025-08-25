@@ -47,6 +47,15 @@
     display:block;
     border-radius:12px;
   }
+  /* NEW: make embeds fill tile */
+  .service-imgwrap iframe{
+    width:100%;
+    height:100%;
+    border:0;
+    display:block;
+    border-radius:12px;
+  }
+
   .service-overlay{
     position:absolute;inset:0;background:rgba(0,0,0,.55);color:#fff;
     opacity:0;transition:opacity .2s;display:flex;align-items:center;
@@ -114,23 +123,12 @@
     a.className = 'service-imgwrap';
     a.href = `service.html?slug=${encodeURIComponent(svc.slug || '')}`;
 
-    const isVideo = /\.(mp4|mov|webm)$/i.test(svc.image || '');
-    let media;
-    if (isVideo) {
-      media = document.createElement('video');
-      media.src = svc.image;
-      media.muted = true;
-      media.loop = true;
-      media.playsInline = true;
-      media.autoplay = true;
-      media.onloadedmetadata = () => { try { media.playbackRate = 0.3; } catch(e){} };
-    } else {
-      media = document.createElement('img');
-      media.src = svc.image;
-      media.alt = svc.name || 'Service';
-      media.loading = 'lazy';
-    }
-    a.appendChild(media);
+    // -- One column for media (same as your Excel/JSON 'image' field) --
+    const mediaUrl = (svc.image || '').trim();
+
+    // Build media element based on URL
+    const media = buildMedia(mediaUrl, svc.name || 'Service');
+    if (media) a.appendChild(media);
 
     const overlay = document.createElement('div');
     overlay.className = 'service-overlay';
@@ -151,6 +149,73 @@
 
     return art;
   };
+
+  // Create <img>, <video>, or <iframe> from a single URL
+  function buildMedia(url, altText){
+    if (!url) return null;
+
+    // YouTube
+    const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_\-]+)/i);
+    if (yt) {
+      const id = yt[1];
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${id}`;
+      iframe.title = 'YouTube video player';
+      iframe.loading = 'lazy';
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen','');
+      return iframe;
+    }
+
+    // Vimeo
+    const vm = url.match(/vimeo\.com\/(\d+)/i);
+    if (vm) {
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://player.vimeo.com/video/${vm[1]}`;
+      iframe.title = 'Vimeo video player';
+      iframe.loading = 'lazy';
+      iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+      iframe.setAttribute('allowfullscreen','');
+      return iframe;
+    }
+
+    // Direct file by extension (strip query/hash)
+    const clean = url.split('?')[0].split('#')[0];
+    const ext = (clean.match(/\.(\w+)$/) || [,''])[1].toLowerCase();
+    const videoTypes = { mp4:'video/mp4', webm:'video/webm', ogv:'video/ogg', mov:'video/quicktime' };
+    const isVideo = !!videoTypes[ext];
+
+    if (isVideo) {
+      const v = document.createElement('video');
+      v.muted = true;
+      v.loop = true;
+      v.autoplay = true;
+      v.playsInline = true;
+      v.preload = 'metadata';
+      const src = document.createElement('source');
+      src.src = url;
+      src.type = videoTypes[ext];
+      v.appendChild(src);
+
+      // Smooth slow-mo preview (best-effort)
+      v.addEventListener('loadedmetadata', () => {
+        try { v.playbackRate = 0.7; } catch(e){}
+      });
+
+      // Fallback text
+      v.appendChild(document.createTextNode('Sorry, your browser doesn’t support embedded videos.'));
+
+      return v;
+    }
+
+    // Default: image
+    const img = document.createElement('img');
+    img.src = url;
+    img.alt = altText;
+    img.loading = 'lazy';
+    return img;
+  }
 
   services.forEach(svc => grid.appendChild(makeTile(svc)));
 })();
