@@ -18,7 +18,7 @@
       "verify airflow",
       "Safety checks (gas pressure, heat exchanger, CO)"
     ],
-    "actionType": "both",
+    "actionType": "contact",
     "contactLink": "",
     "checkoutLink": ""
   },
@@ -36,7 +36,7 @@
       "often credited if repair proceeds",
       "Limited 1–5 year warranty depending on repair type"
     ],
-    "actionType": "both",
+    "actionType": "contact",
     "contactLink": "",
     "checkoutLink": ""
   },
