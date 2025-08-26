@@ -130,29 +130,35 @@
       const btnContact  = $('btnContact');
       const btnCheckout = $('btnCheckout');
 
-      const defaultContact  = `index.html#quote?service=${encodeURIComponent(svc.name || '')}`;
-      const defaultCheckout = `checkout.html?slug=${encodeURIComponent(svc.slug)}`;
+      // Build absolute base URLs to prevent hash loss
+      const origin = location.origin || (location.protocol + '//' + location.host);
+      const defaultContactBase  = `${origin}/index.html#quote`; // home page contact section
+      const defaultCheckoutHref = `${origin}/checkout.html?slug=${encodeURIComponent(svc.slug)}`;
 
-      const contactHref  = (svc.contactLink  && svc.contactLink.trim())  ? svc.contactLink  : defaultContact;
-      const checkoutHref = (svc.checkoutLink && svc.checkoutLink.trim()) ? svc.checkoutLink : defaultCheckout;
+      const userContact = (svc.contactLink  && svc.contactLink.trim())  ? svc.contactLink.trim()  : '';
+      const userCheckout= (svc.checkoutLink && svc.checkoutLink.trim()) ? svc.checkoutLink.trim() : '';
+
+      // Resolve to absolute
+      const contactBase  = toAbsolute(userContact || defaultContactBase, origin);
+      const checkoutHref = toAbsolute(userCheckout || defaultCheckoutHref, origin);
+
+      // Contact URL with ?service=...
+      const contactHrefWithService = addHashParams(contactBase, {
+        service: (svc.name || '').trim()
+      });
 
       if (type === 'contact') {
-        // CONTACT only
+        // CONTACT only → /index.html#quote?service=...
         btnContact.classList.remove('hidden');
-        btnContact.href = contactHref;
+        btnContact.href = contactHrefWithService;
       } else if (type === 'checkout') {
-        // CHECKOUT only
+        // CHECKOUT only → /checkout.html?slug=...
         btnCheckout.classList.remove('hidden');
         btnCheckout.href = checkoutHref;
         btnCheckout.textContent = 'Checkout';
       } else if (type === 'both') {
-        // SINGLE BUTTON: Continue to Checkout -> go to info form with ?next= pointing to checkout
-        const nextParam = encodeURIComponent(checkoutHref);
-        const contactWithNext = contactHref.includes('?')
-          ? `${contactHref}&next=${nextParam}`
-          : `${contactHref}?next=${nextParam}`;
-
-        // Use primary button only; hide secondary
+        // ONE BUTTON → Continue to Checkout: go to contact with next=<checkout>
+        const contactWithNext = addHashParams(contactHrefWithService, { next: checkoutHref });
         btnCheckout.classList.remove('hidden');
         btnCheckout.href = contactWithNext;
         btnCheckout.textContent = 'Continue to Checkout';
@@ -253,6 +259,30 @@
     });
     setTimeout(() => { if (v.paused) v.controls = true; }, 1200);
     return v;
+  }
+
+  // Make absolute from site origin
+  function toAbsolute(url, baseOrigin) {
+    try { return new URL(url, baseOrigin).href; } catch { return url; }
+  }
+
+  // Add/merge query params into a URL's HASH part (e.g. /index.html#quote?x=y)
+  function addHashParams(url, params) {
+    try {
+      const origin = location.origin || (location.protocol + '//' + location.host);
+      const u = new URL(url, origin);
+      const hash = u.hash || '';
+      const noHash = hash.startsWith('#') ? hash.slice(1) : hash;
+      const [hashPath, hashQs] = noHash.split('?', 2);
+      const qp = new URLSearchParams(hashQs || '');
+      Object.entries(params || {}).forEach(([k, v]) => {
+        if (v != null && String(v) !== '') qp.set(k, String(v));
+      });
+      u.hash = hashPath + (qp.toString() ? `?${qp}` : '');
+      return u.href;
+    } catch {
+      return url;
+    }
   }
 })();
 </script>
