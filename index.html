@@ -19,6 +19,9 @@
       --ring: 0 0 0 3px rgba(13,110,253,.25);
       --green:#198754;
     }
+    /* spacing for the button under each tile */
+.tile-actions{ margin-top:.6rem; }
+
     *{box-sizing:border-box}
     html,body{margin:0}
     body{font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--text)}
@@ -152,41 +155,52 @@
   </main>
 
   <!-- IMAGE TILE SERVICES -->
-  <section id="services" class="container">
-    <h2>Services</h2>
-    <p class="muted">Tap a service to see details, pricing, and booking options.</p>
+ <!-- IMAGE TILE SERVICES -->
+<section id="services" class="container">
+  <h2>Services</h2>
+  <p class="muted">Tap a service to see details, pricing, and booking options.</p>
 
-    <div class="services-tiles">
-      <!-- Tune-Up -->
-      <article class="service-tile">
-        <h3>HVAC Tune-Up</h3>
-        <a class="service-imgwrap" href="service-tuneup.html">
-          <img src="HVAC_IMG_4.JPG" alt="HVAC Tune-Up">
-          <div class="service-overlay">Seasonal maintenance to keep your system efficient, safe, and reliable.</div>
-        </a>
-      </article>
+  <div class="services-tiles">
+    <!-- Tune-Up -->
+    <article class="service-tile">
+      <h3>HVAC Tune-Up</h3>
+      <a class="service-imgwrap" href="service-tuneup.html">
+        <img src="HVAC_IMG_4.JPG" alt="HVAC Tune-Up">
+        <div class="service-overlay">Seasonal maintenance to keep your system efficient, safe, and reliable.</div>
+      </a>
+      <div class="tile-actions">
+        <a class="cta" href="ContactUs.html?service=HVAC%20Tune-Up">Contact Us</a>
+      </div>
+    </article>
 
-      <!-- Repair -->
-      <article class="service-tile">
-        <h3>HVAC Repair</h3>
-        <a class="service-imgwrap" href="service-repair.html">
-          <img src="HVAC_IMG_2.jpeg" alt="HVAC Repair">
-          <div class="service-overlay">Fast, expert diagnostics and transparent pricing for needed fixes.</div>
-        </a>
-      </article>
+    <!-- Repair -->
+    <article class="service-tile">
+      <h3>HVAC Repair</h3>
+      <a class="service-imgwrap" href="service-repair.html">
+        <img src="HVAC_IMG_2.jpeg" alt="HVAC Repair">
+        <div class="service-overlay">Fast, expert diagnostics and transparent pricing for needed fixes.</div>
+      </a>
+      <div class="tile-actions">
+        <a class="cta" href="ContactUs.html?service=HVAC%20Repair">Contact Us</a>
+      </div>
+    </article>
 
-      <!-- Install Proposal -->
-      <article class="service-tile">
-        <h3>HVAC Install Proposal (Free)</h3>
-        <a class="service-imgwrap" href="service-install.html">
-          <img src="HVAC_IMG_3.JPG" alt="HVAC Install Proposal">
-          <div class="service-overlay">On-site evaluation and written quote within 48 hours.</div>
-        </a>
-      </article>
-    </div>
+    <!-- Install Proposal -->
+    <article class="service-tile">
+      <h3>HVAC Install Proposal (Free)</h3>
+      <a class="service-imgwrap" href="service-install.html">
+        <img src="HVAC_IMG_3.JPG" alt="HVAC Install Proposal">
+        <div class="service-overlay">On-site evaluation and written quote within 48 hours.</div>
+      </a>
+      <div class="tile-actions">
+        <a class="cta" href="ContactUs.html?service=HVAC%20Install%20Proposal%20(Free)">Contact Us</a>
+      </div>
+    </article>
+  </div>
 
-    <a class="cta more-services" href="services.html">More Services</a>
-  </section>
+  <a class="cta more-services" href="services.html">More Services</a>
+</section>
+
 
   <!-- WHAT WE DO (renamed id to avoid duplicate "services") -->
   <section id="what-we-do" class="container">
