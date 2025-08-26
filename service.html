@@ -126,23 +126,37 @@
       // ----- ACTION BUTTONS via actionType -----
       // actionType: 'contact' | 'checkout' | 'both'
       const type = String(svc.actionType || '').toLowerCase().trim();
-      const wantContact  = (type === 'contact' || type === 'both');
-      const wantCheckout = (type === 'checkout' || type === 'both');
 
       const btnContact  = $('btnContact');
       const btnCheckout = $('btnCheckout');
 
-      const contactHref  = svc.contactLink  || `index.html#quote?service=${encodeURIComponent(svc.name || '')}`;
-      const checkoutHref = svc.checkoutLink || `checkout.html?slug=${encodeURIComponent(svc.slug)}`;
+      const defaultContact  = `index.html#quote?service=${encodeURIComponent(svc.name || '')}`;
+      const defaultCheckout = `checkout.html?slug=${encodeURIComponent(svc.slug)}`;
 
-      if (wantContact) {
+      const contactHref  = (svc.contactLink  && svc.contactLink.trim())  ? svc.contactLink  : defaultContact;
+      const checkoutHref = (svc.checkoutLink && svc.checkoutLink.trim()) ? svc.checkoutLink : defaultCheckout;
+
+      if (type === 'contact') {
+        // CONTACT only
         btnContact.classList.remove('hidden');
         btnContact.href = contactHref;
-      }
-      if (wantCheckout) {
+      } else if (type === 'checkout') {
+        // CHECKOUT only
         btnCheckout.classList.remove('hidden');
         btnCheckout.href = checkoutHref;
         btnCheckout.textContent = 'Checkout';
+      } else if (type === 'both') {
+        // SINGLE BUTTON: Continue to Checkout -> go to info form with ?next= pointing to checkout
+        const nextParam = encodeURIComponent(checkoutHref);
+        const contactWithNext = contactHref.includes('?')
+          ? `${contactHref}&next=${nextParam}`
+          : `${contactHref}?next=${nextParam}`;
+
+        // Use primary button only; hide secondary
+        btnCheckout.classList.remove('hidden');
+        btnCheckout.href = contactWithNext;
+        btnCheckout.textContent = 'Continue to Checkout';
+        btnContact.classList.add('hidden');
       }
     })
     .catch(()=>{
