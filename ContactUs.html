@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Book HVAC Tune-Up — $75</title>
+<title>Book Service</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -23,10 +23,10 @@
 <body>
   <div class="wrap">
     <div class="card">
-      <h1>Book HVAC Tune-Up <span class="muted">— $75 (on sale from $100)</span></h1>
-      <p class="muted">Fill this out and we’ll reserve your tune-up. You’ll complete payment on the next page.</p>
+      <h1 id="pageTitle">Book Service</h1>
+      <p id="pageSub" class="muted">Fill this out and we’ll reserve your service. You’ll complete payment on the next page.</p>
 
-      <form id="tuneForm" novalidate>
+      <form id="bookForm" novalidate>
         <div class="row">
           <input name="name"  placeholder="Full Name" required>
           <input name="phone" placeholder="Phone" required>
@@ -36,65 +36,106 @@
           <input name="date"  type="date"  placeholder="Preferred Date (optional)">
         </div>
         <input name="address" placeholder="Service Address (Street, City, State)" required>
-        <textarea name="notes" rows="4" placeholder="System details / access notes (optional)"></textarea>
+        <textarea name="notes" rows="4" placeholder="Details (brand/model, symptoms, access notes, etc.)"></textarea>
 
-        <button class="cta" type="submit">Continue to Payment</button>
+        <button class="cta" type="submit">Continue</button>
         <p id="msg" class="muted" aria-live="polite"></p>
       </form>
     </div>
-    <p class="muted" style="margin:.8rem 0 0">You’ll be redirected to our secure payment page.</p>
+    <p class="muted" style="margin:.8rem 0 0">If applicable, you’ll be redirected to our secure payment page.</p>
   </div>
 
   <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
-    // === USE YOUR EXISTING KEYS (same as index.html) ===
-    const EMAILJS_PUBLIC_KEY = 'TDIki3rqftcomcjJC';
-    const EMAILJS_SERVICE_ID = 'service_ebrskb5';
-    const EMAILJS_TEMPLATE_ID = 'template_b95xw46'; // set your template to expect fields below
+    // === Use your existing keys ===
+    const EMAILJS_PUBLIC_KEY  = 'TDIki3rqftcomcjJC';
+    const EMAILJS_SERVICE_ID  = 'service_ebrskb5';
+    const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
 
-    const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/REPLACE_WITH_YOUR_PAYMENT_LINK'; // <-- change this
-
+    // Utility
+    const $$ = sel => document.querySelector(sel);
     function show(text, err=false){
-      const el = document.getElementById('msg');
+      const el = $$('#msg');
       el.textContent = text;
       el.style.color = err ? '#dc3545' : '#6c757d';
     }
+    function fmtUSD(n){
+      const v = Number(n);
+      return isFinite(v) ? v.toLocaleString(undefined, { style:'currency', currency:'USD' }) : '';
+    }
 
-    document.addEventListener('DOMContentLoaded', ()=>{
+    // Read URL params
+    const params = new URLSearchParams(location.search);
+    const serviceName = params.get('service') || 'Service';
+    const rawPrice    = params.get('price'); // optional
+    const nextUrl     = params.get('next');  // optional checkout redirect
+    const slug        = params.get('slug');  // optional
+
+    // Update title & subtitle
+    (function(){
+      const title = $$('#pageTitle');
+      const sub   = $$('#pageSub');
+
+      let priceText = '';
+      if (rawPrice && rawPrice.trim() !== '' && !isNaN(Number(rawPrice))) {
+        priceText = ' — ' + fmtUSD(rawPrice);
+      }
+      title.textContent = `Book ${serviceName}${priceText}`;
+      // If no next URL, tweak subcopy
+      if (!nextUrl) {
+        sub.textContent = 'Fill this out and we’ll reach out to confirm details and scheduling.';
+      }
+    })();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!window.emailjs) {
+        console.error('EmailJS SDK failed to load');
+        show('Could not load mail service. Please refresh and try again.', true);
+        return;
+      }
       emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
-      const f = document.getElementById('tuneForm');
-      f.addEventListener('submit', async (e)=>{
+      const f = $$('#bookForm');
+      f.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const data = {
-          subject: 'HVAC Tune-Up Booking — $75',
-          name:   f.name.value.trim(),
-          phone:  f.phone.value.trim(),
-          email:  f.email.value.trim(),
-          date:   f.date.value,
-          address:f.address.value.trim(),
-          notes:  f.notes.value.trim(),
-          service:'HVAC Tune-Up ($75)',
-          time:   new Date().toLocaleString()
+          subject: `Booking — ${serviceName}`,
+          service: serviceName,
+          price:   rawPrice || '',
+          slug:    slug || '',
+          name:    (f.name.value || '').trim(),
+          phone:   (f.phone.value || '').trim(),
+          email:   (f.email.value || '').trim(),
+          date:     f.date.value || '',
+          address: (f.address.value || '').trim(),
+          notes:   (f.notes.value || '').trim(),
+          time:    new Date().toLocaleString()
         };
 
-        if(!data.name || !data.phone || !data.email || !data.address){
+        if (!data.name || !data.phone || !data.email || !data.address) {
           show('Please complete all required fields.', true); return;
         }
 
         const btn = f.querySelector('button[type="submit"]');
         const prev = btn.textContent; btn.disabled = true; btn.textContent = 'Submitting…'; show('');
 
-        try{
+        try {
           await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
-          // Go to payment page
-          window.location.href = STRIPE_PAYMENT_LINK;
-        }catch(err){
+
+          if (nextUrl) {
+            // Redirect to checkout / Stripe
+            window.location.href = nextUrl;
+          } else {
+            // No checkout — simple thank you
+            show('Thanks! Your request has been sent. We’ll contact you shortly.');
+            f.reset();
+          }
+        } catch (err) {
           console.error(err);
           show('Could not submit. Please try again or email cramerservicesllc@gmail.com', true);
-        }finally{
+        } finally {
           btn.disabled = false; btn.textContent = prev;
         }
       });
@@ -102,3 +143,4 @@
   </script>
 </body>
 </html>
+
