@@ -18,8 +18,9 @@
       "verify airflow",
       "Safety checks (gas pressure, heat exchanger, CO)"
     ],
-    "contact": true,
-    "payment": true
+    "actionType": "both",
+    "contactLink": "",
+    "checkoutLink": ""
   },
   {
     "slug": "hvac-repair",
@@ -35,14 +36,15 @@
       "often credited if repair proceeds",
       "Limited 1–5 year warranty depending on repair type"
     ],
-    "contact": true,
-    "payment": true
+    "actionType": "both",
+    "contactLink": "",
+    "checkoutLink": ""
   },
   {
     "slug": "fiber-sedan",
     "name": "Fiber Optic Lights Sedan",
-    "price": 999.0,
-    "salePrice": 800.0,
+    "price": 800.0,
+    "salePrice": 999.0,
     "image": "IMG_1353.jpg",
     "description": "Star-ceiling headliner with RGBW twinkle & music-sync. Professional install",
     "bullets": [
@@ -53,8 +55,9 @@
       "Install typically completed in 2 days for sedans (vehicle-dependent).",
       "Warranty on workmanship."
     ],
-    "contact": true,
-    "payment": false
+    "actionType": "contact",
+    "contactLink": "",
+    "checkoutLink": ""
   },
   {
     "slug": "hvac-install Proposal",
@@ -68,14 +71,15 @@
       "Equipment options tailored to space, budget, and comfort goals",
       "Clear installation plan and timeline"
     ],
-    "contact": true,
-    "payment": false
+    "actionType": "contact",
+    "contactLink": "",
+    "checkoutLink": ""
   },
   {
     "slug": "fiber-suv",
     "name": "Fiber Optic Lights Sedan",
-    "price": 1200.0,
-    "salePrice": 1000.0,
+    "price": 1000.0,
+    "salePrice": 1200.0,
     "image": "IMG_1353.jpg",
     "description": "Star-ceiling headliner with RGBW twinkle & music-sync. Professional install",
     "bullets": [
@@ -86,7 +90,8 @@
       "Install typically completed in 2 days for sedans (vehicle-dependent).",
       "Warranty on workmanship."
     ],
-    "contact": true,
-    "payment": false
+    "actionType": "contact",
+    "contactLink": "",
+    "checkoutLink": ""
   }
 ]
