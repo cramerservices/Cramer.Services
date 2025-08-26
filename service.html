@@ -26,7 +26,6 @@
   .product{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem}
   @media (max-width: 900px){.product{grid-template-columns:1fr}}
   .media-box img,.media-box video{width:100%;height:auto;border-radius:12px;object-fit:cover;aspect-ratio:4/3;display:block}
-  /* NEW: make iframes behave like the video/image */
   .media-box iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:12px;display:block}
   h1{margin:.25rem 0 .25rem;font-size:1.8rem}
   .price{font-weight:800;font-size:1.25rem;margin:.35rem 0}
@@ -124,31 +123,23 @@
       });
       if (mediaEl) box.appendChild(mediaEl);
 
-      // ----- ACTION BUTTONS -----
-      // Uses your current schema flags:
-      // contact_us: "yes"/"no"  |  payment: "yes"/"no"
-      const wantsContact = String(svc.contact_us || '').toLowerCase() === 'yes';
-      const wantsPayment = String(svc.payment    || '').toLowerCase() === 'yes';
+      // ----- ACTION BUTTONS via actionType -----
+      // actionType: 'contact' | 'checkout' | 'both'
+      const type = String(svc.actionType || '').toLowerCase().trim();
+      const wantContact  = (type === 'contact' || type === 'both');
+      const wantCheckout = (type === 'checkout' || type === 'both');
 
       const btnContact  = $('btnContact');
       const btnCheckout = $('btnCheckout');
 
-      const contactHref  = `index.html#quote?service=${encodeURIComponent(svc.name || '')}`;
-      const checkoutHref = `checkout.html?slug=${encodeURIComponent(svc.slug)}`;
+      const contactHref  = svc.contactLink  || `index.html#quote?service=${encodeURIComponent(svc.name || '')}`;
+      const checkoutHref = svc.checkoutLink || `checkout.html?slug=${encodeURIComponent(svc.slug)}`;
 
-      if (wantsContact && wantsPayment) {
-        // BOTH buttons visible
-        btnContact.classList.remove('hidden');
-        btnCheckout.classList.remove('hidden');
-        btnContact.href  = contactHref;
-        btnCheckout.href = checkoutHref;
-        btnCheckout.textContent = 'Checkout';
-      } else if (wantsContact) {
-        // CONTACT only
+      if (wantContact) {
         btnContact.classList.remove('hidden');
         btnContact.href = contactHref;
-      } else if (wantsPayment) {
-        // CHECKOUT only
+      }
+      if (wantCheckout) {
         btnCheckout.classList.remove('hidden');
         btnCheckout.href = checkoutHref;
         btnCheckout.textContent = 'Checkout';
@@ -242,12 +233,10 @@
         console.warn('Trying MOV fallback:', fallbackUrl);
         src.src = fallbackUrl; v.load();
       } else {
-        // show controls so user can attempt manual play (e.g., autoplay blocked)
         v.controls = true;
         onFail('Video could not be loaded');
       }
     });
-    // If autoplay blocked, reveal controls after a moment
     setTimeout(() => { if (v.paused) v.controls = true; }, 1200);
     return v;
   }
