@@ -123,44 +123,50 @@
       });
       if (mediaEl) box.appendChild(mediaEl);
 
-      // ----- ACTION BUTTONS via actionType -----
+      // ===== ACTION BUTTONS via actionType -> ALWAYS go to ContactUs.html =====
       // actionType: 'contact' | 'checkout' | 'both'
       const type = String(svc.actionType || '').toLowerCase().trim();
 
       const btnContact  = $('btnContact');
       const btnCheckout = $('btnCheckout');
 
-      // Build absolute base URLs to prevent hash loss
       const origin = location.origin || (location.protocol + '//' + location.host);
-      const defaultContactBase  = `${origin}/index.html#quote`; // home page contact section
-      const defaultCheckoutHref = `${origin}/checkout.html?slug=${encodeURIComponent(svc.slug)}`;
+      const contactPage = new URL('/ContactUs.html', origin).href;
 
-      const userContact = (svc.contactLink  && svc.contactLink.trim())  ? svc.contactLink.trim()  : '';
-      const userCheckout= (svc.checkoutLink && svc.checkoutLink.trim()) ? svc.checkoutLink.trim() : '';
+      // determine display price (prefer sale if lower)
+      const basePrice = Number(svc.price || 0);
+      const salePrice = Number(svc.sales_price || svc.salePrice || 0);
+      const displayPrice = (salePrice && salePrice > 0 && (!basePrice || salePrice < basePrice))
+        ? salePrice : (basePrice || '');
 
-      // Resolve to absolute
-      const contactBase  = toAbsolute(userContact || defaultContactBase, origin);
-      const checkoutHref = toAbsolute(userCheckout || defaultCheckoutHref, origin);
+      // default checkout (can be overridden by checkoutLink)
+      const defaultCheckoutHref = new URL(`/checkout.html?slug=${encodeURIComponent(svc.slug)}`, origin).href;
+      const checkoutHref = (svc.checkoutLink && svc.checkoutLink.trim())
+        ? new URL(svc.checkoutLink, origin).href
+        : defaultCheckoutHref;
 
-      // Contact URL with ?service=...
-      const contactHrefWithService = addHashParams(contactBase, {
-        service: (svc.name || '').trim()
-      });
+      function buildContactUrl(includeNext){
+        const u = new URL(contactPage);
+        if (svc.name) u.searchParams.set('service', svc.name);
+        if (displayPrice !== '') u.searchParams.set('price', String(displayPrice));
+        if (svc.slug) u.searchParams.set('slug', svc.slug);
+        if (includeNext) u.searchParams.set('next', checkoutHref);
+        return u.href;
+      }
 
       if (type === 'contact') {
-        // CONTACT only → /index.html#quote?service=...
+        // CONTACT only → ContactUs.html (no next)
         btnContact.classList.remove('hidden');
-        btnContact.href = contactHrefWithService;
+        btnContact.href = buildContactUrl(false);
       } else if (type === 'checkout') {
-        // CHECKOUT only → /checkout.html?slug=...
+        // CHECKOUT only → ContactUs.html with next=checkout
         btnCheckout.classList.remove('hidden');
-        btnCheckout.href = checkoutHref;
-        btnCheckout.textContent = 'Checkout';
+        btnCheckout.href = buildContactUrl(true);
+        btnCheckout.textContent = 'Proceed to Checkout';
       } else if (type === 'both') {
-        // ONE BUTTON → Continue to Checkout: go to contact with next=<checkout>
-        const contactWithNext = addHashParams(contactHrefWithService, { next: checkoutHref });
+        // ONE primary button → Continue to Checkout (contact + next)
         btnCheckout.classList.remove('hidden');
-        btnCheckout.href = contactWithNext;
+        btnCheckout.href = buildContactUrl(true);
         btnCheckout.textContent = 'Continue to Checkout';
         btnContact.classList.add('hidden');
       }
@@ -181,110 +187,4 @@
       iframe.title = 'YouTube video player';
       iframe.loading = 'lazy';
       iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-      iframe.setAttribute('allowfullscreen','');
-      iframe.addEventListener('error', () => { console.error('YouTube load error:', url); onFail('Video unavailable'); });
-      return iframe;
-    }
-
-    // Vimeo
-    const vm = url.match(/vimeo\.com\/(\d+)/i);
-    if (vm) {
-      const iframe = document.createElement('iframe');
-      iframe.src = `https://player.vimeo.com/video/${vm[1]}`;
-      iframe.title = 'Vimeo video player';
-      iframe.loading = 'lazy';
-      iframe.allow = 'autoplay; fullscreen; picture-in-picture';
-      iframe.setAttribute('allowfullscreen','');
-      iframe.addEventListener('error', () => { console.error('Vimeo load error:', url); onFail('Video unavailable'); });
-      return iframe;
-    }
-
-    // Direct file by extension
-    const clean = url.split('?')[0].split('#')[0];
-    const ext = (clean.match(/\.(\w+)$/) || [,''])[1].toLowerCase();
-    const videoTypes = { mp4:'video/mp4', webm:'video/webm', ogv:'video/ogg', mov:'video/quicktime' };
-    const imageTypes = { jpg:1, jpeg:1, png:1, gif:1, webp:1, avif:1, svg:1 };
-
-    if (ext === 'mov') {
-      // Try same-name MP4 first (better browser support)
-      const mp4Guess = clean.replace(/\.mov$/i, '.mp4') + (url.includes('?') ? '?' + url.split('?')[1] : '');
-      return makeVideo(mp4Guess, { fallbackUrl: url, onFail });
-    }
-
-    if (videoTypes[ext]) return makeVideo(url, { onFail });
-    if (imageTypes[ext] || !ext) return makeImage(url, altText);
-
-    // Unknown: try image and if it fails, show a link
-    const img = makeImage(url, altText);
-    img.addEventListener('error', () => {
-      console.warn('Unknown media type and image failed:', url);
-      onFail('Open media');
-    });
-    return img;
-  }
-
-  function makeImage(url, altText){
-    const img = document.createElement('img');
-    img.src = url;
-    img.alt = altText || 'service image';
-    img.loading = 'lazy';
-    img.addEventListener('error', () => console.error('Image failed:', url));
-    return img;
-  }
-
-  function makeVideo(url, { fallbackUrl=null, onFail=()=>{} } = {}){
-    const v = document.createElement('video');
-    v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true; v.preload = 'metadata';
-
-    const src = document.createElement('source');
-    src.src = url;
-    const guessed = url.split('?')[0].split('#')[0].split('.').pop().toLowerCase();
-    if (guessed === 'mp4') src.type = 'video/mp4';
-    else if (guessed === 'webm') src.type = 'video/webm';
-    else if (guessed === 'ogv') src.type = 'video/ogg';
-    v.appendChild(src);
-    v.appendChild(document.createTextNode('Sorry, your browser doesn’t support embedded videos.'));
-
-    v.addEventListener('loadedmetadata', () => { try { v.playbackRate = 0.7; } catch(e){} });
-    v.addEventListener('error', () => {
-      console.error('Video error:', url, v.error);
-      if (fallbackUrl && fallbackUrl !== url) {
-        console.warn('Trying MOV fallback:', fallbackUrl);
-        src.src = fallbackUrl; v.load();
-      } else {
-        v.controls = true;
-        onFail('Video could not be loaded');
-      }
-    });
-    setTimeout(() => { if (v.paused) v.controls = true; }, 1200);
-    return v;
-  }
-
-  // Make absolute from site origin
-  function toAbsolute(url, baseOrigin) {
-    try { return new URL(url, baseOrigin).href; } catch { return url; }
-  }
-
-  // Add/merge query params into a URL's HASH part (e.g. /index.html#quote?x=y)
-  function addHashParams(url, params) {
-    try {
-      const origin = location.origin || (location.protocol + '//' + location.host);
-      const u = new URL(url, origin);
-      const hash = u.hash || '';
-      const noHash = hash.startsWith('#') ? hash.slice(1) : hash;
-      const [hashPath, hashQs] = noHash.split('?', 2);
-      const qp = new URLSearchParams(hashQs || '');
-      Object.entries(params || {}).forEach(([k, v]) => {
-        if (v != null && String(v) !== '') qp.set(k, String(v));
-      });
-      u.hash = hashPath + (qp.toString() ? `?${qp}` : '');
-      return u.href;
-    } catch {
-      return url;
-    }
-  }
-})();
-</script>
-</body>
-</html>
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-i
