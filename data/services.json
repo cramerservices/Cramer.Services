@@ -2,8 +2,8 @@
   {
     "slug": "hvac-tuneup",
     "name": "HVAC Tune-Up",
-    "price": 100.0,
-    "salePrice": 75.0,
+    "price": 75.0,
+    "salePrice": 100.0,
     "image": "HVAC_IMG_4.JPG",
     "description": "Seasonal maintenance to keep your system efficient, safe, and reliable",
     "bullets": [
@@ -25,8 +25,8 @@
   {
     "slug": "hvac-repair",
     "name": "HVAC Repair",
-    "price": 150.0,
-    "salePrice": 100.0,
+    "price": 100.0,
+    "salePrice": 150.0,
     "image": "HVAC_IMG_2.jpeg",
     "description": "Fast, expert diagnostics and transparent pricing for needed fixes",
     "bullets": [
@@ -62,8 +62,8 @@
   {
     "slug": "hvac-install Proposal",
     "name": "HVAC Install Proposal",
-    "price": 0.0,
-    "salePrice": 0.0,
+    "price": null,
+    "salePrice": 100.0,
     "image": "HVAC_IMG_3.JPG",
     "description": "On-site evaluation and written quote within 48 hours",
     "bullets": [
@@ -89,6 +89,36 @@
       "Hidden wiring and fused power with OEM-style protection.",
       "Install typically completed in 2 days for sedans (vehicle-dependent).",
       "Warranty on workmanship."
+    ],
+    "actionType": "contact",
+    "contactLink": "",
+    "checkoutLink": ""
+  },
+  {
+    "slug": "Other",
+    "name": "Other",
+    "price": null,
+    "salePrice": null,
+    "image": "Cramer-Logo.png",
+    "description": "If you don’t see a service that matches your needs, select this option and our team will review your request to let you know how we can help",
+    "bullets": [
+      "If you don’t see a service that matches your needs, select this option and our team will review your request to let you know how we can help"
+    ],
+    "actionType": "contact",
+    "contactLink": "",
+    "checkoutLink": ""
+  },
+  {
+    "slug": "Vinal-Flooring-Proposal",
+    "name": "VInal Flooring Proposal",
+    "price": null,
+    "salePrice": 100.0,
+    "image": "Flooring.jpeg",
+    "description": "On-site evaluation and written quote within 48 hours",
+    "bullets": [
+      "Professional on-site measurement and evaluation of your flooring space",
+      "Product options tailored to design preferences, durability needs, and budget",
+      "Clear installation plan, timeline, and transparent cost estimate"
     ],
     "actionType": "contact",
     "contactLink": "",
