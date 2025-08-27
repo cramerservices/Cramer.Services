@@ -42,9 +42,9 @@
   },
   {
     "slug": "fiber-sedan",
-    "name": "Fiber Optic Lights Sedan",
-    "price": 800.0,
-    "salePrice": 999.0,
+    "name": "Fiber Optic Lights Sedan Proposal",
+    "price": 0.0,
+    "salePrice": null,
     "image": "IMG_1353.jpg",
     "description": "Star-ceiling headliner with RGBW twinkle & music-sync. Professional install",
     "bullets": [
@@ -77,9 +77,9 @@
   },
   {
     "slug": "fiber-suv",
-    "name": "Fiber Optic Lights Sedan",
-    "price": 1000.0,
-    "salePrice": 1200.0,
+    "name": "Fiber Optic Lights SUV Proposal",
+    "price": 0.0,
+    "salePrice": null,
     "image": "IMG_1353.jpg",
     "description": "Star-ceiling headliner with RGBW twinkle & music-sync. Professional install",
     "bullets": [
