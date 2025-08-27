@@ -89,43 +89,32 @@
       $('svcName').textContent = svc.name || 'Service';
       $('crumbName').textContent = svc.name || 'Service';
 
-  // Price (supports "Free")
-const priceBox = $('price');
+      // ---------- Price (supports "Free") ----------
+      const priceBox = $('price');
+      const rawPrice = (svc.price ?? '').toString().trim();
+      const rawSale  = (svc.sales_price ?? svc.salePrice ?? '').toString().trim();
+      const isFree     = rawPrice.toLowerCase() === 'free';
+      const isSaleFree = rawSale.toLowerCase() === 'free';
+      const fmt = n => Number(n).toLocaleString(undefined,{style:'currency',currency:'USD'});
 
-// Read raw strings first
-const rawPrice = (svc.price ?? '').toString().trim();
-const rawSale  = (svc.sales_price ?? svc.salePrice ?? '').toString().trim();
-
-const isFree      = rawPrice.toLowerCase() === 'free';
-const isSaleFree  = rawSale.toLowerCase() === 'free';
-
-function fmt(n){ return Number(n).toLocaleString(undefined,{style:'currency',currency:'USD'}); }
-
-if (isSaleFree) {
-  // sale says "Free"
-  const pNum = Number(rawPrice);
-  if (Number.isFinite(pNum) && pNum > 0) {
-    priceBox.innerHTML = `Free <s>${fmt(pNum)}</s>`;
-  } else {
-    priceBox.textContent = 'Free';
-  }
-} else if (isFree) {
-  // regular price says "Free"
-  priceBox.textContent = 'Free';
-} else {
-  // numeric cases
-  const pNum  = Number(rawPrice);
-  const spNum = Number(rawSale);
-  if (Number.isFinite(spNum) && Number.isFinite(pNum) && spNum > 0 && spNum < pNum) {
-    priceBox.innerHTML = `${fmt(spNum)} <s>${fmt(pNum)}</s>`;
-  } else if (Number.isFinite(pNum) && pNum > 0) {
-    priceBox.textContent = fmt(pNum);
-  } else {
-    priceBox.textContent = ''; // nothing to show
-  }
-}
-
-
+      if (isSaleFree) {
+        const pNum = Number(rawPrice);
+        if (Number.isFinite(pNum) && pNum > 0) priceBox.innerHTML = `Free <s>${fmt(pNum)}</s>`;
+        else priceBox.textContent = 'Free';
+      } else if (isFree) {
+        priceBox.textContent = 'Free';
+      } else {
+        const pNum  = Number(rawPrice);
+        const spNum = Number(rawSale);
+        if (Number.isFinite(spNum) && Number.isFinite(pNum) && spNum > 0 && spNum < pNum) {
+          priceBox.innerHTML = `${fmt(spNum)} <s>${fmt(pNum)}</s>`;
+        } else if (Number.isFinite(pNum) && pNum > 0) {
+          priceBox.textContent = fmt(pNum);
+        } else {
+          priceBox.textContent = '';
+        }
+      }
+      // ---------------------------------------------
 
       // Description
       $('desc').textContent = svc.description || '';
@@ -138,7 +127,7 @@ if (isSaleFree) {
         ul.appendChild(li);
       });
 
-      // ----- MEDIA (image OR video OR YouTube/Vimeo) from the same 'image' field -----
+      // ----- MEDIA (image OR video OR YouTube/Vimeo) -----
       const box = $('mediaBox');
       const mediaUrl = (svc.image || '').trim();
       const mediaEl = buildMedia(mediaUrl, svc.name || 'Service', msg => {
@@ -159,11 +148,18 @@ if (isSaleFree) {
       const origin = location.origin || (location.protocol + '//' + location.host);
       const contactPage = new URL('/ContactUs.html', origin).href;
 
-      // determine display price (prefer sale if lower)
-      const basePrice = Number(svc.price || 0);
-      const salePrice = Number(svc.sales_price || svc.salePrice || 0);
-      const displayPrice = (salePrice && salePrice > 0 && (!basePrice || salePrice < basePrice))
-        ? salePrice : (basePrice || '');
+      // ✅ Determine display price for URL (supports "Free")
+      const rp = (svc.price ?? '').toString().trim();
+      const rs = (svc.sales_price ?? svc.salePrice ?? '').toString().trim();
+      let displayPrice = '';
+      if (rs.toLowerCase() === 'free' || rp.toLowerCase() === 'free') {
+        displayPrice = 'Free';
+      } else {
+        const p  = Number(rp);
+        const sp = Number(rs);
+        if (Number.isFinite(sp) && Number.isFinite(p) && sp > 0 && sp < p) displayPrice = sp;
+        else if (Number.isFinite(p) && p > 0) displayPrice = p;
+      }
 
       // default checkout (can be overridden by checkoutLink)
       const defaultCheckoutHref = new URL(`/checkout.html?slug=${encodeURIComponent(svc.slug)}`, origin).href;
@@ -186,7 +182,6 @@ if (isSaleFree) {
       // Show checkout/continue button per actionType (Contact Us stays visible for all)
       if (type === 'checkout') {
         btnCheckout.classList.remove('hidden');
-        // Go to ContactUs first, with next=<checkout> so it redirects after submit
         const u = new URL(contactUrl);
         u.searchParams.set('next', checkoutHref);
         btnCheckout.href = u.href;
@@ -242,7 +237,6 @@ if (isSaleFree) {
     const imageTypes = { jpg:1, jpeg:1, png:1, gif:1, webp:1, avif:1, svg:1 };
 
     if (ext === 'mov') {
-      // Try same-name MP4 first (better browser support)
       const mp4Guess = clean.replace(/\.mov$/i, '.mp4') + (url.includes('?') ? '?' + url.split('?')[1] : '');
       return makeVideo(mp4Guess, { fallbackUrl: url, onFail });
     }
@@ -250,7 +244,6 @@ if (isSaleFree) {
     if (videoTypes[ext]) return makeVideo(url, { onFail });
     if (imageTypes[ext] || !ext) return makeImage(url, altText);
 
-    // Unknown: try image and if it fails, show a link
     const img = makeImage(url, altText);
     img.addEventListener('error', () => {
       console.warn('Unknown media type and image failed:', url);
