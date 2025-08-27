@@ -89,19 +89,24 @@
       $('svcName').textContent = svc.name || 'Service';
       $('crumbName').textContent = svc.name || 'Service';
 
-      // ---------- Price (supports "Free" or number) ----------
+      // ---------- Price (supports "Free" or 0) ----------
       const priceBox = $('price');
 
-      // Normalize incoming values (could be number, "Free", or null)
       const rawPrice = (svc.price ?? '').toString().trim();
       const rawSale  = (svc.sales_price ?? svc.salePrice ?? '').toString().trim();
 
-      const isFree     = rawPrice.toLowerCase() === 'free';
-      const isSaleFree = rawSale.toLowerCase() === 'free';
+      const isZero = v => {
+        if (v === '') return false;
+        const n = Number(v);
+        return Number.isFinite(n) && n === 0;
+      };
+
+      const isFree     = rawPrice.toLowerCase() === 'free' || isZero(rawPrice);
+      const isSaleFree = rawSale.toLowerCase() === 'free'  || isZero(rawSale);
+
       const fmt = n => Number(n).toLocaleString(undefined,{style:'currency',currency:'USD'});
 
       if (isSaleFree) {
-        // Sale is explicitly "Free" — show Free and strike the original if numeric
         const pNum = Number(rawPrice);
         priceBox.innerHTML = Number.isFinite(pNum) && pNum > 0 ? `Free <s>${fmt(pNum)}</s>` : 'Free';
       } else if (isFree) {
@@ -117,7 +122,7 @@
           priceBox.textContent = '';
         }
       }
-      // -------------------------------------------------------
+      // ---------------------------------------------------
 
       // Description
       $('desc').textContent = svc.description || '';
@@ -130,7 +135,7 @@
         ul.appendChild(li);
       });
 
-      // ----- MEDIA (image OR video OR YouTube/Vimeo) from the same 'image' field -----
+      // ----- MEDIA (image OR video OR YouTube/Vimeo) -----
       const box = $('mediaBox');
       const mediaUrl = (svc.image || '').trim();
       const mediaEl = buildMedia(mediaUrl, svc.name || 'Service', msg => {
@@ -151,11 +156,15 @@
       const origin = location.origin || (location.protocol + '//' + location.host);
       const contactPage = new URL('/ContactUs.html', origin).href;
 
-      // Determine display price for URL (supports "Free")
+      // Determine display price for URL (supports "Free" or 0)
       const rp = (svc.price ?? '').toString().trim();
       const rs = (svc.sales_price ?? svc.salePrice ?? '').toString().trim();
+
+      const rpFree = rp.toLowerCase() === 'free' || isZero(rp);
+      const rsFree = rs.toLowerCase() === 'free' || isZero(rs);
+
       let displayPrice = '';
-      if (rs.toLowerCase() === 'free' || rp.toLowerCase() === 'free') {
+      if (rpFree || rsFree) {
         displayPrice = 'Free';
       } else {
         const p  = Number(rp);
@@ -247,7 +256,6 @@
     if (videoTypes[ext]) return makeVideo(url, { onFail });
     if (imageTypes[ext] || !ext) return makeImage(url, altText);
 
-    // Unknown: try image and if it fails, show a link
     const img = makeImage(url, altText);
     img.addEventListener('error', () => {
       console.warn('Unknown media type and image failed:', url);
