@@ -89,17 +89,41 @@
       $('svcName').textContent = svc.name || 'Service';
       $('crumbName').textContent = svc.name || 'Service';
 
-      // Price
-      const priceBox = $('price');
-      const p  = Number(svc.price || 0);
-      const sp = Number(svc.sales_price || svc.salePrice || 0);
-      if (sp && sp < p) {
-        priceBox.innerHTML = `$${sp.toFixed(2)} <s>$${p.toFixed(2)}</s>`;
-      } else if (p) {
-        priceBox.textContent = `$${p.toFixed(2)}`;
-      } else {
-        priceBox.textContent = '';
-      }
+    // Price (supports "Free" as a string)
+const priceBox = $('price');
+
+// Read as strings first
+const rawPrice = (svc.price ?? '').toString().trim();
+const rawSale  = (svc.sales_price ?? svc.salePrice ?? '').toString().trim();
+
+const isFree      = rawPrice.toLowerCase() === 'free';
+const isSaleFree  = rawSale.toLowerCase() === 'free';
+
+if (isSaleFree) {
+  // Sale price is "Free"
+  const pNum = Number(rawPrice);
+  if (Number.isFinite(pNum) && pNum > 0) {
+    priceBox.innerHTML = `Free <s>$${pNum.toFixed(2)}</s>`;
+  } else {
+    priceBox.textContent = 'Free';
+  }
+} else if (isFree) {
+  // Regular price is "Free"
+  priceBox.textContent = 'Free';
+} else {
+  // Regular numeric display
+  const pNum = Number(rawPrice);
+  const spNum = Number(rawSale);
+
+  if (Number.isFinite(spNum) && Number.isFinite(pNum) && spNum > 0 && spNum < pNum) {
+    priceBox.innerHTML = `$${spNum.toFixed(2)} <s>$${pNum.toFixed(2)}</s>`;
+  } else if (Number.isFinite(pNum) && pNum > 0) {
+    priceBox.textContent = `$${pNum.toFixed(2)}`;
+  } else {
+    priceBox.textContent = ''; // nothing
+  }
+}
+
 
       // Description
       $('desc').textContent = svc.description || '';
