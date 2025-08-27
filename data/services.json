@@ -63,7 +63,7 @@
     "slug": "hvac-install Proposal",
     "name": "HVAC Install Proposal",
     "price": null,
-    "salePrice": 100.0,
+    "salePrice": null,
     "image": "HVAC_IMG_3.JPG",
     "description": "On-site evaluation and written quote within 48 hours",
     "bullets": [
@@ -112,7 +112,7 @@
     "slug": "Vinal-Flooring-Proposal",
     "name": "VInal Flooring Proposal",
     "price": null,
-    "salePrice": 100.0,
+    "salePrice": null,
     "image": "Flooring.jpeg",
     "description": "On-site evaluation and written quote within 48 hours",
     "bullets": [
