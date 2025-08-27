@@ -62,8 +62,8 @@
   {
     "slug": "hvac-install Proposal",
     "name": "HVAC Install Proposal",
-    "price": null,
-    "salePrice": null,
+    "price": "Free",
+    "salePrice": "Free",
     "image": "HVAC_IMG_3.JPG",
     "description": "On-site evaluation and written quote within 48 hours",
     "bullets": [
@@ -97,8 +97,8 @@
   {
     "slug": "Other",
     "name": "Other",
-    "price": null,
-    "salePrice": null,
+    "price": "Free",
+    "salePrice": "Free",
     "image": "Cramer-Logo.png",
     "description": "If you don’t see a service that matches your needs, select this option and our team will review your request to let you know how we can help",
     "bullets": [
@@ -111,8 +111,8 @@
   {
     "slug": "Vinal-Flooring-Proposal",
     "name": "VInal Flooring Proposal",
-    "price": null,
-    "salePrice": null,
+    "price": "Free",
+    "salePrice": "Free",
     "image": "Flooring.jpeg",
     "description": "On-site evaluation and written quote within 48 hours",
     "bullets": [
