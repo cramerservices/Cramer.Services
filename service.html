@@ -89,40 +89,42 @@
       $('svcName').textContent = svc.name || 'Service';
       $('crumbName').textContent = svc.name || 'Service';
 
-    // Price (supports "Free" as a string)
+  // Price (supports "Free")
 const priceBox = $('price');
 
-// Read as strings first
+// Read raw strings first
 const rawPrice = (svc.price ?? '').toString().trim();
 const rawSale  = (svc.sales_price ?? svc.salePrice ?? '').toString().trim();
 
 const isFree      = rawPrice.toLowerCase() === 'free';
 const isSaleFree  = rawSale.toLowerCase() === 'free';
 
+function fmt(n){ return Number(n).toLocaleString(undefined,{style:'currency',currency:'USD'}); }
+
 if (isSaleFree) {
-  // Sale price is "Free"
+  // sale says "Free"
   const pNum = Number(rawPrice);
   if (Number.isFinite(pNum) && pNum > 0) {
-    priceBox.innerHTML = `Free <s>$${pNum.toFixed(2)}</s>`;
+    priceBox.innerHTML = `Free <s>${fmt(pNum)}</s>`;
   } else {
     priceBox.textContent = 'Free';
   }
 } else if (isFree) {
-  // Regular price is "Free"
+  // regular price says "Free"
   priceBox.textContent = 'Free';
 } else {
-  // Regular numeric display
-  const pNum = Number(rawPrice);
+  // numeric cases
+  const pNum  = Number(rawPrice);
   const spNum = Number(rawSale);
-
   if (Number.isFinite(spNum) && Number.isFinite(pNum) && spNum > 0 && spNum < pNum) {
-    priceBox.innerHTML = `$${spNum.toFixed(2)} <s>$${pNum.toFixed(2)}</s>`;
+    priceBox.innerHTML = `${fmt(spNum)} <s>${fmt(pNum)}</s>`;
   } else if (Number.isFinite(pNum) && pNum > 0) {
-    priceBox.textContent = `$${pNum.toFixed(2)}`;
+    priceBox.textContent = fmt(pNum);
   } else {
-    priceBox.textContent = ''; // nothing
+    priceBox.textContent = ''; // nothing to show
   }
 }
+
 
 
       // Description
