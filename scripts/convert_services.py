@@ -11,16 +11,27 @@ def yn_to_bool(v):
     return str(v).strip().lower() in ("y", "yes", "true", "1")
 
 def money_or_none(v):
-    if pd.isna(v) or str(v).strip() == "":
+    """
+    Convert Excel cell to a price value:
+      - "Free" (any case/whitespace) -> "Free"  (string preserved)
+      - numeric (e.g. 75, "75", "$75.00", "1,250") -> float
+      - empty/invalid -> None
+    """
+    if pd.isna(v):
         return None
+    s = str(v).strip()
+    if s == "":
+        return None
+
+    # Preserve 'Free'
+    if s.lower() == "free":
+        return "Free"
+
+    # Try to parse as currency/number
     try:
-        return float(v)
+        return float(s.replace("$", "").replace(",", ""))
     except Exception:
-        s = str(v).replace("$", "").replace(",", "").strip()
-        try:
-            return float(s)
-        except Exception:
-            return None
+        return None
 
 def main():
     if not os.path.exists(SRC_XLSX):
@@ -58,7 +69,7 @@ def main():
             bullets_raw = "" if pd.isna(row[cols["bullet points"]]) else str(row[cols["bullet points"]])
             bullets = [b.strip() for b in bullets_raw.split(";") if b.strip()]
 
-        # NEW: actions via actionType (+ optional links)
+        # Actions via actionType (+ optional links)
         action_type   = ""
         contact_link  = ""
         checkout_link = ""
@@ -80,12 +91,13 @@ def main():
         out.append({
             "slug": slug,
             "name": name,
-            "price": price,            # number or null
-            "salePrice": sale,         # number or null
-            "image": image,            # path/URL to image OR video OR YouTube/Vimeo
+            # NOTE: can be number, "Free", or null
+            "price": price,
+            "salePrice": sale,      # number, "Free", or null
+            "image": image,         # path/URL to image OR video OR YouTube/Vimeo
             "description": desc,
-            "bullets": bullets,        # array (optional)
-            "actionType": action_type, # '', 'contact', 'checkout', 'both'
+            "bullets": bullets,     # array (optional)
+            "actionType": action_type,  # '', 'contact', 'checkout', 'both'
             "contactLink": contact_link,
             "checkoutLink": checkout_link,
         })
