@@ -118,6 +118,30 @@
       margin-top:.25rem;
       text-align:center;
     }
+    /* === Header fix overrides === */
+header{ 
+  border:0 !important;         /* kill the bottom line */
+  box-shadow:none !important;   /* just in case a shadow is applied */
+}
+
+.container.nav{
+  padding:0 !important;         /* remove extra top/bottom padding */
+}
+
+a.brand{
+  display:flex; 
+  align-items:center;
+}
+
+a.brand img{
+  height:175px;                 /* your requested logo size */
+  width:auto;
+  object-fit:contain;
+}
+
+/* Optional: tighten nav link vertical spacing so header doesn't look tall */
+nav a{ padding:.5rem .7rem; }
+
   </style>
 </head>
 <body>
