@@ -119,9 +119,13 @@
       text-align:center;
     }
     /* === Header fix overrides === */
-header{ 
-  border:0 !important;         /* kill the bottom line */
-  box-shadow:none !important;   /* just in case a shadow is applied */
+header {
+  background: var(--card);
+  border-top: 6px solid var(--accent);     /* top border */
+  border-bottom: 6px solid var(--accent);  /* bottom border */
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 
 .container.nav{
@@ -134,10 +138,12 @@ a.brand {
 }
 
 a.brand img {
-  height: 60px;      /* logo slightly taller than Contact Us button */
-  width: auto;
+  height: 60px;
+  width: 200px;
+  object-fit: contain;  /* fits inside box, keeps proportions */
   display: block;
 }
+
 
 
 
