@@ -133,10 +133,17 @@ a.brand{
   align-items:center;
 }
 
-a.brand img{
-  height:175px;                 /* your requested logo size */
+a.brand img {
+  height:175px;
   width:auto;
   object-fit:contain;
+  display:block;        /* removes invisible inline spacing */
+  margin:0;             /* reset margins */
+  padding:0;            /* reset padding */
+  border:none;          /* ensures no border */
+  line-height:0;        /* kills extra baseline gap */
+}
+
 }
 
 /* Optional: tighten nav link vertical spacing so header doesn't look tall */
