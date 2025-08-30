@@ -134,14 +134,12 @@ a.brand{
 }
 
 a.brand img {
-  height:175px;
-  width:auto;
-  object-fit:contain;
-  display:block;        /* removes invisible inline spacing */
-  margin:0;             /* reset margins */
-  padding:0;            /* reset padding */
-  border:none;          /* ensures no border */
-  line-height:0;        /* kills extra baseline gap */
+  max-height: 175px;  /* limits height */
+  height: auto;       /* keeps aspect ratio */
+  width: auto;        /* prevents stretching */
+  display: block;     /* removes inline spacing */
+}
+
 }
 
 }
