@@ -134,11 +134,12 @@ a.brand {
 }
 
 a.brand img {
-  flex: 0 0 auto;       /* image keeps its size but can shrink if needed */
-  max-height: 100px;
-  height: auto;
+  height: 100px;
   width: auto;
+  display: block;
+  clip-path: inset(10px 20px 10px 20px); /* top right bottom left trim */
 }
+
 
 }
 
