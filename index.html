@@ -128,16 +128,16 @@ header{
   padding:0 !important;         /* remove extra top/bottom padding */
 }
 
-a.brand{
-  display:flex; 
-  align-items:center;
+a.brand {
+  display: flex;
+  align-items: center;
 }
 
 a.brand img {
-  max-height: 175px;  /* limits height */
-  height: auto;       /* keeps aspect ratio */
-  width: auto;        /* prevents stretching */
-  display: block;     /* removes inline spacing */
+  flex: 0 0 auto;       /* image keeps its size but can shrink if needed */
+  max-height: 175px;
+  height: auto;
+  width: auto;
 }
 
 }
