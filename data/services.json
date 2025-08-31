@@ -1,22 +1,36 @@
 [
   {
-    "slug": "hvac-tuneup",
+    "slug": "AC-tuneup",
     "name": "HVAC Tune-Up",
     "price": 75.0,
-    "salePrice": 100.0,
+    "salePrice": 125.0,
     "image": "HVAC_IMG_4.JPG",
     "description": "Seasonal maintenance to keep your system efficient, safe, and reliable",
     "bullets": [
-      "Thermostat check & calibration",
-      "Tighten electrical connections",
-      "verify motor volts/amps",
-      "Lubricate movingClean/inspect coils",
-      "clear condensate drain parts where applicable",
+      "Clean condensate drain parts",
       "Check refrigerant level",
-      "inspect for leaks",
+      "Replace/Install Air Filter",
+      "Clean interior and exterior coils",
+      "Clean blower componets",
+      "Insepect electrical componenets"
+    ],
+    "actionType": "contact",
+    "contactLink": "",
+    "checkoutLink": ""
+  },
+  {
+    "slug": "Furnace-tuneup",
+    "name": "HVAC Tune-Up",
+    "price": 85.0,
+    "salePrice": 150.0,
+    "image": "HVAC_IMG_4.JPG",
+    "description": "Seasonal maintenance to keep your system efficient, safe, and reliable",
+    "bullets": [
+      "Inspection of electrical connections",
       "Replace/inspect air filter",
-      "verify airflow",
-      "Safety checks (gas pressure, heat exchanger, CO)"
+      "Safety checks",
+      "Inspect/Clean burners",
+      "Inspect and clean blower motor"
     ],
     "actionType": "contact",
     "contactLink": "",
@@ -26,34 +40,15 @@
     "slug": "hvac-repair",
     "name": "HVAC Repair",
     "price": 100.0,
-    "salePrice": 150.0,
-    "image": "HVAC_IMG_2.jpeg",
+    "salePrice": null,
+    "image": "HVAC_IMG_2.JPG",
     "description": "Fast, expert diagnostics and transparent pricing for needed fixes",
     "bullets": [
       "Skilled technician diagnoses issue & explains options",
-      "Up-front pricing by repair, no hidden fees",
+      "Up-front pricing by repair",
       "Diagnostic fee due at scheduling",
-      "often credited if repair proceeds",
-      "Limited 1–5 year warranty depending on repair type"
-    ],
-    "actionType": "contact",
-    "contactLink": "",
-    "checkoutLink": ""
-  },
-  {
-    "slug": "fiber-sedan",
-    "name": "Fiber Optic Lights Sedan Proposal",
-    "price": 0.0,
-    "salePrice": null,
-    "image": "IMG_1353.jpg",
-    "description": "Star-ceiling headliner with RGBW twinkle & music-sync. Professional install",
-    "bullets": [
-      "RGBW light engine with app + remote control (solid colors & effects).",
-      "Twinkle / meteor modes and optional music-sync animations.",
-      "Hundreds of fiber strands installed for dense, even star coverage.",
-      "Hidden wiring and fused power with OEM-style protection.",
-      "Install typically completed in 2 days for sedans (vehicle-dependent).",
-      "Warranty on workmanship."
+      "Fee is credited if repair proceeds",
+      "Limited 0–5 year warranty depending on the scope of work"
     ],
     "actionType": "contact",
     "contactLink": "",
@@ -76,30 +71,11 @@
     "checkoutLink": ""
   },
   {
-    "slug": "fiber-suv",
-    "name": "Fiber Optic Lights SUV Proposal",
-    "price": 0.0,
-    "salePrice": null,
-    "image": "IMG_1353.jpg",
-    "description": "Star-ceiling headliner with RGBW twinkle & music-sync. Professional install",
-    "bullets": [
-      "RGBW light engine with app + remote control (solid colors & effects).",
-      "Twinkle / meteor modes and optional music-sync animations.",
-      "Hundreds of fiber strands installed for dense, even star coverage.",
-      "Hidden wiring and fused power with OEM-style protection.",
-      "Install typically completed in 2 days for sedans (vehicle-dependent).",
-      "Warranty on workmanship."
-    ],
-    "actionType": "contact",
-    "contactLink": "",
-    "checkoutLink": ""
-  },
-  {
     "slug": "Other",
     "name": "Other",
     "price": "Free",
     "salePrice": null,
-    "image": "Cramer-Logo.png",
+    "image": "CramerLogoText.png",
     "description": "If you don’t see a service that matches your needs, select this option and our team will review your request to let you know how we can help",
     "bullets": [
       "If you don’t see a service that matches your needs, select this option and our team will review your request to let you know how we can help"
@@ -119,6 +95,60 @@
       "Professional on-site measurement and evaluation of your flooring space",
       "Product options tailored to design preferences, durability needs, and budget",
       "Clear installation plan, timeline, and transparent cost estimate"
+    ],
+    "actionType": "contact",
+    "contactLink": "",
+    "checkoutLink": ""
+  },
+  {
+    "slug": "Hot-Water-Tank-Proposal",
+    "name": "Hot Water Tank Proposal",
+    "price": 0.0,
+    "salePrice": null,
+    "image": "WaterHeater.JPG",
+    "description": "On-site evaluation and written quote within 48 hours",
+    "bullets": [
+      "Professional on-site assessment of your home or business",
+      "Equipment options tailored to space, budget, and comfort goals",
+      "Professional Installation",
+      "5 year warranty",
+      "Clear installation plan and timeline"
+    ],
+    "actionType": "contact",
+    "contactLink": "",
+    "checkoutLink": ""
+  },
+  {
+    "slug": "Light-Fixture-Replacment-and-Install",
+    "name": "Light Fixture Replacment/ install",
+    "price": 0.0,
+    "salePrice": null,
+    "image": "LightFixture.JPG",
+    "description": "On-site evaluation and written quote within 48 hours",
+    "bullets": [
+      "Professional on-site assessment of your home or business",
+      "Fixture options tailored to space, budget, and comfort goals",
+      "Professional Installation",
+      "5 year warranty",
+      "Clear installation plan and timeline"
+    ],
+    "actionType": "contact",
+    "contactLink": "",
+    "checkoutLink": ""
+  },
+  {
+    "slug": "General-Repair",
+    "name": "General Repair",
+    "price": 100.0,
+    "salePrice": null,
+    "image": "CramerLogoText.png",
+    "description": "Fast, expert diagnostics and transparent pricing for needed fixes",
+    "bullets": [
+      "Skilled technician diagnoses issue & explains options",
+      "Up-front pricing by repair",
+      "Diagnostic fee due at scheduling",
+      "Fee is credited if repair proceeds",
+      "Limited 0–5 year warranty depending on the scope of work"
     ],
     "actionType": "contact",
     "contactLink": "",
