@@ -413,7 +413,7 @@ a.brand img {
   }
 
   function renderCard(svc) {
-    const url = `/services/${encodeURIComponent(svc.slug)}.html`;
+const url = `service.html?slug=${encodeURIComponent(svc.slug)}`;
     const img = normalizeImage(svc.image);
     const overlay = svc.description ? `<div class="overlay">${svc.description}</div>` : '';
     return `
