@@ -82,7 +82,9 @@
     .then(list=>{
       // list can be array or {services:[...]} — support both
       const arr = Array.isArray(list) ? list : (Array.isArray(list.services) ? list.services : []);
-      const svc = arr.find(x=>String(x.slug) === String(slug));
+    const norm = v => String(v || '').trim().toLowerCase();
+    const svc = arr.find(x => norm(x.slug) === norm(slug));
+
       if(!svc){ document.body.innerHTML = '<main class="container"><p class="muted">Service not found.</p></main>'; return; }
 
       // Name + crumbs
