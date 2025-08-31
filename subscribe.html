@@ -24,6 +24,23 @@
     .cta{background:var(--accent);color:#fff;font-weight:600;padding:.7rem 1rem;border:0;border-radius:6px;cursor:pointer}
     [aria-live]{min-height:1.2em}
     a{color:var(--accent);text-decoration:none}
+    /* Terms of Service checkbox row */
+.tos{
+  display:inline-flex;          /* keep input + text on one line */
+  align-items:center;
+  gap:.5rem;                    /* space between box and text */
+  font-size:.9rem;              /* smaller text */
+  line-height:1.1;
+  white-space:nowrap;           /* force single line */
+  margin:.5rem 0;
+}
+.tos input[type="checkbox"]{
+  width:16px; height:16px;
+  margin:0;
+  accent-color: var(--accent);  /* modern browsers: blue check */
+}
+.tos a{ text-decoration:underline; }
+
   </style>
 </head>
 <body>
@@ -49,11 +66,11 @@
   <textarea id="details" name="details" rows="4" placeholder="Anything we should know (brand/model, symptoms, notes)"></textarea>
 
   <!-- ✅ New checkbox for Terms of Service -->
-  <label style="display:flex; align-items:center; gap:.5rem; font-size:.9rem; margin:.5rem 0;">
-    <input type="checkbox" id="agree" required>
-    I have read and agree to the 
-    <a href="terms.html" target="_blank">Subscription Terms of Service</a>.
-  </label>
+  <label class="tos">
+  <input type="checkbox" id="agree" required>
+  <span>I have read and agree to the <a href="terms.html" target="_blank">Subscription Terms of Service</a>.</span>
+</label>
+
 
   <!-- Submit button -->
   <button class="cta" type="submit" id="payBtn">Continue to Secure Checkout</button>
