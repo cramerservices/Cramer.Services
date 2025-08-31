@@ -396,23 +396,22 @@ a.brand img {
     return a;
   }
 
-  function renderCard(svc) {
-  const url = `service.html?slug=${encodeURIComponent(svc.slug)}`; // match your routing
+function renderCard(svc) {
+  const url = `service.html?slug=${encodeURIComponent(svc.slug)}`; // match routing
   const img = normalizeImage(svc.image);
   const overlay = (svc.description || '').trim();
 
   return `
     <article class="service-tile">
-      <a href="${url}" aria-label="${svc.name}" style="display:block">
-        <div class="service-imgwrap">
-          <img src="${img}" alt="${svc.name}">
-          ${overlay ? `<div class="service-overlay">${overlay}</div>` : ``}
-        </div>
-        <h3>${svc.name}</h3>
+      <h3>${svc.name}</h3>
+      <a href="${url}" class="service-imgwrap" aria-label="${svc.name}">
+        <img src="${img}" alt="${svc.name}">
+        ${overlay ? `<div class="service-overlay">${overlay}</div>` : ``}
       </a>
     </article>
   `;
 }
+
 
 
   async function init() {
