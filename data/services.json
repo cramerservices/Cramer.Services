@@ -1,7 +1,7 @@
 [
   {
     "slug": "AC-tuneup",
-    "name": "HVAC Tune-Up",
+    "name": "AC Tuneup",
     "price": 75.0,
     "salePrice": 125.0,
     "image": "HVAC_IMG_4.JPG",
@@ -20,10 +20,10 @@
   },
   {
     "slug": "Furnace-tuneup",
-    "name": "HVAC Tune-Up",
+    "name": "Furnace Tuneup",
     "price": 85.0,
     "salePrice": 150.0,
-    "image": "HVAC_IMG_4.JPG",
+    "image": "Furnace.JPG",
     "description": "Seasonal maintenance to keep your system efficient, safe, and reliable",
     "bullets": [
       "Inspection of electrical connections",
@@ -78,7 +78,7 @@
     "image": "CramerLogoText.png",
     "description": "If you don’t see a service that matches your needs, select this option and our team will review your request to let you know how we can help",
     "bullets": [
-      "If you don’t see a service that matches your needs, select this option and our team will review your request to let you know how we can help"
+      "Call us today, tell us your needs, and our team will provide the reliable support you’re looking for."
     ],
     "actionType": "contact",
     "contactLink": "",
@@ -103,7 +103,7 @@
   {
     "slug": "Hot-Water-Tank-Proposal",
     "name": "Hot Water Tank Proposal",
-    "price": 0.0,
+    "price": "Free",
     "salePrice": null,
     "image": "WaterHeater.JPG",
     "description": "On-site evaluation and written quote within 48 hours",
@@ -121,7 +121,7 @@
   {
     "slug": "Light-Fixture-Replacment-and-Install",
     "name": "Light Fixture Replacment/ install",
-    "price": 0.0,
+    "price": "Free",
     "salePrice": null,
     "image": "LightFixture.JPG",
     "description": "On-site evaluation and written quote within 48 hours",
