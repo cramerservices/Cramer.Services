@@ -34,24 +34,36 @@
       <p class="muted" id="planLine">Selected plan: <b id="planName">—</b></p>
 
       <!-- Contact / Service details you want to receive before payment -->
-      <form id="subForm" novalidate>
-        <!-- Honeypot -->
-        <input type="text" name="_company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
+   <form id="subForm" novalidate>
+  <!-- Honeypot -->
+  <input type="text" name="_company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
 
-        <div class="row">
-          <input id="name"   name="name"   placeholder="Full Name" required>
-          <input id="phone"  name="phone"  placeholder="Phone" required>
-        </div>
-        <div class="row">
-          <input id="email"  name="email"  type="email" placeholder="Email" required>
-          <input id="address" name="address" placeholder="Service Address (Street, City, State)">
-        </div>
-        <textarea id="details" name="details" rows="4" placeholder="Anything we should know (brand/model, symptoms, notes)"></textarea>
+  <div class="row">
+    <input id="name"   name="name"   placeholder="Full Name" required>
+    <input id="phone"  name="phone"  placeholder="Phone" required>
+  </div>
+  <div class="row">
+    <input id="email"  name="email"  type="email" placeholder="Email" required>
+    <input id="address" name="address" placeholder="Service Address (Street, City, State)">
+  </div>
+  <textarea id="details" name="details" rows="4" placeholder="Anything we should know (brand/model, symptoms, notes)"></textarea>
 
-        <button class="cta" type="submit" id="payBtn">Continue to Secure Checkout</button>
-        <p id="msg" class="muted" aria-live="polite"></p>
-      </form>
-      <p class="muted" style="margin-top:.6rem">You’ll be taken to a secure Stripe page to enter your card details and complete the subscription.</p>
+  <!-- ✅ New checkbox for Terms of Service -->
+  <label style="display:flex; align-items:center; gap:.5rem; font-size:.9rem; margin:.5rem 0;">
+    <input type="checkbox" id="agree" required>
+    I have read and agree to the 
+    <a href="terms.html" target="_blank">Subscription Terms of Service</a>.
+  </label>
+
+  <!-- Submit button -->
+  <button class="cta" type="submit" id="payBtn">Continue to Secure Checkout</button>
+  <p id="msg" class="muted" aria-live="polite"></p>
+</form>
+
+<p class="muted" style="margin-top:.6rem">
+  You’ll be taken to a secure Square checkout page to complete your subscription.
+</p>
+
     </div>
   </div>
 
@@ -63,13 +75,14 @@
     const EMAILJS_SERVICE_ID = 'service_ebrskb5';
     const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
 
-    // Map the plan in the URL to your Stripe Payment Links
-    const PAYMENT_LINKS = {
-      essential:  'https://buy.stripe.com/PAYMENT_LINK_ESSENTIAL',   // <- replace
-      plus:       'https://buy.stripe.com/PAYMENT_LINK_PLUS',         // <- replace
-      pro:        'https://buy.stripe.com/PAYMENT_LINK_PRO',          // <- replace
-      commercial: 'https://buy.stripe.com/PAYMENT_LINK_COMMERCIAL'    // <- replace
-    };
+// Map the plan in the URL to your Square Subscription Checkout links
+const PAYMENT_LINKS = {
+  essential:  'https://square.link/u/ESSENTIAL_LINK',   // replace with your Square link
+  plus:       'https://square.link/u/PLUS_LINK',
+  pro:        'https://square.link/u/PRO_LINK',
+  commercial: 'https://square.link/u/COMMERCIAL_LINK'
+};
+
 
     function qs(key){ return new URLSearchParams(location.search).get(key) || ''; }
     function show(t,err=false){ const el=document.getElementById('msg'); el.textContent=t; el.style.color=err?'#dc3545':'#6c757d'; }
@@ -85,50 +98,52 @@
       document.getElementById('planName').textContent = planMap[planParam] || 'Essential HVAC PLAN';
 
       const form = document.getElementById('subForm');
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        if (form._company && form._company.value){ show('Submission blocked.', true); return; }
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-        const data = {
-          name:    form.name.value.trim(),
-          phone:   form.phone.value.trim(),
-          email:   form.email.value.trim(),
-          address: form.address.value.trim(),
-          details: form.details.value.trim(),
-          service: 'Subscription',
-          plan:    planMap[planParam] || 'Essential HVAC PLAN',
-          time:    new Date().toLocaleString(),
-          subject: `New subscription — ${(planMap[planParam]||'Plan')} — ${form.name.value.trim()||'Customer'}`
-        };
+  // Terms of Service agreement check
+  const agree = document.getElementById('agree');
+  if (!agree.checked) {
+    show('You must agree to the Subscription Terms of Service before continuing.', true);
+    return;
+  }
 
-        if (!data.name || !data.phone || !data.email){
-          show('Please complete name, phone, and email.', true); return;
-        }
+  const data = {
+    name:    form.name.value.trim(),
+    phone:   form.phone.value.trim(),
+    email:   form.email.value.trim(),
+    address: form.address.value.trim(),
+    details: form.details.value.trim(),
+    service: 'Subscription',
+    plan:    planMap[planParam] || 'Essential HVAC PLAN',
+    time:    new Date().toLocaleString(),
+    subject: `New subscription — ${(planMap[planParam]||'Plan')} — ${form.name.value.trim()||'Customer'}`
+  };
 
-        const btn = document.getElementById('payBtn');
-        const prev = btn.textContent;
-        btn.disabled = true; btn.textContent = 'Saving…'; show('');
+  if (!data.name || !data.phone || !data.email) {
+    show('Please complete name, phone, and email.', true);
+    return;
+  }
 
-        try{
-          // email you the details first (same template vars as your quote form)
-          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
+  const link = PAYMENT_LINKS[planParam];
+  if (!link) { show('Checkout link not configured for this plan.', true); return; }
 
-          // then send the customer to Stripe to pay
-          const link = PAYMENT_LINKS[planParam];
-          if (!link){ show('Checkout link not configured for this plan.', true); return; }
+  const btn = document.getElementById('payBtn');
+  const prev = btn.textContent;
+  btn.disabled = true; btn.textContent = 'Saving…'; show('');
 
-          // Optional: pass their email to Stripe Payment Link (supported as a query param)
-          // e.g., https://buy.stripe.com/... ?prefilled_email=...
-          const url = new URL(link);
-          if (data.email) url.searchParams.set('prefilled_email', data.email);
-          window.location.href = url.toString();
-        } catch(err){
-          console.error(err);
-          show('Could not start checkout. Please try again or email us.', true);
-        } finally {
-          btn.disabled = false; btn.textContent = prev;
-        }
-      });
+  try {
+    // Try to email you the submission (don’t block checkout if it fails)
+    if (window.emailjs) {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
+    }
+  } catch (err) {
+    console.warn('EmailJS failed; proceeding to checkout anyway:', err);
+  } finally {
+    // Redirect customer to Square hosted checkout
+    window.location.href = link;
+  }
+});
     });
   </script>
 </body>
