@@ -75,27 +75,65 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
 }
-.service-card { border-radius: 16px; overflow: hidden; background:#fff; box-shadow: 0 8px 24px rgba(0,0,0,.08); }
-.service-card a { color: inherit; text-decoration: none; display:block; }
-.service-card h3 { margin: 0 0 8px; font-size: 1.25rem; font-weight: 700; }
-.service-card .img-wrap { position: relative; border-radius: 16px; overflow: hidden; }
-.service-card img { width: 100%; height: 230px; object-fit: cover; display:block; }
-.service-card .overlay {
-  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-  padding:16px; text-align:center; color:#fff; font-weight:600;
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 35%, rgba(0,0,0,.55) 100%);
-  opacity:0; transition: opacity .25s ease;
-  .service-card { 
-  border-radius: 16px; 
-  overflow: hidden; 
-  background: var(--bg);   /* use the grey background instead of white */
-  box-shadow: 0 8px 24px rgba(0,0,0,.08); 
+/* --- Services grid & cards (bg fixed to match page) --- */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
 }
 
+.service-card {
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bg);              /* was #fff -> now matches page grey */
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
 }
-.service-card:hover .overlay { opacity:1; }
+
+.service-card a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+
+.service-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.service-card .img-wrap {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.service-card img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  display: block;
+}
+
+.service-card .overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 35%, rgba(0,0,0,.55) 100%);
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+
+.service-card:hover .overlay { opacity: 1; }
+
 @media (max-width: 900px) { .services-grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 600px) { .services-grid { grid-template-columns: 1fr; } }
+
 
     /* === Header fix overrides === */
 header {
