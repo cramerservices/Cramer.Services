@@ -53,7 +53,15 @@
     .who h3{margin:.2rem 0 .6rem;color:var(--accent);font-weight:800}
     .who p{color:var(--muted);margin:.4rem 0}
     .who figure{margin:0;position:relative}
-    .who img{width:100%;height:auto;border-radius:14px;box-shadow:0 16px 36px rgba(0,0,0,.12);display:block}
+    .who img {
+  width: 100%;
+  max-height: 300px;    /* adjust to your taste */
+  object-fit: cover;    /* crop instead of squish */
+  border-radius: 14px;
+  box-shadow: 0 16px 36px rgba(0,0,0,.12);
+  display: block;
+}
+
     @media (max-width: 900px){.who,.who:nth-child(even){grid-template-columns:1fr}}
     .accordion{max-width:1100px;margin-top:1rem}
     details{background:transparent;border-top:1px solid #e5e7eb;padding:.8rem 0}
