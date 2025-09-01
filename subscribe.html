@@ -74,17 +74,14 @@
     </a>.
   </span>
 </label>
+  <button class="cta" type="submit" id="payBtn">Submit Request</button>
+        <p id="msg" class="muted" aria-live="polite"></p>
 
 
-
-  <!-- Submit button -->
-  <button class="cta" type="submit" id="payBtn">Continue to Secure Checkout</button>
-  <p id="msg" class="muted" aria-live="polite"></p>
+  
 </form>
 
-<p class="muted" style="margin-top:.6rem">
-  You’ll be taken to a secure Square checkout page to complete your subscription.
-</p>
+
 
     </div>
   </div>
@@ -95,14 +92,6 @@
   const EMAILJS_PUBLIC_KEY = 'TDIki3rqftcomcjJC';
   const EMAILJS_SERVICE_ID = 'service_ebrskb5';
   const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
-
-  // Map the plan in the URL to your Square Subscription Checkout links
-  const PAYMENT_LINKS = {
-    essential:  'https://square.link/u/ESSENTIAL_LINK',   // replace with your Square link
-    plus:       'https://square.link/u/PLUS_LINK',
-    pro:        'https://square.link/u/PRO_LINK',
-    commercial: 'https://square.link/u/COMMERCIAL_LINK'
-  };
 
   function qs(key){ return new URLSearchParams(location.search).get(key) || ''; }
   function show(t,err=false){ const el=document.getElementById('msg'); el.textContent=t; el.style.color=err?'#dc3545':'#6c757d'; }
