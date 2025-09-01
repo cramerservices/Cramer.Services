@@ -8,9 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#f8f9fb; --card:#ffffff; --accent:#0d6efd; --text:#1b1f24; --muted:#6c757d; --ring:0 0 0 3px rgba(13,110,253,.25);
-    }
+    :root{ --bg:#f8f9fb; --card:#ffffff; --accent:#0d6efd; --text:#1b1f24; --muted:#6c757d; --ring:0 0 0 3px rgba(13,110,253,.25); }
     *{box-sizing:border-box} html,body{margin:0}
     body{font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--text)}
     .container{max-width:900px;margin:auto;padding:24px}
@@ -24,23 +22,9 @@
     .cta{background:var(--accent);color:#fff;font-weight:600;padding:.7rem 1rem;border:0;border-radius:6px;cursor:pointer}
     [aria-live]{min-height:1.2em}
     a{color:var(--accent);text-decoration:none}
-    /* Terms of Service checkbox row */
-.tos{
-  display:inline-flex;          /* keep input + text on one line */
-  align-items:center;
-  gap:.5rem;                    /* space between box and text */
-  font-size:.9rem;              /* smaller text */
-  line-height:1.1;
-  white-space:nowrap;           /* force single line */
-  margin:.5rem 0;
-}
-.tos input[type="checkbox"]{
-  width:16px; height:16px;
-  margin:0;
-  accent-color: var(--accent);  /* modern browsers: blue check */
-}
-.tos a{ text-decoration:underline; }
-
+    .tos{ display:inline-flex; align-items:center; gap:.5rem; font-size:.9rem; line-height:1.1; white-space:nowrap; margin:.5rem 0; }
+    .tos input[type="checkbox"]{ width:16px; height:16px; margin:0; accent-color: var(--accent); }
+    .tos a{ text-decoration:underline; }
   </style>
 </head>
 <body>
@@ -50,115 +34,104 @@
       <h1>Start your subscription</h1>
       <p class="muted" id="planLine">Selected plan: <b id="planName">—</b></p>
 
-      <!-- Contact / Service details you want to receive before payment -->
-   <form id="subForm" novalidate>
-  <!-- Honeypot -->
-  <input type="text" name="_company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
+      <form id="subForm" novalidate>
+        <!-- Honeypot -->
+        <input type="text" name="_company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
 
-  <div class="row">
-    <input id="name"   name="name"   placeholder="Full Name" required>
-    <input id="phone"  name="phone"  placeholder="Phone" required>
-  </div>
-  <div class="row">
-    <input id="email"  name="email"  type="email" placeholder="Email" required>
-    <input id="address" name="address" placeholder="Service Address (Street, City, State)">
-  </div>
-  <textarea id="details" name="details" rows="4" placeholder="Anything we should know (brand/model, symptoms, notes)"></textarea>
+        <div class="row">
+          <input id="name"   name="name"   placeholder="Full Name" required>
+          <input id="phone"  name="phone"  placeholder="Phone" required>
+        </div>
+        <div class="row">
+          <input id="email"  name="email"  type="email" placeholder="Email" required>
+          <input id="address" name="address" placeholder="Service Address (Street, City, State)">
+        </div>
+        <textarea id="details" name="details" rows="4" placeholder="Anything we should know (brand/model, symptoms, notes)"></textarea>
 
-  <!-- ✅ New checkbox for Terms of Service -->
-<label class="tos">
-  <input type="checkbox" id="agree" required>
-  <span>I have read and agree to the 
-    <a id="tosLink" href="terms-essential.html" target="_blank" rel="noopener">
-      Subscription Terms of Service
-    </a>.
-  </span>
-</label>
-  <button class="cta" type="submit" id="payBtn">Submit Request</button>
+        <label class="tos">
+          <input type="checkbox" id="agree" required>
+          <span>I have read and agree to the
+            <a id="tosLink" href="terms-essential.html" target="_blank" rel="noopener">Subscription Terms of Service</a>.
+          </span>
+        </label>
+
+        <button class="cta" type="submit" id="payBtn">Submit Request</button>
         <p id="msg" class="muted" aria-live="polite"></p>
-
-
-  
-</form>
-
-
-
+      </form>
     </div>
   </div>
 
   <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
-  const EMAILJS_PUBLIC_KEY = 'TDIki3rqftcomcjJC';
-  const EMAILJS_SERVICE_ID = 'service_ebrskb5';
-  const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
+    const EMAILJS_PUBLIC_KEY = 'TDIki3rqftcomcjJC';
+    const EMAILJS_SERVICE_ID = 'service_ebrskb5';
+    const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
 
-  function qs(key){ return new URLSearchParams(location.search).get(key) || ''; }
-  function show(t,err=false){ const el=document.getElementById('msg'); el.textContent=t; el.style.color=err?'#dc3545':'#6c757d'; }
+    function qs(key){ return new URLSearchParams(location.search).get(key) || ''; }
+    function show(t,err=false){ const el=document.getElementById('msg'); el.textContent=t; el.style.color=err?'#dc3545':'#6c757d'; }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    if (!window.emailjs){ show('Could not load mail service. Refresh and try again.', true); return; }
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!window.emailjs){ show('Could not load mail service. Refresh and try again.', true); return; }
+      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
-    const planParam = (qs('plan') || 'essential').toLowerCase();
-    const planMap = {
-      essential: 'Essential HVAC PLAN',
-      plus: 'Plus HVAC PLAN',
-      pro: 'Pro HVAC PLAN',
-      commercial: 'Commercial HVAC PLAN'
-    };
-    document.getElementById('planName').textContent = planMap[planParam] || 'Essential HVAC PLAN';
-
-    // 🔗 update TOS link
-    const termsMap = {
-      essential:  'terms-essential.html',
-      plus:       'terms-plus.html',
-      pro:        'terms-pro.html',
-      commercial: 'terms-commercial.html'
-    };
-    const tosLink = document.getElementById('tosLink');
-    if (tosLink) tosLink.href = termsMap[planParam] || 'terms-essential.html';
-
-    // hook into form
-    const form = document.getElementById('subForm');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const data = {
-        name:    form.name.value.trim(),
-        phone:   form.phone.value.trim(),
-        email:   form.email.value.trim(),
-        address: form.address.value.trim(),
-        details: form.details.value.trim(),
-        service: 'Subscription',
-        plan:    planMap[planParam] || 'Essential HVAC PLAN',
-        time:    new Date().toLocaleString(),
-        subject: `New subscription — ${(planMap[planParam]||'Plan')} — ${form.name.value.trim()||'Customer'}`
+      const planParam = (qs('plan') || 'essential').toLowerCase();
+      const planMap = {
+        essential: 'Essential HVAC PLAN',
+        plus: 'Plus HVAC PLAN',
+        pro: 'Pro HVAC PLAN',
+        commercial: 'Commercial HVAC PLAN'
       };
+      document.getElementById('planName').textContent = planMap[planParam] || 'Essential HVAC PLAN';
 
-      if (!data.name || !data.phone || !data.email) {
-        show('Please complete name, phone, and email.', true);
-        return;
-      }
+      const termsMap = {
+        essential:  'terms-essential.html',
+        plus:       'terms-plus.html',
+        pro:        'terms-pro.html',
+        commercial: 'terms-commercial.html'
+      };
+      const tosLink = document.getElementById('tosLink');
+      if (tosLink) tosLink.href = termsMap[planParam] || 'terms-essential.html';
 
-      const link = PAYMENT_LINKS[planParam];
-      if (!link) { show('Checkout link not configured for this plan.', true); return; }
+      const form = document.getElementById('subForm');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-      const btn = document.getElementById('payBtn');
-      const prev = btn.textContent;
-      btn.disabled = true; btn.textContent = 'Saving…'; show('');
+        const data = {
+          name:    form.name.value.trim(),
+          phone:   form.phone.value.trim(),
+          email:   form.email.value.trim(),
+          address: form.address.value.trim(),
+          details: form.details.value.trim(),
+          service: 'Subscription',
+          plan:    planMap[planParam] || 'Essential HVAC PLAN',
+          time:    new Date().toLocaleString(),
+          subject: `New subscription — ${(planMap[planParam]||'Plan')} — ${form.name.value.trim()||'Customer'}`
+        };
 
-      try {
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
-      } catch (err) {
-        console.warn('EmailJS failed; proceeding to checkout anyway:', err);
-      } finally {
-        window.location.href = link; // redirect to Square checkout
-        btn.disabled = false; btn.textContent = prev;
-      }
+        if (!data.name || !data.phone || !data.email || !document.getElementById('agree').checked) {
+          show('Please complete all required fields and accept the Terms.', true);
+          return;
+        }
+
+        const btn = document.getElementById('payBtn');
+        const prev = btn.textContent;
+        btn.disabled = true; btn.textContent = 'Sending…'; show('');
+
+        try {
+          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
+          // ✅ Show confirmation and keep user on page
+          show('Thank you for filling out the form — you will receive a phone call soon.');
+          form.reset();
+          document.getElementById('planName').textContent = planMap[planParam] || 'Essential HVAC PLAN';
+        } catch (err) {
+          console.warn('EmailJS failed:', err);
+          show('Sorry, we could not send your request. Please try again or call 314-267-8594.', true);
+        } finally {
+          btn.disabled = false; btn.textContent = prev;
+        }
+      });
     });
-  });
-</script>
-
+  </script>
 </body>
 </html>
