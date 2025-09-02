@@ -85,8 +85,8 @@
     "checkoutLink": ""
   },
   {
-    "slug": "Vinal-Flooring-Proposal",
-    "name": "VInal Flooring Proposal",
+    "slug": "Vinyl-Flooring-Proposal",
+    "name": "Vinyl Flooring Proposal",
     "price": "Free",
     "salePrice": null,
     "image": "Flooring.jpeg",
@@ -120,7 +120,7 @@
   },
   {
     "slug": "Light-Fixture-Replacment-and-Install",
-    "name": "Light Fixture Replacment/ install",
+    "name": "Light Fixture Replacement/ install",
     "price": "Free",
     "salePrice": null,
     "image": "LightFixture.JPG",
