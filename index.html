@@ -7,355 +7,201 @@
   <meta name="description" content="Cramer Services provides trusted HVAC, plumbing, electrical, and home repair services across St. Louis. Fast, reliable, and backed by guarantees." />
 
   <!-- Favicons -->
- <!-- Favicons -->
-<link rel="icon" href="CramerLogo_transparent.png" type="image/png">
-<link rel="shortcut icon" href="CramerLogo_transparent.png" type="image/png">
+  <link rel="icon" href="CramerLogo_transparent.png" type="image/png">
+  <link rel="shortcut icon" href="CramerLogo_transparent.png" type="image/png">
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-</head>
 
-<style>
-  :root{
-    --bg:#f8f9fb;
-    --card:#ffffff;
-    --accent:#0d6efd;
-    --accent-2:#ffb703;
-    --text:#1b1f24;
-    --muted:#6c757d;
-    --ring: 0 0 0 3px rgba(13,110,253,.25);
-    --green:#198754;
-  }
-
-  *{ box-sizing:border-box }
-  html,body{ margin:0 }
-  body{
-    font-family:Poppins,Arial,sans-serif;
-    background:var(--bg);
-    color:var(--text);
-  }
-
-  a{ color:var(--accent); text-decoration:none }
-  a:hover{ text-decoration:underline }
-
-  .container{ max-width:1100px; margin:auto; padding:0 1rem }
-
-  /* ===== Header ===== */
-  header{
-    background:var(--card);
-    border-bottom:1px solid #dee2e6;
-    position:sticky;
-    top:0;
-    z-index:50;
-  }
-  .nav{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:.8rem 0;
-  }
-  .brand{
-    display:flex;
-    gap:.6rem;
-    align-items:center;
-    font-weight:800;
-  }
-  .brand-logo{
-    width:36px; height:36px;
-    background:var(--accent); color:#fff;
-    display:grid; place-items:center;
-    border-radius:8px; font-weight:700;
-  }
-  a.brand { display:flex; align-items:center; }
-  a.brand img{
-    height:60px;
-    width:300px;
-    object-fit:contain; /* fits inside box, keeps proportions */
-    display:block;
-  }
-
-  nav ul{
-    display:flex;
-    gap:1rem;
-    list-style:none;
-    margin:0; padding:0;
-  }
-  nav a{
-    padding:.5rem .7rem;
-    border-radius:6px;
-  }
-  nav a:hover{
-    background:#f1f3f5;
-    text-decoration:none;
-  }
-
-  .cta{
-    background:var(--accent);
-    color:#fff;
-    font-weight:600;
-    padding:.65rem 1rem;
-    border:0; border-radius:6px;
-    cursor:pointer;
-  }
-  .cta:hover{ background:#0b5ed7 }
-
-  /* ===== Hero ===== */
-  .hero{
-    padding:3rem 0;
-    display:grid;
-    gap:2rem;
-    grid-template-columns:1.2fr 1fr;
-    align-items:center;
-  }
-  .headline{
-    font-size:2.5rem;
-    font-weight:800;
-    line-height:1.2;
-    margin:.5rem 0;
-  }
-  .sub{ color:var(--muted); font-size:1.1rem }
-  .hero-card img{ width:100%; border-radius:12px }
-
-  /* ===== Sections / Cards ===== */
-  section{ padding:2.5rem 0 }
-  h2{ font-size:1.8rem; margin-bottom:.5rem }
-  .muted{ color:var(--muted) }
-
-  .cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:1rem;
-    margin-top:1rem;
-  }
-  .card{
-    background:var(--card);
-    border:1px solid #dee2e6;
-    border-radius:12px;
-    padding:1rem;
-    transition:box-shadow .2s;
-  }
-  .card:hover{ box-shadow:0 6px 18px rgba(0,0,0,.08) }
-  .icon{ font-size:2rem; margin-bottom:.5rem; display:block }
-
-  /* ===== Choose Us ===== */
-  .choose-us{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:2rem;
-    margin-top:1rem;
-  }
-  .choose-us-item{ text-align:center; padding:0 }
-
-  /* ===== Who Cramer Services Helps ===== */
-  .who-wrap{ display:grid; gap:2.5rem; margin-top:.5rem }
-  .who{
-    display:grid;
-    grid-template-columns:1.1fr .9fr;
-    gap:2rem;
-    align-items:center;
-    background:transparent;
-  }
-  .who:nth-child(even){ grid-template-columns:.9fr 1.1fr }
-  .who h3{ margin:.2rem 0 .6rem; color:var(--accent); font-weight:800 }
-  .who p{ color:var(--muted); margin:.4rem 0 }
-  .who figure{ margin:0; position:relative }
-  .who img{
-    width:100%;
-    max-height:300px;      /* adjust to taste */
-    object-fit:cover;      /* crop instead of squish */
-    border-radius:14px;
-    box-shadow:0 16px 36px rgba(0,0,0,.12);
-    display:block;
-  }
-
-@media (max-width: 900px){
-  /* Stack the item */
-  .who-wrap .who:nth-of-type(2){ grid-template-columns: 1fr; }
-
-  /* Image first, then text */
-  .who-wrap .who:nth-of-type(2) > figure{ order: 1; }
-  .who-wrap .who:nth-of-type(2) > div{ order: 2; }
-  }
-
-  /* ===== FAQ ===== */
-  .accordion{ max-width:1100px; margin-top:1rem }
-  details{
-    background:transparent;
-    border-top:1px solid #e5e7eb;
-    padding:.8rem 0;
-  }
-  details:last-child{ border-bottom:1px solid #e5e7eb }
-  summary{
-    cursor:pointer;
-    list-style:none;
-    font-weight:600;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-  }
-  summary::-webkit-details-marker{ display:none }
-  .chev{ transition:transform .2s }
-  details[open] .chev{ transform:rotate(180deg) }
-  .answer{ color:var(--muted); margin:.6rem 0 0 0 }
-
-  /* ===== Forms ===== */
-  form{ display:grid; gap:.8rem; margin-top:1rem }
-  input,select,textarea{
-    width:100%;
-    padding:.75rem;
-    border:1px solid #ced4da;
-    border-radius:6px;
-    font-family:inherit;
-  }
-  input:focus,select:focus,textarea:focus{
-    outline:none;
-    border-color:var(--accent);
-    box-shadow:var(--ring);
-  }
-  [aria-live]{ min-height:1.2em }
-
-  /* ===== Footer ===== */
-  footer{
-    background:var(--card);
-    border-top:1px solid #dee2e6;
-    padding:1.5rem 0;
-    color:var(--muted);
-  }
-
-  /* ===== Services Tiles ===== */
-  .services-tiles{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:1rem;
-    margin-top:1rem;
-    margin-bottom:2rem;
-  }
-  .service-tile{ background:transparent; border:0; padding:0; }
-  .service-tile h3{
-    margin:0 0 .6rem;
-    font-size:1.1rem;
-    font-weight:600;
-    color:var(--text);
-  }
-
-  .service-imgwrap{
-    position:relative;
-    border-radius:12px;
-    overflow:hidden;
-    height:230px;                /* tile height */
-    margin-bottom:.5rem;
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-    display:block;
-  }
-  .service-imgwrap img,
-  .service-imgwrap video,
-  .service-imgwrap iframe{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-    border-radius:12px;
-  }
-
-  .service-overlay{
-    position:absolute; inset:0;
-    background:rgba(0,0,0,.55);
-    color:#fff;
-    opacity:0; transition:opacity .2s;
-    display:flex; align-items:center; justify-content:center;
-    text-align:center; padding:1rem; border-radius:12px;
-    pointer-events:none; /* don’t block clicks */
-  }
-  .service-imgwrap:hover .service-overlay{ opacity:1 }
-
-  @media (max-width: 900px){ .services-grid{ grid-template-columns:1fr 1fr } }
-  @media (max-width: 600px){ .services-grid{ grid-template-columns:1fr } }
-
-  /* ===== Header white borders (your override) ===== */
-  header{
-    background:var(--card);
-    border-top:6px solid #fff;     /* white top border */
-    border-bottom:6px solid #fff;  /* white bottom border */
-    position:sticky;
-    top:0;
-    z-index:50;
-  }
-  .container.nav{ padding:0 !important } /* remove extra header padding */
-
-  /* ===== MOBILE HEADER + DROPDOWN (hamburger only on mobile) ===== */
-  .hamburger{
-    display:none;               /* hidden on desktop */
-    background:none;
-    border:0;
-    font-size:1.6rem;
-    padding:.4rem .6rem;
-    line-height:1;
-    cursor:pointer;
-  }
-
- @media (max-width: 900px){
-  /* Use normal flex flow and push the right-side controls */
-  .nav{ justify-content: flex-start; gap: .5rem; }
-    /* Keep header tidy on mobile */
-    header .container.nav{ position:relative; }
-
-    /* Show hamburger only on mobile */
-    .hamburger{ display:block; }
-
-    /* Hide nav links until menu is opened */
-    header nav ul{
-      display:none;             /* hidden by default on mobile */
-      position:absolute;
-      top:100%; left:0; right:0;
-      margin:0; padding:.75rem 1rem;
-      background:var(--card);
-      border-top:1px solid #dee2e6;
-      flex-direction:column;
-      gap:.6rem;
-      z-index:60;
+  <style>
+    :root{
+      --bg:#f8f9fb;
+      --card:#ffffff;
+      --accent:#0d6efd;
+      --accent-2:#ffb703;
+      --text:#1b1f24;
+      --muted:#6c757d;
+      --ring: 0 0 0 3px rgba(13,110,253,.25);
+      --green:#198754;
     }
-    header nav ul.show{ display:flex; }   /* toggled via JS */
 
-  .cta{ margin-left: auto; padding: .55rem .9rem; }
-  .hamburger{ display: block; margin-left: .5rem; }
-  }
+    *{ box-sizing:border-box }
+    html,body{ margin:0 }
+    body{ font-family:Poppins,Arial,sans-serif; background:var(--bg); color:var(--text) }
 
-  /* ===== WHO SECTION: Make item #2 image BELOW text on mobile ===== */
-  @media (max-width: 900px){
-    .who{ grid-template-columns:1fr; }   /* stack text + image for all who items on mobile */
-    /* For second item specifically (Small Business Owner): text first, image second */
-    .who-wrap .who:nth-of-type(2) > figure{ order:2; }
-    .who-wrap .who:nth-of-type(2) > div{ order:1; }
-  }
+    a{ color:var(--accent); text-decoration:none }
+    a:hover{ text-decoration:underline }
 
-  /* ===== Extra small phone refinements (optional) ===== */
-  @media (max-width: 600px){
-    .headline{ font-size:1.9rem; line-height:1.2; margin:.25rem 0; }
-    .sub{ font-size:1rem; }
-    .cards{ gap:.75rem; }
-    .service-tile h3{ font-size:1rem; }
-    .who img{ max-height:220px; }
-    footer .container{ text-align:center; font-size:.95rem; }
-/* Mobile: keep Small Business Owner image on the right of the text */
-@media (max-width: 900px){
-  /* Default: stack all who items (image below text) */
-  .who, .who:nth-child(even){ grid-template-columns:1fr; }
+    .container{ max-width:1100px; margin:auto; padding:0 1rem }
 
-  /* Exception: second who block (Small Business Owner) stays side by side */
-  .who-wrap .who:nth-of-type(2){
-    grid-template-columns:1fr 1fr; /* text + image */
-    align-items:center;
-  }
-  .who-wrap .who:nth-of-type(2) > div{ order:1; }    /* text left */
-  .who-wrap .who:nth-of-type(2) > figure{ order:2; } /* image right */
-}
+    /* ===== Header ===== */
+    header{
+      background:var(--card);
+      border-top:6px solid #fff;    /* your white borders */
+      border-bottom:6px solid #fff;
+      position:sticky; top:0; z-index:50;
+    }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:.8rem 0 }
+    .container.nav{ padding:0 !important } /* tighten header */
 
-    
-  }
-</style>
+    .brand{ display:flex; gap:.6rem; align-items:center; font-weight:800 }
+    a.brand{ display:flex; align-items:center }
+    a.brand img{ height:60px; width:300px; object-fit:contain; display:block }
 
+    nav ul{ display:flex; gap:1rem; list-style:none; margin:0; padding:0 }
+    nav a{ padding:.5rem .7rem; border-radius:6px }
+    nav a:hover{ background:#f1f3f5; text-decoration:none }
+
+    .cta{
+      background:var(--accent); color:#fff; font-weight:600;
+      padding:.65rem 1.2rem; border:0; border-radius:6px; cursor:pointer;
+      white-space:nowrap; /* keep 'Contact Us' on one line */
+    }
+    .cta:hover{ background:#0b5ed7 }
+
+    .hamburger{
+      display:none; background:none; border:0;
+      font-size:1.6rem; padding:.4rem .6rem; line-height:1; cursor:pointer;
+    }
+
+    /* ===== Hero ===== */
+    .hero{
+      padding:3rem 0; display:grid; gap:2rem;
+      grid-template-columns:1.2fr 1fr; align-items:center;
+    }
+    .headline{ font-size:2.5rem; font-weight:800; line-height:1.2; margin:.5rem 0 }
+    .sub{ color:var(--muted); font-size:1.1rem }
+    .hero-card img{ width:100%; border-radius:12px }
+
+    /* ===== Sections / Cards ===== */
+    section{ padding:2.5rem 0 }
+    h2{ font-size:1.8rem; margin-bottom:.5rem }
+    .muted{ color:var(--muted) }
+
+    .cards{
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:1rem; margin-top:1rem;
+    }
+    .card{
+      background:var(--card); border:1px solid #dee2e6;
+      border-radius:12px; padding:1rem; transition:box-shadow .2s;
+    }
+    .card:hover{ box-shadow:0 6px 18px rgba(0,0,0,.08) }
+    .icon{ font-size:2rem; margin-bottom:.5rem; display:block }
+
+    /* ===== Choose Us ===== */
+    .choose-us{
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:2rem; margin-top:1rem;
+    }
+    .choose-us-item{ text-align:center; padding:0 }
+
+    /* ===== Who Cramer Services Helps ===== */
+    .who-wrap{ display:grid; gap:2.5rem; margin-top:.5rem }
+    .who{
+      display:grid; grid-template-columns:1.1fr .9fr;
+      gap:2rem; align-items:center; background:transparent;
+    }
+    .who:nth-child(even){ grid-template-columns:.9fr 1.1fr }
+    .who h3{ margin:.2rem 0 .6rem; color:var(--accent); font-weight:800 }
+    .who p{ color:var(--muted); margin:.4rem 0 }
+    .who figure{ margin:0; position:relative }
+    .who img{
+      width:100%; max-height:300px; object-fit:cover;
+      border-radius:14px; box-shadow:0 16px 36px rgba(0,0,0,.12); display:block;
+    }
+
+    /* ===== Services Tiles ===== */
+    .services-tiles{
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:1rem; margin-top:1rem; margin-bottom:2rem;
+    }
+    .service-tile{ background:transparent; border:0; padding:0 }
+    .service-tile h3{ margin:0 0 .6rem; font-size:1.1rem; font-weight:600; color:var(--text) }
+
+    .service-imgwrap{
+      position:relative; border-radius:12px; overflow:hidden; height:230px;
+      margin-bottom:.5rem; box-shadow:0 8px 20px rgba(0,0,0,.08); display:block;
+    }
+    .service-imgwrap img,
+    .service-imgwrap video,
+    .service-imgwrap iframe{
+      width:100%; height:100%; object-fit:cover; display:block; border-radius:12px;
+    }
+    .service-overlay{
+      position:absolute; inset:0; background:rgba(0,0,0,.55); color:#fff;
+      opacity:0; transition:opacity .2s; display:flex; align-items:center; justify-content:center;
+      text-align:center; padding:1rem; border-radius:12px; pointer-events:none;
+    }
+    .service-imgwrap:hover .service-overlay{ opacity:1 }
+
+    /* ===== FAQ ===== */
+    .accordion{ max-width:1100px; margin-top:1rem }
+    details{ background:transparent; border-top:1px solid #e5e7eb; padding:.8rem 0 }
+    details:last-child{ border-bottom:1px solid #e5e7eb }
+    summary{
+      cursor:pointer; list-style:none; font-weight:600;
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    summary::-webkit-details-marker{ display:none }
+    .chev{ transition:transform .2s }
+    details[open] .chev{ transform:rotate(180deg) }
+    .answer{ color:var(--muted); margin:.6rem 0 0 0 }
+
+    /* ===== Forms ===== */
+    form{ display:grid; gap:.8rem; margin-top:1rem }
+    input,select,textarea{
+      width:100%; padding:.75rem; border:1px solid #ced4da;
+      border-radius:6px; font-family:inherit;
+    }
+    input:focus,select:focus,textarea:focus{
+      outline:none; border-color:var(--accent); box-shadow:var(--ring);
+    }
+    [aria-live]{ min-height:1.2em }
+
+    /* ===== Footer ===== */
+    footer{ background:var(--card); border-top:1px solid #dee2e6; padding:1.5rem 0; color:var(--muted) }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px){
+      /* Hero stacks */
+      .hero{ grid-template-columns:1fr; }
+
+      /* Header: show Contact Us + hamburger on RIGHT inside white bar */
+      .nav{ justify-content:space-between; }
+      .cta{ margin-left:auto; padding:.65rem 1.2rem; white-space:nowrap; }
+      .hamburger{ display:block; margin-left:.5rem; position:static; }
+
+      /* Hide nav links until toggled */
+      header nav ul{
+        display:none; position:absolute; top:100%; left:0; right:0;
+        margin:0; padding:.75rem 1rem; background:var(--card);
+        border-top:1px solid #dee2e6; flex-direction:column; gap:.6rem; z-index:60;
+      }
+      header nav ul.show{ display:flex; }
+
+      /* Who section stacks; SPECIAL CASE: item 2 photo ABOVE text */
+      .who, .who:nth-child(even){ grid-template-columns:1fr; }
+      .who-wrap .who:nth-of-type(2) > figure{ order:1; }
+      .who-wrap .who:nth-of-type(2) > div{ order:2; }
+
+      /* Tighten */
+      a.brand img{ height:50px; width:auto; }
+    }
+
+    @media (max-width: 600px){
+      .headline{ font-size:1.9rem; line-height:1.2; margin:.25rem 0 }
+      .sub{ font-size:1rem }
+      .cards{ gap:.75rem }
+      .service-tile h3{ font-size:1rem }
+      .who img{ max-height:220px }
+      footer .container{ text-align:center; font-size:.95rem }
+    }
+  </style>
 </head>
+
 <body>
 <header>
   <div class="container nav">
