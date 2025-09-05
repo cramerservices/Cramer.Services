@@ -334,6 +334,21 @@
     .service-tile h3{ font-size:1rem; }
     .who img{ max-height:220px; }
     footer .container{ text-align:center; font-size:.95rem; }
+/* Mobile: keep Small Business Owner image on the right of the text */
+@media (max-width: 900px){
+  /* Default: stack all who items (image below text) */
+  .who, .who:nth-child(even){ grid-template-columns:1fr; }
+
+  /* Exception: second who block (Small Business Owner) stays side by side */
+  .who-wrap .who:nth-of-type(2){
+    grid-template-columns:1fr 1fr; /* text + image */
+    align-items:center;
+  }
+  .who-wrap .who:nth-of-type(2) > div{ order:1; }    /* text left */
+  .who-wrap .who:nth-of-type(2) > figure{ order:2; } /* image right */
+}
+
+    
   }
 </style>
 
@@ -341,12 +356,9 @@
 <body>
 <header>
   <div class="container nav">
-    <a class="brand" href="#home" style="display:flex; align-items:center;">
-      <img src="CramerLogoText.png" alt="Cramer Services Logo" style="height:60px; width:auto; object-fit:contain;">
+    <a class="brand" href="#home">
+      <img src="CramerLogoText.png" alt="Cramer Services Logo">
     </a>
-
-    <!-- ADD THIS: mobile menu button -->
-    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">☰</button>
 
     <nav>
       <ul>
@@ -357,8 +369,11 @@
     </nav>
 
     <a class="cta" href="ContactUs.html">Contact Us</a>
+    <!-- Hamburger moved to the far right -->
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">☰</button>
   </div>
 </header>
+
 
 
 
