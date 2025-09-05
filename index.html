@@ -207,6 +207,20 @@
     .contact-info .ci{ display:block; margin:.25rem 0; }
     .contact-info .ci::after{ content:""; } /* remove separators */
   }
+   .plan-actions{ display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.5rem; }
+.btn-secondary{
+  background:transparent;
+  border:1px solid #0d6efd;
+  color:#0d6efd;
+  padding:.6rem .9rem;
+  border-radius:6px;
+  font-weight:600;
+}
+.btn-secondary:hover{
+  background:#e7f1ff;
+  text-decoration:none;
+}
+
 </style>
 </head>
 
@@ -305,28 +319,41 @@
     <div class="card">
       <h3>Essential HVAC PLAN</h3>
       <p>$20/mo • Annual Checks • 5% back in credits</p>
-      <a class="cta" href="subscribe.html?plan=essential">Subscribe</a>
+      <div class="plan-actions">
+        <a class="btn-secondary" href="plans/essential.html">Learn More</a>
+        <a class="cta" href="subscribe.html?plan=essential">Subscribe</a>
+      </div>
     </div>
+
     <div class="card">
       <h3>Plus HVAC PLAN</h3>
       <p>$30/mo • Bi-Annual Checks • 10% back in credits</p>
-      <a class="cta" href="subscribe.html?plan=plus">Subscribe</a>
+      <div class="plan-actions">
+        <a class="btn-secondary" href="plans/plus.html">Learn More</a>
+        <a class="cta" href="subscribe.html?plan=plus">Subscribe</a>
+      </div>
     </div>
+
     <div class="card">
       <h3>Pro HVAC PLAN</h3>
       <p>$45/mo • Quarterly checks • 20% back in credits</p>
-      <a class="cta" href="subscribe.html?plan=pro">Subscribe</a>
+      <div class="plan-actions">
+        <a class="btn-secondary" href="plans/pro.html">Learn More</a>
+        <a class="cta" href="subscribe.html?plan=pro">Subscribe</a>
+      </div>
     </div>
+
     <div class="card">
       <h3>Commercial HVAC PLAN</h3>
       <p>$60/mo • Quarterly checks • 10% back in credits</p>
-      <a class="cta" href="subscribe.html?plan=commercial">Subscribe</a>
+      <div class="plan-actions">
+        <a class="btn-secondary" href="plans/commercial.html">Learn More</a>
+        <a class="cta" href="subscribe.html?plan=commercial">Subscribe</a>
+      </div>
     </div>
   </div>
-  <p class="muted" style="margin-top:.6rem">
-    Prices listed are per unit. Adding additional units to your plan increases your credit percentage. Contact us today for more details.
-  </p>
 </section>
+
 
 <!-- Who Cramer Services Helps -->
 <section id="who-we-help" class="container">
