@@ -169,9 +169,13 @@
     display:block;
   }
 
-  /* Stack who items on tablets/phones */
-  @media (max-width: 900px){
-    .who, .who:nth-child(even){ grid-template-columns:1fr }
+@media (max-width: 900px){
+  /* Stack the item */
+  .who-wrap .who:nth-of-type(2){ grid-template-columns: 1fr; }
+
+  /* Image first, then text */
+  .who-wrap .who:nth-of-type(2) > figure{ order: 1; }
+  .who-wrap .who:nth-of-type(2) > div{ order: 2; }
   }
 
   /* ===== FAQ ===== */
@@ -290,7 +294,9 @@
     cursor:pointer;
   }
 
-  @media (max-width: 900px){
+ @media (max-width: 900px){
+  /* Use normal flex flow and push the right-side controls */
+  .nav{ justify-content: flex-start; gap: .5rem; }
     /* Keep header tidy on mobile */
     header .container.nav{ position:relative; }
 
@@ -311,11 +317,8 @@
     }
     header nav ul.show{ display:flex; }   /* toggled via JS */
 
-    /* Keep CTA visible; slight size tweak for phones */
-    .cta{ padding:.55rem .9rem; }
-
-    /* Slightly reduce logo on mobile */
-    a.brand img{ height:50px; width:auto; }
+  .cta{ margin-left: auto; padding: .55rem .9rem; }
+  .hamburger{ display: block; margin-left: .5rem; }
   }
 
   /* ===== WHO SECTION: Make item #2 image BELOW text on mobile ===== */
