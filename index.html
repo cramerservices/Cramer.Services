@@ -221,17 +221,19 @@
   text-decoration:none;
 }
 
-   .plan-actions {
+.plan-actions {
   display: flex;
-  gap: .6rem;         /* space between buttons */
-  margin-top: .5rem;
-  flex-wrap: wrap;    /* allows wrap on small screens */
+  flex-direction: column; /* stack buttons vertically */
+  gap: .6rem;             /* space between buttons */
+  margin-top: .75rem;
 }
 
 .plan-actions a {
-  flex: 1;            /* optional: make buttons equal width */
-  text-align: center; /* center text inside buttons */
+  width: 100%;            /* full width inside the card */
+  text-align: center;     /* center text inside button */
+  box-sizing: border-box; /* keep padding inside width */
 }
+
 
 </style>
 </head>
