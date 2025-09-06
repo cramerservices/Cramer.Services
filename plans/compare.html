@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compare HVAC Plans – Cramer Services</title>
+<link rel="icon" href="/CramerLogo_transparent.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f8f9fb; --card:#fff; --text:#1b1f24; --muted:#6c757d; --accent:#0d6efd; --border:#dee2e6;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--text)}
+  .container{max-width:1000px;margin:auto;padding:1.25rem}
+  header, footer{background:var(--card);border-bottom:1px solid #e5e7eb}
+  header .container, footer .container{display:flex;align-items:center;justify-content:space-between;gap:.75rem}
+  h1{font-size:2rem;margin:.75rem 0}
+  .muted{color:var(--muted)}
+  .btn{display:inline-block;font-weight:600;text-decoration:none;border-radius:8px;padding:.65rem 1rem}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-outline{border:1px solid var(--accent);color:var(--accent);background:transparent}
+  .actions{display:flex;gap:.6rem;flex-wrap:wrap}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;margin:1rem 0}
+  table{width:100%;border-collapse:collapse}
+  th, td{border:1px solid var(--border);padding:.75rem;vertical-align:top}
+  th{background:#f4f6f8;text-align:left}
+  thead th{position:sticky;top:0}
+  .plan{font-weight:700}
+  /* Mobile: stacked layout */
+  @media (max-width: 800px){
+    table thead{display:none}
+    table, tbody, tr, td{display:block;width:100%}
+    tr{margin-bottom:1rem;border:1px solid var(--border);border-radius:10px;background:#fff}
+    td{border:0;border-bottom:1px solid var(--border)}
+    td:last-child{border-bottom:0}
+    td[data-label]{padding-top:.5rem}
+    td::before{
+      content: attr(data-label);
+      display:block;
+      font-size:.85rem;
+      color:var(--muted);
+      margin-bottom:.25rem;
+    }
+    .row-head{background:#f4f6f8;border-bottom:1px solid var(--border);font-weight:700}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="actions">
+      <a class="btn btn-outline" href="/index.html">← Back to Home</a>
+      <a class="btn btn-primary" href="/ContactUs.html">Contact Us</a>
+    </div>
+    <a class="btn btn-outline" href="/privacyPolicy.html">Privacy</a>
+  </div>
+</header>
+
+<main class="container">
+  <h1>Compare HVAC Plans</h1>
+  <p class="muted">Quickly see what’s different between our plans so you can choose the best fit.</p>
+
+  <div class="card">
+    <table aria-label="HVAC Plan Comparison">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="plan">Essential</th>
+          <th class="plan">Plus</th>
+          <th class="plan">Pro</th>
+          <th class="plan">Commercial</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="row-head">Monthly Price</td>
+          <td data-label="Essential">$20/mo</td>
+          <td data-label="Plus">$30/mo</td>
+          <td data-label="Pro">$45/mo</td>
+          <td data-label="Commercial">$60/mo</td>
+        </tr>
+        <tr>
+          <td class="row-head">Tune-Ups / Year</td>
+          <td data-label="Essential">1 (annual)</td>
+          <td data-label="Plus">2 (1 AC + 1 Furnace)</td>
+          <td data-label="Pro">4 (quarterly)</td>
+          <td data-label="Commercial">4 (quarterly)</td>
+        </tr>
+        <tr>
+          <td class="row-head">Service Credits</td>
+          <td data-label="Essential">5%</td>
+          <td data-label="Plus">10%</td>
+          <td data-label="Pro">20%</td>
+          <td data-label="Commercial">10%</td>
+        </tr>
+        <tr>
+          <td class="row-head">Onboarding Fee</td>
+          <td data-label="Essential">$125 (waived if recent tune-up)</td>
+          <td data-label="Plus">$100 (waived if recent tune-up)</td>
+          <td data-label="Pro">$100 (waived if recent tune-up)</td>
+          <td data-label="Commercial">$100 (waived if recent tune-up)</td>
+        </tr>
+        <tr>
+          <td class="row-head">Filter Replacement (by Tech)</td>
+          <td data-label="Essential">1 filter per year</td>
+          <td data-label="Plus">1 filter at each seasonal visit</td>
+          <td data-label="Pro">1 filter each quarterly visit</td>
+          <td data-label="Commercial">Filters replaced quarterly (per unit spec)</td>
+        </tr>
+        <tr>
+          <td class="row-head">Owner Filter Guidance</td>
+          <td data-label="Essential">Replace every 1–3 months</td>
+          <td data-label="Plus">Every 1–2 months (2–3 for lighter use)</td>
+          <td data-label="Pro">Quarterly covered; may need interim changes</td>
+          <td data-label="Commercial">Monthly in dusty/greasy spaces</td>
+        </tr>
+        <tr>
+          <td class="row-head">Best For</td>
+          <td data-label="Essential">Newer systems, mild climates, light use</td>
+          <td data-label="Plus">Seasonal readiness; older/heavier use</td>
+          <td data-label="Pro">Heavy use, older systems, hands-off, reliable team to call, condenser prone to clogging</td>
+          <td data-label="Commercial">Businesses; multi-unit; dusty/greasy environments</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="actions">
+    <a class="btn btn-primary" href="/ContactUs.html">Contact Us</a>
+    <a class="btn btn-outline" href="/subscribe.html">Subscribe</a>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <span class="muted">Questions? (314) 267-8594 • cramerservicesllc@gmail.com</span>
+  </div>
+</footer>
+</body>
+</html>
