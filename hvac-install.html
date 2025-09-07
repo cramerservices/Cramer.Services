@@ -92,14 +92,18 @@
       .form .grid{grid-template-columns:1fr}
       .header-cta{display:none}
     }
-/* Make the consent row behave like a full-width field, aligned with inputs */
+/* keep the form content left-aligned */
+.form{ text-align:left; }
+
+/* consent row: one line, aligned with other inputs */
 .form .consent{
-  width:100%;                 /* same width as inputs */
-  display:flex;               /* checkbox + text in one line */
-  align-items:center;         /* vertical align center */
+  width:100%;                 /* same left edge as other fields */
+  display:flex;               /* checkbox + text on one line */
+  align-items:center;
+  justify-content:flex-start;
   gap:.5rem;                  /* space between box and text */
-  margin:.6rem 0 0;           /* spacing above, no extra left indent */
-  white-space:nowrap;         /* keep on one line */
+  margin:.6rem 0;
+  white-space:nowrap;         /* keep it on one line */
 }
 
 .form .consent input[type="checkbox"]{
@@ -107,11 +111,12 @@
   flex:0 0 auto;              /* don’t stretch */
 }
 
-/* If text gets too long on very small screens, keep it tidy without wrapping under the box */
+/* if text ever gets too long on tiny screens, clip gracefully */
 .form .consent span{
   overflow:hidden;
   text-overflow:ellipsis;
 }
+
 
   </style>
 </head>
@@ -180,6 +185,7 @@
     <a href="/privacyPolicy.html" target="_blank" rel="noopener">Privacy Policy</a>.
   </span>
 </label>
+
 
 
 
