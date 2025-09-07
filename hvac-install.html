@@ -92,6 +92,17 @@
       .form .grid{grid-template-columns:1fr}
       .header-cta{display:none}
     }
+    .consent {
+  display: flex;
+  align-items: center;
+  gap: .4rem;      /* space between checkbox and text */
+  font-size: .9rem;
+  margin: .6rem 0;
+}
+.consent input[type="checkbox"] {
+  margin: 0;
+}
+
   </style>
 </head>
 <body>
@@ -134,29 +145,35 @@
     <!-- Short form (conversion-optimized) -->
     <div id="quote" class="card form" aria-labelledby="formTitle">
       <h2 id="formTitle" style="margin:.25rem 0 .6rem">Get Your Free Install Estimate</h2>
-      <form id="installForm">
-        <div class="grid">
-          <input name="name" placeholder="Full Name*" required />
-          <input name="phone" placeholder="Phone*" required inputmode="tel" />
-        </div>
-        <input name="email" placeholder="Email (optional)" type="email" />
-        <select name="service" required>
-  <option value="">I'm interested in… *</option>
-  <option>AC Replacement</option>
-  <option>Furnace Installation</option>
-  <option>Furnace + AC Installation</option>
-  <option>Heat Pump Installation</option>
-  <option>Geothermal System Installation</option>
-  <option>High-Efficiency Unit Upgrade</option>
-  <option>HVAC Repair / Diagnostic</option>
-</select>
-        <textarea name="details" rows="3" placeholder="Anything we should know? (age of system, hot/cold rooms, timeline)"></textarea>
-        <!-- Honeypot -->
-        <input type="text" name="_company" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off" />
-        <button class="btn btn-primary" type="submit">Request My Estimate</button>
-        <small>By submitting, you agree we may contact you about your request. We never sell your data.</small>
-        <div id="formMsg" role="status" style="min-height:1.2em;margin-top:.4rem;color:var(--muted)"></div>
-      </form>
+<form id="installForm">
+  <div class="grid">
+    <input name="name" placeholder="Full Name*" required />
+    <input name="phone" placeholder="Phone*" required inputmode="tel" />
+  </div>
+  <input name="email" placeholder="Email (optional)" type="email" />
+  <select name="service" required>
+    <option value="">I'm interested in… *</option>
+    <option>AC Replacement</option>
+    <option>Furnace Installation</option>
+    <option>Furnace + AC Installation</option>
+    <option>Heat Pump Installation</option>
+    <option>Geothermal System Installation</option>
+    <option>High-Efficiency Unit Upgrade</option>
+    <option>HVAC Repair / Diagnostic</option>
+  </select>
+  <textarea name="details" rows="3" placeholder="Anything we should know? (age of system, hot/cold rooms, timeline)"></textarea>
+
+  <!-- Consent checkbox -->
+  <label class="consent">
+    <input type="checkbox" name="consent" required>
+    I confirm that I have read and agree to the <a href="/privacyPolicy.html" target="_blank">Privacy Policy</a>.
+  </label>
+
+  <button class="btn btn-primary" type="submit">Request My Estimate</button>
+  <small>By submitting, you agree we may contact you about your request. We never sell your data.</small>
+  <div id="formMsg" role="status" style="min-height:1.2em;margin-top:.4rem;color:var(--muted)"></div>
+</form>
+
     </div>
   </main>
 
