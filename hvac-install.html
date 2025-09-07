@@ -102,6 +102,8 @@
 .consent input[type="checkbox"] {
   margin: 0;
 }
+.consent{display:flex;align-items:center;gap:.4rem;font-size:.9rem;margin:.5rem 0}
+.consent input[type="checkbox"]{margin:0}
 
   </style>
 </head>
@@ -118,7 +120,16 @@
   <header>
     <div class="container nav">
       <a class="brand" href="/index.html">
-        <img src="/LogoNameTrans.png" alt="Cramer Services" />
+        <!-- simplest: relative paths -->
+<img src="LogoNameTrans.png" alt="Cramer Services">
+<link rel="icon" href="CramerLogo_transparent.png" type="image/png">
+<meta property="og:image" content="CramerLogo_transparent.png">
+
+<!-- OR, if you prefer absolute within the repo -->
+<!-- <img src="/Cramer-CRM/LogoNameTrans.png" ...> -->
+<!-- <link rel="icon" href="/Cramer-CRM/CramerLogo_transparent.png"> -->
+<!-- <meta property="og:image" content="/Cramer-CRM/CramerLogo_transparent.png"> -->
+
       </a>
       <div class="header-cta">
         <a class="btn btn-outline phone" href="tel:+13142678594">📞 314-267-8594</a>
@@ -164,11 +175,11 @@
 
     <textarea name="details" rows="3" placeholder="Anything we should know? (age of system, hot/cold rooms, timeline)"></textarea>
 
-    <!-- Consent checkbox -->
-    <label class="consent">
-      <input type="checkbox" name="consent" required>
-      I agree to the <a href="/privacyPolicy.html" target="_blank">Privacy Policy</a>.
-    </label>
+  <label class="consent">
+  <input type="checkbox" name="consent" required>
+  I agree to the <a href="/privacyPolicy.html" target="_blank">Privacy Policy</a>.
+</label>
+
 
     <button class="btn btn-primary" type="submit">Request My Estimate</button>
     <small>By submitting, you agree we may contact you about your request. We never sell your data.</small>
@@ -283,8 +294,8 @@
     "name":"Cramer Services",
     "telephone":"+1-314-267-8594",
     "areaServed":"St. Louis, MO",
-    "url":"https://cramerservices.github.io/Cramer-CRM/hvac-install",
-    "image":"https://cramerservices.github.io/Cramer-CRM/CramerLogo_transparent.png",
+"url":"https://cramerservices.github.io/Cramer-CRM/hvac-install.html",
+"image":"https://cramerservices.github.io/Cramer-CRM/CramerLogo_transparent.png"
     "address":{"@type":"PostalAddress","addressLocality":"St. Louis","addressRegion":"MO","addressCountry":"US"},
     "servesCuisine": null
   }
