@@ -95,27 +95,26 @@
 /* keep the form content left-aligned */
 .form{ text-align:left; }
 
-/* consent row: one line, aligned with other inputs */
-.form .consent{
-  width:100%;                 /* same left edge as other fields */
-  display:flex;               /* checkbox + text on one line */
-  align-items:center;
-  justify-content:flex-start;
-  gap:.5rem;                  /* space between box and text */
-  margin:.6rem 0;
-  white-space:nowrap;         /* keep it on one line */
+/* keep consent row aligned like the text boxes */
+.form .consent {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin: .6rem 0;
+  font-size: .9rem;
+  color: var(--text);
 }
 
-.form .consent input[type="checkbox"]{
-  margin:0;
-  flex:0 0 auto;              /* don’t stretch */
+.form .consent input[type="checkbox"] {
+  margin: 0;
+  flex: 0 0 auto;   /* prevents stretching */
 }
 
-/* if text ever gets too long on tiny screens, clip gracefully */
-.form .consent span{
-  overflow:hidden;
-  text-overflow:ellipsis;
+.form .consent label {
+  flex: 1;          /* text takes remaining space */
+  white-space: normal; /* text can wrap if needed */
 }
+
 
 
   </style>
@@ -178,19 +177,18 @@
   </select>
   <textarea name="details" rows="3" placeholder="Anything we should know? (age of system, hot/cold rooms, timeline)"></textarea>
 
-  <!-- Consent checkbox -->
-<label class="consent">
-  <input type="checkbox" name="consent" required>
-  <span>I confirm that I have read and agree to the
+<!-- Consent row -->
+<div class="consent">
+  <input type="checkbox" id="consent" name="consent" required>
+  <label for="consent">
+    I confirm that I have read and agree to the
     <a href="/privacyPolicy.html" target="_blank" rel="noopener">Privacy Policy</a>.
-  </span>
-</label>
+  </label>
+</div>
 
+<!-- Submit button -->
+<button class="btn btn-primary" type="submit">Request My Estimate</button>
 
-
-
-
-  <button class="btn btn-primary" type="submit">Request My Estimate</button>
   <small>By submitting, you agree we may contact you about your request. We never sell your data.</small>
   <div id="formMsg" role="status" style="min-height:1.2em;margin-top:.4rem;color:var(--muted)"></div>
 </form>
@@ -302,7 +300,10 @@
     const msg = document.getElementById('formMsg');
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      if(form._company.value){ msg.textContent = 'Submission blocked.'; msg.style.color='#dc3545'; return; }
+     if (form._company && form._company.value) {
+  msg.textContent = 'Submission blocked.'; 
+  msg.style.color = '#dc3545'; 
+  return;
 
       const data = Object.fromEntries(new FormData(form).entries());
       // ↓ Option A: open email draft (quick + static)
