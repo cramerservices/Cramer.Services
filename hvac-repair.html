@@ -265,27 +265,6 @@
     </div>
   </footer>
 
-  <script>
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Simple form handler (quick version; swap for EmailJS if desired)
-    const form = document.getElementById('repairForm');
-    const msg  = document.getElementById('formMsg');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if(form._company.value){ msg.textContent = 'Submission blocked.'; msg.style.color='#dc3545'; return; }
-      const data = Object.fromEntries(new FormData(form).entries());
-      const subject = encodeURIComponent('HVAC Repair Request');
-      const body = encodeURIComponent(
-        `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email||''}\nIssue: ${data.service}\nDetails: ${data.details||''}`
-      );
-      window.location.href = `mailto:cramerservicesllc@gmail.com?subject=${subject}&body=${body}`;
-      const out = 'Thanks! We opened your email client. If it didn’t open, call us at 314-267-8594 or email directly.';
-      if(msg){ msg.textContent = out; msg.style.color='#6c757d'; }
-    });
-  </script>
-
   <!-- (Optional) LocalBusiness schema for SEO -->
   <script type="application/ld+json">
   {
@@ -294,10 +273,68 @@
     "name":"Cramer Services",
     "telephone":"+1-314-267-8594",
     "areaServed":"St. Louis, MO",
-    "url":"https://cramerservicesllc.com/hvac-repair.html",
+    "url":"https://cramerservicesllc.com/hvac-repair",
     "image":"https://cramerservicesllc.com/CramerLogo_transparent.png",
     "address":{"@type":"PostalAddress","addressLocality":"St. Louis","addressRegion":"MO","addressCountry":"US"}
   }
   </script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  // Same keys as your main Contact page
+  const EMAILJS_PUBLIC_KEY  = 'TDIki3rqftcomcjJC';
+  const EMAILJS_SERVICE_ID  = 'service_ebrskb5';
+  const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    if (!window.emailjs) return console.error('EmailJS SDK failed to load on repair page.');
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+    const form = document.getElementById('repairForm');
+    const msg  = document.getElementById('formMsg'); // already in your page
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Honeypot
+      if (form._company && form._company.value) {
+        if (msg) { msg.textContent = 'Submission blocked.'; msg.style.color = '#dc3545'; }
+        return;
+      }
+
+      const data = {
+        subject: 'HVAC Repair Request',
+        name:    (form.name?.value || '').trim(),
+        phone:   (form.phone?.value || '').trim(),
+        email:   (form.email?.value || '').trim(),
+        service: (form.service?.value || '').trim(),  // dropdown issue summary
+        details: (form.details?.value || '').trim(),
+        time:    new Date().toLocaleString()
+      };
+
+      if (!data.name || !data.phone || !data.service) {
+        if (msg) { msg.textContent = 'Please complete required fields.'; msg.style.color = '#dc3545'; }
+        return;
+      }
+
+      const btn  = form.querySelector('button[type="submit"]');
+      const prev = btn?.textContent || '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+      if (msg) { msg.textContent = ''; msg.style.color = '#6c757d'; }
+
+      try {
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
+        if (msg) msg.textContent = 'Thanks! Your request was sent. We’ll contact you shortly.';
+        form.reset();
+      } catch (err) {
+        console.error('EmailJS (repair) error:', err);
+        if (msg) { msg.textContent = 'Could not send. Please try again or call 314-267-8594.'; msg.style.color = '#dc3545'; }
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = prev || 'Request Service'; }
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
