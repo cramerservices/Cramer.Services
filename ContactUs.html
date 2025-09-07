@@ -20,18 +20,23 @@
   .cta{display:inline-block;background:var(--accent);color:#fff;padding:.75rem 1rem;border-radius:8px;text-decoration:none;border:0;cursor:pointer;font-weight:600}
   .muted{color:var(--muted)}
   .row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
-.consent-label {
-  display: flex;
-  align-items: flex-start; /* top-align checkbox with the first line of text */
-  gap: .35rem;             /* control space between box and text */
-  margin: .6rem 0;
-  font-size: .9rem;
-  color: #333;
-  line-height: 1.4;        /* keeps multi-line spacing balanced */
+/* Make the consent block span both grid columns */
+.consent-row { grid-column: 1 / -1; }
+
+/* Keep the box on the left and text tight beside it */
+.consent-label{
+  display:flex;
+  align-items:flex-start; /* top-align with first line of text */
+  gap:.35rem;             /* tighten space between box and text */
+  margin:.6rem 0;
+  font-size:.95rem;
+  color:#333;
+  line-height:1.35;
 }
-.consent-label input[type="checkbox"] {
-  margin-top: .15rem; /* aligns better with text on top */
+.consent-label input[type="checkbox"]{
+  margin: .15rem 0 0 0;   /* nudge down slightly to line up with text */
 }
+
 
 
 
@@ -54,13 +59,17 @@
         </div>
 
         <textarea name="notes" rows="4" placeholder="Please share as many details about your project as possible. The more we know, the better we can serve you."></textarea>
-<label class="consent-label">
-  <input type="checkbox" name="consent" required />
-  <span>
-    I agree to receive SMS or email updates as described in the 
-    <a href="/privacyPolicy.html" target="_blank">Privacy Policy</a>.
-  </span>
-</label>
+<!-- Put this where your checkbox/text are now -->
+<div class="consent-row">
+  <label class="consent-label">
+    <input type="checkbox" name="consent" required />
+    <span>
+      I agree to receive SMS or email updates as described in the
+      <a href="/privacyPolicy.html" target="_blank">Privacy Policy</a>.
+    </span>
+  </label>
+</div>
+
 
 
 
