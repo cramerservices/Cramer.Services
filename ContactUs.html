@@ -20,6 +20,17 @@
   .cta{display:inline-block;background:var(--accent);color:#fff;padding:.75rem 1rem;border-radius:8px;text-decoration:none;border:0;cursor:pointer;font-weight:600}
   .muted{color:var(--muted)}
   .row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.consent-label {
+  display: flex;
+  align-items: center;
+  gap: .25rem;   /* smaller gap between checkbox & text */
+  margin: .6rem 0;
+  font-size: .9rem;
+  color: #333;
+}
+.consent-label input[type="checkbox"] {
+  margin: 0;   /* remove extra space browsers add */
+}
 
 
 </style>
@@ -41,13 +52,14 @@
         </div>
 
         <textarea name="notes" rows="4" placeholder="Please share as many details about your project as possible. The more we know, the better we can serve you."></textarea>
-<label style="display:flex; align-items:center; gap:.4rem; margin:.6rem 0; font-size:.9rem; color:#333; white-space:nowrap;">
+<label class="consent-label">
   <input type="checkbox" name="consent" required />
   <span>
     I agree to receive SMS or email updates as described in the 
     <a href="/privacyPolicy.html" target="_blank">Privacy Policy</a>.
   </span>
 </label>
+
 
 
         <button class="cta" type="submit">Submit</button>
