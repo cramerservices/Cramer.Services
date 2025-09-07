@@ -23,19 +23,27 @@
 /* Make the consent block span both grid columns */
 .consent-row { grid-column: 1 / -1; }
 
-/* Keep the box on the left and text tight beside it */
-.consent-label{
-  display:flex;
-  align-items:flex-start; /* top-align with first line of text */
-  gap:.35rem;             /* tighten space between box and text */
-  margin:.6rem 0;
-  font-size:.95rem;
-  color:#333;
-  line-height:1.35;
+/* make the consent row behave like one line, aligned with the left edge */
+.consent-inline{
+  grid-column: 1 / -1;      /* spans your form width; safe even if not in a grid */
+  display: flex;
+  align-items: center;      /* checkbox and first line aligned */
+  gap: .45rem;              /* space between box and text */
+  margin: .6rem 0 .2rem;
+  text-align: left;
 }
-.consent-label input[type="checkbox"]{
-  margin: .15rem 0 0 0;   /* nudge down slightly to line up with text */
+
+.consent-inline input[type="checkbox"]{
+  margin: 0;                /* remove default browser margins */
 }
+
+.consent-inline label{
+  margin: 0;
+  font-size: .95rem;
+  color: #333;
+  line-height: 1.35;
+}
+
 
 
 
@@ -60,15 +68,15 @@
 
         <textarea name="notes" rows="4" placeholder="Please share as many details about your project as possible. The more we know, the better we can serve you."></textarea>
 <!-- Put this where your checkbox/text are now -->
-<div class="consent-row">
-  <label class="consent-label">
-    <input type="checkbox" name="consent" required />
-    <span>
-      I agree to receive SMS or email updates as described in the
-      <a href="/privacyPolicy.html" target="_blank">Privacy Policy</a>.
-    </span>
+<!-- replace the old checkbox/text block with this -->
+<div class="consent-inline">
+  <input type="checkbox" id="consent" name="consent" required />
+  <label for="consent">
+    I agree to receive SMS or email updates as described in the
+    <a href="/privacyPolicy.html" target="_blank">Privacy Policy</a>.
   </label>
 </div>
+
 
 
 
