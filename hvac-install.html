@@ -92,6 +92,17 @@
       .form .grid{grid-template-columns:1fr}
       .header-cta{display:none}
     }
+    .consent {
+  display: flex;
+  align-items: center;
+  gap: .4rem;       /* space between checkbox and text */
+  font-size: .9rem;
+  margin: .5rem 0;
+}
+.consent input[type="checkbox"] {
+  margin: 0;
+}
+
   </style>
 </head>
 <body>
@@ -148,6 +159,11 @@
   <option>Geothermal System Installation</option>
   <option>High-Efficiency Unit Upgrade</option>
   <option>HVAC Repair / Diagnostic</option>
+  <label class="consent">
+  <input type="checkbox" name="consent" required>
+  I agree to the <a href="/privacyPolicy.html" target="_blank">Privacy Policy</a>
+</label>
+
 </select>
         <textarea name="details" rows="3" placeholder="Anything we should know? (age of system, hot/cold rooms, timeline)"></textarea>
         <!-- Honeypot -->
