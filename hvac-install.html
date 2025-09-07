@@ -92,19 +92,6 @@
       .form .grid{grid-template-columns:1fr}
       .header-cta{display:none}
     }
-    .consent {
-  display: flex;
-  align-items: center;
-  gap: .4rem;       /* space between checkbox and text */
-  font-size: .9rem;
-  margin: .5rem 0;
-}
-.consent input[type="checkbox"] {
-  margin: 0;
-}
-.consent{display:flex;align-items:center;gap:.4rem;font-size:.9rem;margin:.5rem 0}
-.consent input[type="checkbox"]{margin:0}
-
   </style>
 </head>
 <body>
@@ -120,16 +107,7 @@
   <header>
     <div class="container nav">
       <a class="brand" href="/index.html">
-        <!-- simplest: relative paths -->
-<img src="LogoNameTrans.png" alt="Cramer Services">
-<link rel="icon" href="CramerLogo_transparent.png" type="image/png">
-<meta property="og:image" content="CramerLogo_transparent.png">
-
-<!-- OR, if you prefer absolute within the repo -->
-<!-- <img src="/Cramer-CRM/LogoNameTrans.png" ...> -->
-<!-- <link rel="icon" href="/Cramer-CRM/CramerLogo_transparent.png"> -->
-<!-- <meta property="og:image" content="/Cramer-CRM/CramerLogo_transparent.png"> -->
-
+        <img src="/LogoNameTrans.png" alt="Cramer Services" />
       </a>
       <div class="header-cta">
         <a class="btn btn-outline phone" href="tel:+13142678594">📞 314-267-8594</a>
@@ -141,8 +119,8 @@
   <!-- Hero -->
   <main class="container hero">
     <div>
-      <h1>Lower Energy Bills, Better Comfort, Zero Headaches — Expert HVAC Installation</h1>
-      <p class="sub">Right-sized systems that cut costs, keep every room comfortable, and are installed cleanly by licensed pros.</p>
+      <h1>HVAC Installation Done Right — Fast Scheduling, Fair Pricing, Guaranteed</h1>
+      <p class="sub">New system installs with clear options, no surprises, and work we stand by. Serving the St. Louis area.</p>
       <ul class="points">
         <li>Free in-home estimate & straight-forward pricing</li>
         <li>Right-sized systems for comfort & efficiency</li>
@@ -152,41 +130,30 @@
       <div class="hint">Prefer to talk? Call us at <a href="tel:+13142678594">314-267-8594</a></div>
     </div>
 
-   <!-- Short form (conversion-optimized) -->
-<div id="quote" class="card form" aria-labelledby="formTitle">
-  <h2 id="formTitle" style="margin:.25rem 0 .6rem">Get Your Free Install Estimate</h2>
-  <form id="installForm">
-    <div class="grid">
-      <input name="name" placeholder="Full Name*" required />
-      <input name="phone" placeholder="Phone*" required inputmode="tel" />
+    <!-- Short form (conversion-optimized) -->
+    <div id="quote" class="card form" aria-labelledby="formTitle">
+      <h2 id="formTitle" style="margin:.25rem 0 .6rem">Get Your Free Install Estimate</h2>
+      <form id="installForm">
+        <div class="grid">
+          <input name="name" placeholder="Full Name*" required />
+          <input name="phone" placeholder="Phone*" required inputmode="tel" />
+        </div>
+        <input name="email" placeholder="Email (optional)" type="email" />
+        <select name="service" required>
+          <option value="">I'm interested in… *</option>
+          <option>New AC Installation</option>
+          <option>New Furnace Installation</option>
+          <option>Heat Pump Installation</option>
+          <option>Full System (AC + Furnace)</option>
+        </select>
+        <textarea name="details" rows="3" placeholder="Anything we should know? (age of system, hot/cold rooms, timeline)"></textarea>
+        <!-- Honeypot -->
+        <input type="text" name="_company" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off" />
+        <button class="btn btn-primary" type="submit">Request My Estimate</button>
+        <small>By submitting, you agree we may contact you about your request. We never sell your data.</small>
+        <div id="formMsg" role="status" style="min-height:1.2em;margin-top:.4rem;color:var(--muted)"></div>
+      </form>
     </div>
-    <input name="email" placeholder="Email (optional)" type="email" />
-
-    <select name="service" required>
-      <option value="">I'm interested in… *</option>
-      <option>AC Replacement</option>
-      <option>Furnace Installation</option>
-      <option>Furnace + AC Installation</option>
-      <option>Heat Pump Installation</option>
-      <option>Geothermal System Installation</option>
-      <option>High-Efficiency Unit Upgrade</option>
-      <option>HVAC Repair / Diagnostic</option>
-    </select>
-
-    <textarea name="details" rows="3" placeholder="Anything we should know? (age of system, hot/cold rooms, timeline)"></textarea>
-
-  <label class="consent">
-  <input type="checkbox" name="consent" required>
-  I agree to the <a href="/privacyPolicy.html" target="_blank">Privacy Policy</a>.
-</label>
-
-
-    <button class="btn btn-primary" type="submit">Request My Estimate</button>
-    <small>By submitting, you agree we may contact you about your request. We never sell your data.</small>
-    <div id="formMsg" role="status" style="min-height:1.2em;margin-top:.4rem;color:var(--muted)"></div>
-  </form>
-</div>
-
   </main>
 
   <!-- Trust proof -->
@@ -210,32 +177,29 @@
   </section>
 
   <!-- Package teaser -->
-<section class="container">
-  <h2>Popular Installation Options</h2>
-  <div class="packages">
-    <div class="card">
-      <h3>❄️ AC Replacement</h3>
-      <p class="muted">Restore cooling performance and efficiency with a properly sized, professionally installed system.</p>
-      <p><b>Why it matters:</b> Cuts energy bills and keeps your home cool on the hottest days.</p>
-      <a class="btn btn-outline" href="#quote">Request Estimate</a>
+  <section class="container">
+    <h2>Popular Installation Options</h2>
+    <div class="packages">
+      <div class="card">
+        <h3>High-Efficiency AC</h3>
+        <p class="muted">Comfort upgrade + lower energy bills.</p>
+        <p class="price">From $X,XXX installed</p>
+        <a class="btn btn-outline" href="/plans/compare.html">Compare Plans</a>
+      </div>
+      <div class="card">
+        <h3>Furnace Replacement</h3>
+        <p class="muted">Quiet, reliable heat for St. Louis winters.</p>
+        <p class="price">From $X,XXX installed</p>
+        <a class="btn btn-outline" href="/plans/compare.html">Compare Plans</a>
+      </div>
+      <div class="card">
+        <h3>Heat Pump Systems</h3>
+        <p class="muted">All-electric comfort, year-round.</p>
+        <p class="price">From $X,XXX installed</p>
+        <a class="btn btn-outline" href="/plans/compare.html">Compare Plans</a>
+      </div>
     </div>
-
-    <div class="card">
-      <h3>🔥 Furnace + AC Installation</h3>
-      <p class="muted">Matched systems for year-round comfort, less noise, and lower total operating costs.</p>
-      <p><b>Why it matters:</b> One install, one warranty, peace of mind all year long.</p>
-      <a class="btn btn-outline" href="#quote">Request Estimate</a>
-    </div>
-
-    <div class="card">
-      <h3>🌎 Geothermal System</h3>
-      <p class="muted">Ultra-efficient heating & cooling using the stable temperature of the ground—long life, big savings.</p>
-      <p><b>Why it matters:</b> Rebates + lowest lifetime cost of ownership.</p>
-      <a class="btn btn-outline" href="#quote">Request Estimate</a>
-    </div>
-  </div>
-</section>
-
+  </section>
 
   <!-- Reviews -->
   <section class="container">
@@ -284,7 +248,27 @@
     </div>
   </footer>
 
- 
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Simple form handler (replace with EmailJS if you prefer)
+    const form = document.getElementById('installForm');
+    const msg = document.getElementById('formMsg');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if(form._company.value){ msg.textContent = 'Submission blocked.'; msg.style.color='#dc3545'; return; }
+
+      const data = Object.fromEntries(new FormData(form).entries());
+      // ↓ Option A: open email draft (quick + static)
+      const subject = encodeURIComponent('HVAC Install Estimate Request');
+      const body = encodeURIComponent(
+        `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email||''}\nService: ${data.service}\nDetails: ${data.details||''}`
+      );
+      window.location.href = `mailto:cramerservicesllc@gmail.com?subject=${subject}&body=${body}`;
+      msg.textContent = 'Thanks! We opened your email client. If it didn’t open, call us at 314-267-8594 or email directly.';
+    });
+  </script>
 
   <!-- (Optional) LocalBusiness schema for SEO -->
   <script type="application/ld+json">
@@ -294,69 +278,11 @@
     "name":"Cramer Services",
     "telephone":"+1-314-267-8594",
     "areaServed":"St. Louis, MO",
-"url":"https://cramerservices.github.io/Cramer-CRM/hvac-install.html",
-"image":"https://cramerservices.github.io/Cramer-CRM/CramerLogo_transparent.png"
+    "url":"https://cramerservices.github.io/Cramer-CRM/hvac-install.html",
+    "image":"https://cramerservices.github.io/Cramer-CRM/CramerLogo_transparent.png",
     "address":{"@type":"PostalAddress","addressLocality":"St. Louis","addressRegion":"MO","addressCountry":"US"},
     "servesCuisine": null
   }
   </script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script>
-  // Use the same keys as your main Contact page
-  const EMAILJS_PUBLIC_KEY  = 'TDIki3rqftcomcjJC';
-  const EMAILJS_SERVICE_ID  = 'service_ebrskb5';
-  const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
-
-  document.addEventListener('DOMContentLoaded', () => {
-    if (!window.emailjs) return console.error('EmailJS SDK failed to load on install page.');
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-
-    const form = document.getElementById('installForm');
-    const msg  = document.getElementById('formMsg'); // already in your page
-    if (!form) return;
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      // Honeypot
-      if (form._company && form._company.value) {
-        if (msg) { msg.textContent = 'Submission blocked.'; msg.style.color = '#dc3545'; }
-        return;
-      }
-
-      const data = {
-        subject: 'HVAC Install Estimate Request',
-        name:    (form.name?.value || '').trim(),
-        phone:   (form.phone?.value || '').trim(),
-        email:   (form.email?.value || '').trim(),
-        service: (form.service?.value || '').trim(),
-        details: (form.details?.value || '').trim(),
-        time:    new Date().toLocaleString()
-      };
-
-      if (!data.name || !data.phone || !data.service) {
-        if (msg) { msg.textContent = 'Please complete required fields.'; msg.style.color = '#dc3545'; }
-        return;
-      }
-
-      const btn  = form.querySelector('button[type="submit"]');
-      const prev = btn?.textContent || '';
-      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
-      if (msg) { msg.textContent = ''; msg.style.color = '#6c757d'; }
-
-      try {
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
-        if (msg) msg.textContent = 'Thanks! Your request was sent. We’ll contact you shortly.';
-        form.reset();
-      } catch (err) {
-        console.error('EmailJS (install) error:', err);
-        if (msg) { msg.textContent = 'Could not send. Please try again or call 314-267-8594.'; msg.style.color = '#dc3545'; }
-      } finally {
-        if (btn) { btn.disabled = false; btn.textContent = prev || 'Request My Estimate'; }
-      }
-    });
-  });
-</script>
-
 </body>
 </html>
