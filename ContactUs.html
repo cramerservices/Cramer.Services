@@ -20,6 +20,8 @@
   .cta{display:inline-block;background:var(--accent);color:#fff;padding:.75rem 1rem;border-radius:8px;text-decoration:none;border:0;cursor:pointer;font-weight:600}
   .muted{color:var(--muted)}
   .row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+
+
 </style>
 </head>
 <body>
@@ -39,7 +41,11 @@
         </div>
 
         <textarea name="notes" rows="4" placeholder="Please share as many details about your project as possible. The more we know, the better we can serve you."></textarea>
-
+ <label style="display:block; margin:.6rem 0; font-size:.9rem; color:#333;">
+    <input type="checkbox" name="consent" required />
+    I agree to receive SMS or email updates as described in the 
+    <a href="/privacyPolicy.html" target="_blank">Privacy Policy</a>.
+  </label>
         <button class="cta" type="submit">Submit</button>
         <p id="msg" class="muted" aria-live="polite"></p>
       </form>
