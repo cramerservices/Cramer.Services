@@ -23,26 +23,30 @@
 /* Make the consent block span both grid columns */
 .consent-row { grid-column: 1 / -1; }
 
-/* make the consent row behave like one line, aligned with the left edge */
+/* Force checkbox + text to live in one row and start at the left edge */
 .consent-inline{
-  grid-column: 1 / -1;      /* spans your form width; safe even if not in a grid */
-  display: flex;
-  align-items: center;      /* checkbox and first line aligned */
-  gap: .45rem;              /* space between box and text */
+  grid-column: 1 / -1;              /* span full form width regardless of outer grid */
+  display: grid;                     /* inner grid = checkbox + text */
+  grid-template-columns: 18px auto;  /* checkbox width + free-flowing text */
+  align-items: start;                /* top align with first line */
+  column-gap: .45rem;
   margin: .6rem 0 .2rem;
   text-align: left;
 }
 
+/* Neutralize any theme margins on form labels/inputs */
 .consent-inline input[type="checkbox"]{
-  margin: 0;                /* remove default browser margins */
+  width: 18px; height: 18px;
+  margin: 3px 0 0 0;
 }
-
-.consent-inline label{
-  margin: 0;
+.consent-inline .consent-text{
+  margin: 0 !important;
   font-size: .95rem;
   color: #333;
   line-height: 1.35;
+  display: block !important;         /* override any inline/width rules from theme */
 }
+
 
 
 
@@ -67,15 +71,15 @@
         </div>
 
         <textarea name="notes" rows="4" placeholder="Please share as many details about your project as possible. The more we know, the better we can serve you."></textarea>
-<!-- Put this where your checkbox/text are now -->
-<!-- replace the old checkbox/text block with this -->
+<!-- Consent (single row, left-aligned with fields) -->
 <div class="consent-inline">
   <input type="checkbox" id="consent" name="consent" required />
-  <label for="consent">
+  <label for="consent" class="consent-text">
     I agree to receive SMS or email updates as described in the
     <a href="/privacyPolicy.html" target="_blank">Privacy Policy</a>.
   </label>
 </div>
+
 
 
 
