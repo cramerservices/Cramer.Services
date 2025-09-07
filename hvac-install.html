@@ -101,14 +101,18 @@
   white-space: normal; /* allows text to wrap nicely if needed */
 }
 
+.consent {
+  display: flex;
+  align-items: center;
+  gap: .4rem;             /* spacing between checkbox and text */
+  font-size: .9rem;
+  margin: .6rem 0;
+}
+
 .consent input[type="checkbox"] {
-  flex-shrink: 0;  /* keeps checkbox from resizing */
   margin: 0;
 }
 
-.consent span {
-  line-height: 1.4; /* improves readability */
-}
 
 
   </style>
@@ -172,10 +176,12 @@
   <textarea name="details" rows="3" placeholder="Anything we should know? (age of system, hot/cold rooms, timeline)"></textarea>
 
   <!-- Consent checkbox -->
- <label class="consent">
+<label class="consent">
   <input type="checkbox" name="consent" required>
-  <span>I confirm that I have read and agree to the <a href="/privacyPolicy.html" target="_blank">Privacy Policy</a>.</span>
+  I confirm that I have read and agree to the 
+  <a href="/privacyPolicy.html" target="_blank">Privacy Policy</a>.
 </label>
+
 
 
   <button class="btn btn-primary" type="submit">Request My Estimate</button>
