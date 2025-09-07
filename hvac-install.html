@@ -94,16 +94,53 @@
     }
 /* keep the form content left-aligned */
 .form{ text-align:left; }
+    /* Slight visual boost for primary CTA */
+.btn-primary{ background:var(--accent); color:#fff; box-shadow:0 4px 14px rgba(13,110,253,.15) }
+.btn-primary:hover{ background:var(--accent-dark) }
+
+/* Make review stars a touch larger for scanability */
+.reviews .stars{ font-size:1.1rem; }
+
   </style>
 </head>
 <body>
 
-  <!-- Urgency / Offer band -->
-  <div class="band">
-    <div class="container">
-      <span>⚡ Limited availability:</span> <b>Book your install estimate this week</b> & get <b>$100 off</b> a full-system installation.
-    </div>
+<div class="band">
+  <div class="container">
+    <span>⚡ Limited-time:</span>
+    <b>Book your install estimate this week</b> & get <b>$100 off</b> a full-system installation.
+    <span aria-live="polite" id="countdown" style="margin-left:.5rem;font-weight:700"></span>
   </div>
+</div>
+
+<script>
+  // Countdown to Sunday 11:59 PM local time
+  (function(){
+    const el = document.getElementById('countdown');
+    if (!el) return;
+    function nextSunday2359(){
+      const now = new Date();
+      const end = new Date(now);
+      const add = (7 - now.getDay()) % 7; // days to Sunday
+      end.setDate(now.getDate() + add);
+      end.setHours(23,59,59,999);
+      if (end < now) end.setDate(end.getDate() + 7);
+      return end;
+    }
+    let deadline = nextSunday2359();
+    function tick(){
+      const t = deadline - new Date();
+      if (t <= 0){ deadline = nextSunday2359(); }
+      const d = Math.floor(t/86400000);
+      const h = Math.floor((t%86400000)/3600000);
+      const m = Math.floor((t%3600000)/60000);
+      el.textContent = `— ends in ${d}d ${h}h ${m}m`;
+      requestAnimationFrame(()=>setTimeout(tick, 15000));
+    }
+    tick();
+  })();
+</script>
+
 
   <!-- Header -->
   <header>
@@ -112,7 +149,6 @@
         <img src="/LogoNameTrans.png" alt="Cramer Services" />
       </a>
       <div class="header-cta">
-        <a class="btn btn-outline phone" href="tel:+13142678594">📞 314-267-8594</a>
         <a class="btn btn-primary" href="#quote">Get Free Estimate</a>
       </div>
     </div>
@@ -120,18 +156,18 @@
 
   <!-- Hero -->
   <main class="container hero">
-    <div>
-      <h1>Lower Energy Bills, Better Comfort, Zero Headaches — Expert HVAC Installation</h1>
-      <p class="sub">Right-sized systems that cut costs, keep every room comfortable, and are installed cleanly by licensed pros.</p>
+  <div>
+  <h1>Save on Energy Bills with Expert, Hassle-Free HVAC Installation</h1>
+  <p class="sub">Right-sized systems installed by licensed pros. Cleaner air, quieter comfort, and transparent pricing—backed by our guarantees.</p>
+  <ul class="points">
+    <li>Free in-home estimate & straightforward pricing</li>
+    <li>Right-sized equipment for comfort & efficiency</li>
+    <li>Fast scheduling; financing options available</li>
+    <li>Licensed & insured technicians</li>
+  </ul>
+  <div class="hint">Prefer to talk? Call <a href="tel:+13142678594">314-267-8594</a></div>
+</div>
 
-      <ul class="points">
-        <li>Free in-home estimate & straight-forward pricing</li>
-        <li>Right-sized systems for comfort & efficiency</li>
-        <li>Financing options available</li>
-        <li>Licensed & insured technicians</li>
-      </ul>
-      <div class="hint">Prefer to talk? Call us at <a href="tel:+13142678594">314-267-8594</a></div>
-    </div>
 
     <!-- Short form (conversion-optimized) -->
     <div id="quote" class="card form" aria-labelledby="formTitle">
@@ -180,14 +216,15 @@
   </section>
 
   <!-- Why choose us -->
-  <section class="container">
-    <h2>Why Homeowners Choose Cramer Services</h2>
-    <div class="why" style="margin-top:.6rem">
-      <div class="card"><h3>Transparent Pricing</h3><p class="muted">Clear options and written estimates—no gotchas.</p></div>
-      <div class="card"><h3>Local & Trusted</h3><p class="muted">St. Louis pros who show up on time and communicate clearly.</p></div>
-      <div class="card"><h3>Clean, Respectful Installs</h3><p class="muted">We protect your home, haul away old equipment, and leave it spotless.</p></div>
-    </div>
-  </section>
+<section class="container">
+  <h2>Why St. Louis Homeowners Choose Cramer Services</h2>
+  <div class="why" style="margin-top:.6rem">
+    <div class="card"><h3>Upfront, Transparent Pricing</h3><p class="muted">Clear options and written estimates—no surprises.</p></div>
+    <div class="card"><h3>Fast Scheduling, Clean Installs</h3><p class="muted">We protect your home, remove old equipment, and leave it spotless.</p></div>
+    <div class="card"><h3>Trusted, Local Pros</h3><p class="muted">Licensed & insured technicians who communicate and show up on time.</p></div>
+  </div>
+</section>
+
 
   <!-- Package teaser -->
 <section class="container">
@@ -218,14 +255,35 @@
 
 
   <!-- Reviews -->
-  <section class="container">
-    <h2>What Customers Say</h2>
-    <div class="reviews">
-      <div class="card"><div class="stars">★★★★★</div><p>“Professional, on time, and the install looks great. House has never felt better.”</p><p class="muted">— Sarah M.</p></div>
-      <div class="card"><div class="stars">★★★★★</div><p>“Clear estimate, fair price, no surprises. Highly recommend.”</p><p class="muted">— James R.</p></div>
-      <div class="card"><div class="stars">★★★★★</div><p>“Crew was tidy and respectful. They handled everything start to finish.”</p><p class="muted">— Elena K.</p></div>
-    </div>
-  </section>
+ <section class="container">
+  <h2>What Customers Say</h2>
+  <div class="reviews">
+    <figure class="card">
+      <img src="/images/review-sarah.jpg" alt="Sarah, St. Louis homeowner" style="width:100%;border-radius:10px;margin-bottom:.5rem">
+      <div class="stars">★★★★★</div>
+      <figcaption>“Professional, on time, and the install looks great. House has never felt better.”<br><span class="muted">— Sarah M.</span></figcaption>
+    </figure>
+    <figure class="card">
+      <img src="/images/review-james.jpg" alt="James, homeowner" style="width:100%;border-radius:10px;margin-bottom:.5rem">
+      <div class="stars">★★★★★</div>
+      <figcaption>“Clear estimate, fair price, no surprises. Highly recommend.”<br><span class="muted">— James R.</span></figcaption>
+    </figure>
+    <figure class="card">
+      <img src="/images/review-elena.jpg" alt="Elena, homeowner" style="width:100%;border-radius:10px;margin-bottom:.5rem">
+      <div class="stars">★★★★★</div>
+      <figcaption>“Crew was tidy and respectful. They handled everything start to finish.”<br><span class="muted">— Elena K.</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="container">
+  <h2>What You Get with Our Install</h2>
+  <div class="cards">
+    <div class="card"><h3>Right-Sizing</h3><p class="muted">We spec the correct capacity for comfort, efficiency & code.</p></div>
+    <div class="card"><h3>Permits & Inspections</h3><p class="muted">Handled for you where required—start to finish.</p></div>
+    <div class="card"><h3>Warranties</h3><p class="muted">Manufacturer warranties plus our workmanship guarantee.</p></div>
+  </div>
+</section>
 
   <!-- FAQ -->
   <section class="container">
