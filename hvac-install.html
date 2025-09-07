@@ -92,28 +92,26 @@
       .form .grid{grid-template-columns:1fr}
       .header-cta{display:none}
     }
-.consent {
-  display: flex;
-  align-items: center;
-  font-size: .9rem;
-  margin: .6rem 0;
-  gap: .4rem;          /* space between checkbox and text */
-  white-space: normal; /* allows text to wrap nicely if needed */
+/* Make the consent row behave like a full-width field, aligned with inputs */
+.form .consent{
+  width:100%;                 /* same width as inputs */
+  display:flex;               /* checkbox + text in one line */
+  align-items:center;         /* vertical align center */
+  gap:.5rem;                  /* space between box and text */
+  margin:.6rem 0 0;           /* spacing above, no extra left indent */
+  white-space:nowrap;         /* keep on one line */
 }
 
-.consent {
-  display: flex;
-  align-items: center;
-  gap: .4rem;             /* spacing between checkbox and text */
-  font-size: .9rem;
-  margin: .6rem 0;
+.form .consent input[type="checkbox"]{
+  margin:0;
+  flex:0 0 auto;              /* don’t stretch */
 }
 
-.consent input[type="checkbox"] {
-  margin: 0;
+/* If text gets too long on very small screens, keep it tidy without wrapping under the box */
+.form .consent span{
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
-
-
 
   </style>
 </head>
@@ -178,9 +176,11 @@
   <!-- Consent checkbox -->
 <label class="consent">
   <input type="checkbox" name="consent" required>
-  I confirm that I have read and agree to the 
-  <a href="/privacyPolicy.html" target="_blank">Privacy Policy</a>.
+  <span>I confirm that I have read and agree to the
+    <a href="/privacyPolicy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+  </span>
 </label>
+
 
 
 
