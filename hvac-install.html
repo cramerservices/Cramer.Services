@@ -94,29 +94,6 @@
     }
 /* keep the form content left-aligned */
 .form{ text-align:left; }
-
-/* keep consent row aligned like the text boxes */
-.form .consent {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  margin: .6rem 0;
-  font-size: .9rem;
-  color: var(--text);
-}
-
-.form .consent input[type="checkbox"] {
-  margin: 0;
-  flex: 0 0 auto;   /* prevents stretching */
-}
-
-.form .consent label {
-  flex: 1;          /* text takes remaining space */
-  white-space: normal; /* text can wrap if needed */
-}
-
-
-
   </style>
 </head>
 <body>
@@ -177,19 +154,14 @@
   </select>
   <textarea name="details" rows="3" placeholder="Anything we should know? (age of system, hot/cold rooms, timeline)"></textarea>
 
-<!-- Consent row -->
-<div class="consent">
-  <input type="checkbox" id="consent" name="consent" required>
-  <label for="consent">
-    I confirm that I have read and agree to the
-    <a href="/privacyPolicy.html" target="_blank" rel="noopener">Privacy Policy</a>.
-  </label>
-</div>
-
 <!-- Submit button -->
 <button class="btn btn-primary" type="submit">Request My Estimate</button>
 
-  <small>By submitting, you agree we may contact you about your request. We never sell your data.</small>
+<button class="btn btn-primary" type="submit"
+        title="By submitting, you agree to our Privacy Policy.">
+  Request My Estimate
+</button>
+
   <div id="formMsg" role="status" style="min-height:1.2em;margin-top:.4rem;color:var(--muted)"></div>
 </form>
 
