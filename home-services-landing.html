@@ -292,11 +292,7 @@
     const msg  = document.getElementById('formMsg');
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      if(!form.consent.checked){
-        msg.textContent = 'Please accept the Privacy Policy to continue.';
-        msg.style.color = '#dc2626';
-        return;
-      }
+   
       const data = Object.fromEntries(new FormData(form).entries());
       const subject = encodeURIComponent('Home Services Estimate Request');
       const body = encodeURIComponent(
