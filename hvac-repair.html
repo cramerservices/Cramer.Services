@@ -292,6 +292,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     if (!window.emailjs) return console.error('EmailJS SDK failed to load on repair page.');
     emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+const card = document.getElementById('service'); // the form card container
 
     const form = document.getElementById('repairForm');
     const msg  = document.getElementById('formMsg'); // already in your page
@@ -326,16 +327,24 @@
       if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
       if (msg) { msg.textContent = ''; msg.style.color = '#6c757d'; }
 
-      try {
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
-        if (msg) msg.textContent = 'Thanks! Your request was sent. We’ll contact you shortly.';
-        form.reset();
-      } catch (err) {
-        console.error('EmailJS (repair) error:', err);
-        if (msg) { msg.textContent = 'Could not send. Please try again or call 314-267-8594.'; msg.style.color = '#dc3545'; }
-      } finally {
-        if (btn) { btn.disabled = false; btn.textContent = prev || 'Request Service'; }
-      }
+     try {
+  await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
+
+  // Replace the form with a clean thank-you (same feel as other page)
+  card.innerHTML = `
+    <h2 style="margin:.25rem 0 .3rem">Thank you!</h2>
+    <p class="muted" style="margin:0">
+      We received your request for <b>${data.service || 'HVAC Repair'}</b>.
+      We’ll reach out shortly to confirm details and scheduling.
+    </p>
+  `;
+} catch (err) {
+  console.error('EmailJS (repair) error:', err);
+  if (msg) { msg.textContent = 'Could not send. Please try again or call 314-267-8594.'; msg.style.color = '#dc3545'; }
+} finally {
+  if (btn) { btn.disabled = false; btn.textContent = prev || 'Request Service'; }
+}
+
     });
   });
 </script>
