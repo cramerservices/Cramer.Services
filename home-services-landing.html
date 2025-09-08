@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Book Trusted Home Services | Fast, Fair & Guaranteed</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="One place for HVAC, plumbing, electrical, and home repair. Fast scheduling, fair pricing, and work we stand by. Get your free estimate today." />
+  <link rel="icon" href="/CramerLogo_transparent.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <meta property="og:title" content="Book Trusted Home Services" />
+  <meta property="og:description" content="Fast scheduling, fair pricing, and work we stand by. Free estimate." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/CramerLogo_transparent.png" />
+
+  <style>
+    :root{
+      --bg:#f7f9fc; --card:#fff; --text:#101418; --muted:#6b7280;
+      --accent:#0d6efd; --accent2:#10b981; --accent-dark:#0b5ed7;
+      --ring:0 0 0 3px rgba(13,110,253,.25); --border:#e5e7eb;
+    }
+    *{box-sizing:border-box} html,body{margin:0}
+    body{font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+    img{max-width:100%;display:block}
+    .container{max-width:1100px;margin:auto;padding:0 1rem}
+
+    /* Header */
+    header{background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0}
+    .brand{display:flex;align-items:center;gap:.6rem}
+    .brand img{height:56px;width:auto}
+    .header-cta{display:flex;align-items:center;gap:.6rem}
+    .btn{display:inline-block;padding:.7rem 1.05rem;border-radius:12px;font-weight:600;white-space:nowrap}
+    .btn-primary{background:var(--accent);color:#fff;box-shadow:0 6px 18px rgba(13,110,253,.16)}
+    .btn-primary:hover{background:var(--accent-dark)}
+    .btn-outline{border:1px solid var(--accent);color:var(--accent);background:#fff}
+    .phone{white-space:nowrap}
+
+    /* Urgency band */
+    .band{background:#fff4cc;border-bottom:1px solid #ffe08a;color:#5c4200}
+    .band .container{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.55rem 1rem;text-align:center}
+    .band b{white-space:nowrap}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;padding:2rem 0}
+    .hero h1{font-size:2.2rem;line-height:1.15;margin:.25rem 0 .5rem;font-weight:800}
+    .hero p.sub{color:var(--muted);font-size:1.06rem;margin:0 0 1rem}
+    .points{display:grid;gap:.4rem;margin:1rem 0}
+    .points li{list-style:"✅ ";margin-left:1rem}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1rem}
+    .form small{color:var(--muted)}
+    input,select,textarea{width:100%;padding:.8rem;border:1px solid #cfd6df;border-radius:12px;font:inherit}
+    input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:var(--ring)}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+    .form button{width:100%;margin-top:.6rem}
+    .hint{font-size:.95rem;color:var(--muted)}
+
+    /* Services grid */
+    .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1rem}
+    .service{display:flex;gap:.75rem;align-items:flex-start;border:1px solid var(--border);background:var(--card);border-radius:12px;padding:.9rem}
+    .service .icon{font-size:1.3rem}
+
+    /* Trust */
+    .trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:1.4rem 0}
+    .trust .card{display:flex;gap:.8rem;align-items:flex-start}
+    .trust .icon{font-size:1.4rem}
+
+    /* Testimonials */
+    .reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-top:1rem}
+    .reviews .stars{color:#f59e0b;font-size:1.1rem}
+
+    /* FAQ */
+    details{background:#fff;border:1px solid var(--border);border-radius:12px;padding:.8rem 1rem}
+    details+details{margin-top:.6rem}
+    summary{cursor:pointer;list-style:none;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+    summary::-webkit-details-marker{display:none}
+    .answer{color:var(--muted);margin:.6rem 0 0}
+
+    /* Consent row (single line; aligned left) */
+    .consent-row{display:flex;align-items:center;gap:.5rem;margin:.6rem 0;color:var(--text);font-size:.95rem}
+    .consent-row input[type="checkbox"]{margin:0;flex:0 0 auto}
+
+    /* Sticky mobile CTA */
+    .sticky-cta{position:fixed;inset:auto 0 0 0;background:rgba(255,255,255,.97);border-top:1px solid var(--border);display:none;gap:.6rem;justify-content:center;padding:.6rem;z-index:60}
+    .sticky-cta .btn{flex:1;text-align:center}
+
+    /* Footer */
+    footer{background:#fff;border-top:1px solid var(--border);margin-top:2rem}
+    footer .container{display:flex;justify-content:space-between;align-items:center;gap:.6rem;padding:1.1rem 1rem;color:var(--muted)}
+
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+      .header-cta{display:none}
+      .sticky-cta{display:flex}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Urgency / Offer band -->
+  <div class="band">
+    <div class="container">
+      <span>⚡ Limited-time:</span> <b>Book this week</b> & get <b>$50 off</b> any service over $300.
+      <span id="countdown" aria-live="polite" style="margin-left:.5rem;font-weight:700"></span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="/index.html">
+        <!-- TODO: update logo path -->
+        <img src="/LogoNameTrans.png" alt="Cramer Services" />
+      </a>
+      <div class="header-cta">
+        <!-- TODO: update phone -->
+        <a class="btn btn-outline phone" href="tel:+13142678594">📞 314-267-8594</a>
+        <a class="btn btn-primary" href="#quote">Get Free Estimate</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main class="container hero">
+    <div>
+      <h1>Save Time & Money with Trusted, Hassle-Free Home Services</h1>
+      <p class="sub">One place for HVAC, plumbing, electrical, and repairs—right-sized solutions, clean workmanship, and clear prices.</p>
+      <ul class="points">
+        <li>Free, fast estimate & straightforward pricing</li>
+        <li>Licensed & insured pros; background-checked</li>
+        <li>Financing options available</li>
+        <li>Work we stand by with guarantees</li>
+      </ul>
+      <div class="hint">Prefer to talk? Call <a href="tel:+13142678594">314-267-8594</a></div>
+    </div>
+
+    <!-- High-converting short form -->
+    <div id="quote" class="card form" aria-labelledby="formTitle">
+      <h2 id="formTitle" style="margin:.25rem 0 .6rem">Get Your Free Estimate</h2>
+      <form id="leadForm">
+        <div class="grid">
+          <input name="name" placeholder="Full Name*" required />
+          <input name="phone" placeholder="Phone*" required inputmode="tel" />
+        </div>
+        <input name="email" placeholder="Email (optional)" type="email" />
+        <select name="service" required>
+          <option value="">I need help with… *</option>
+          <option>HVAC (repair or install)</option>
+          <option>Plumbing</option>
+          <option>Electrical</option>
+          <option>Handyman / General Repairs</option>
+          <option>Roofing / Gutters</option>
+          <option>Painting / Drywall</option>
+          <option>Other</option>
+        </select>
+        <textarea name="details" rows="3" placeholder="Tell us what’s going on (age of system, leak location, room, timeline)"></textarea>
+
+        <!-- Required Privacy checkbox on one line -->
+        <div class="consent-row">
+          <input type="checkbox" id="consent" name="consent" required>
+          <label for="consent">I agree to the <a href="/privacyPolicy.html" target="_blank" rel="noopener">Privacy Policy</a>.</label>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Request My Estimate</button>
+        <small>By submitting, you agree to our <a href="/privacyPolicy.html" target="_blank" rel="noopener">Privacy Policy</a>. We never sell your data.</small>
+        <div id="formMsg" role="status" style="min-height:1.2em;margin-top:.4rem;color:var(--muted)"></div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Quick trust -->
+  <section class="container">
+    <div class="trust">
+      <div class="card"><div class="icon">🛡️</div><div><b>Work We Stand By</b><br><span class="muted">Warranty options + our workmanship guarantee.</span></div></div>
+      <div class="card"><div class="icon">⏱️</div><div><b>Fast Scheduling</b><br><span class="muted">Most estimates within 24–48 hours.</span></div></div>
+      <div class="card"><div class="icon">💳</div><div><b>Financing Available</b><br><span class="muted">Ask about monthly payment options.</span></div></div>
+      <div class="card"><div class="icon">🏠</div><div><b>Respect for Your Home</b><br><span class="muted">Clean, careful, and code-compliant work.</span></div></div>
+    </div>
+  </section>
+
+  <!-- Popular services (scannable) -->
+  <section class="container">
+    <h2>Popular Services</h2>
+    <div class="services">
+      <div class="service"><div class="icon">❄️</div><div><b>HVAC Repair & Install</b><br><span class="muted">Right-sized systems, seasonal tune-ups, and emergency fixes.</span></div></div>
+      <div class="service"><div class="icon">🚿</div><div><b>Plumbing</b><br><span class="muted">Leaks, water heaters, sump pumps, fixtures, drain cleaning.</span></div></div>
+      <div class="service"><div class="icon">⚡</div><div><b>Electrical</b><br><span class="muted">Panels, outlets, lighting, EV chargers, safety inspections.</span></div></div>
+      <div class="service"><div class="icon">🧰</div><div><b>Handyman & Repairs</b><br><span class="muted">Doors, drywall, tile, carpentry, punch lists done right.</span></div></div>
+      <div class="service"><div class="icon">🏚️</div><div><b>Roofing & Gutters</b><br><span class="muted">Repairs, replacements, and seasonal maintenance.</span></div></div>
+      <div class="service"><div class="icon">🎨</div><div><b>Painting</b><br><span class="muted">Interior & exterior prep, paint, and clean finishes.</span></div></div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="container">
+    <h2>What Homeowners Say</h2>
+    <div class="reviews">
+      <figure class="card">
+        <img src="/images/review-1.jpg" alt="Customer review 1" style="width:100%;border-radius:12px;margin-bottom:.5rem">
+        <div class="stars">★★★★★</div>
+        <figcaption>“On time, fair price, and the work looks fantastic. Will use again.”<br><span class="muted">— Alex P.</span></figcaption>
+      </figure>
+      <figure class="card">
+        <img src="/images/review-2.jpg" alt="Customer review 2" style="width:100%;border-radius:12px;margin-bottom:.5rem">
+        <div class="stars">★★★★★</div>
+        <figcaption>“Clear estimate, quick scheduling, and they left the space spotless.”<br><span class="muted">— Janet S.</span></figcaption>
+      </figure>
+      <figure class="card">
+        <img src="/images/review-3.jpg" alt="Customer review 3" style="width:100%;border-radius:12px;margin-bottom:.5rem">
+        <div class="stars">★★★★★</div>
+        <figcaption>“They explained options and never pressured us. Highly recommend.”<br><span class="muted">— Mike R.</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Feature bullets -->
+  <section class="container">
+    <h2>What You Can Expect</h2>
+    <div class="services">
+      <div class="service"><div class="icon">📋</div><div><b>Upfront pricing</b><br><span class="muted">Written estimates with no surprises.</span></div></div>
+      <div class="service"><div class="icon">🧑‍🔧</div><div><b>Licensed & insured</b><br><span class="muted">Professional, code-compliant work.</span></div></div>
+      <div class="service"><div class="icon">🧹</div><div><b>Respectful & clean</b><br><span class="muted">We protect floors and clean up after.</span></div></div>
+      <div class="service"><div class="icon">🧾</div><div><b>Permits & inspections</b><br><span class="muted">Handled for you where required.</span></div></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="container">
+    <h2>FAQs</h2>
+    <details><summary>How soon can you come out?</summary><p class="answer">Estimates are typically scheduled within 24–48 hours. Emergency repairs may be faster—call us.</p></details>
+    <details><summary>Do you guarantee your work?</summary><p class="answer">Yes. We offer workmanship guarantees and honor manufacturer warranties.</p></details>
+    <details><summary>Can I get financing?</summary><p class="answer">Yes—ask during your estimate and we’ll outline options that fit your budget.</p></details>
+    <details><summary>Do you haul away debris / old equipment?</summary><p class="answer">Absolutely. We handle removal and proper disposal as part of the job.</p></details>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="container" style="margin-top:1.2rem">
+    <div class="card" style="display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center">
+      <div>
+        <h2 style="margin:.2rem 0">Ready for a Free Estimate?</h2>
+        <p class="muted" style="margin:.2rem 0">Tell us what you need—we’ll recommend the right solution.</p>
+      </div>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+        <a class="btn btn-outline" href="tel:+13142678594">📞 314-267-8594</a>
+        <a class="btn btn-primary" href="#quote">Get Free Estimate</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sticky mobile CTA -->
+  <div class="sticky-cta">
+    <a class="btn btn-outline" href="tel:+13142678594">📞 Call</a>
+    <a class="btn btn-primary" href="#quote">Get Free Estimate</a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <span>© <span id="year"></span> Cramer Services · St. Louis, MO</span>
+      <a href="/privacyPolicy.html">Privacy Policy</a>
+    </div>
+  </footer>
+
+  <!-- Countdown + form handler -->
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Weekly countdown (ends Sunday 11:59 pm, then rolls)
+    (function(){
+      const el = document.getElementById('countdown');
+      if (!el) return;
+      function nextSunday2359(){
+        const now = new Date();
+        const end = new Date(now);
+        const add = (7 - now.getDay()) % 7;
+        end.setDate(now.getDate() + add);
+        end.setHours(23,59,59,999);
+        if (end < now) end.setDate(end.getDate() + 7);
+        return end;
+      }
+      let deadline = nextSunday2359();
+      function tick(){
+        const t = deadline - new Date();
+        if (t <= 0){ deadline = nextSunday2359(); }
+        const d = Math.floor(t/86400000);
+        const h = Math.floor((t%86400000)/3600000);
+        const m = Math.floor((t%3600000)/60000);
+        el.textContent = `— ends in ${d}d ${h}h ${m}m`;
+        requestAnimationFrame(()=>setTimeout(tick, 15000));
+      }
+      tick();
+    })();
+
+    // Simple mailto submit (or wire to EmailJS if you prefer)
+    const form = document.getElementById('leadForm');
+    const msg  = document.getElementById('formMsg');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if(!form.consent.checked){
+        msg.textContent = 'Please accept the Privacy Policy to continue.';
+        msg.style.color = '#dc2626';
+        return;
+      }
+      const data = Object.fromEntries(new FormData(form).entries());
+      const subject = encodeURIComponent('Home Services Estimate Request');
+      const body = encodeURIComponent(
+        `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email||''}\nService: ${data.service}\nDetails: ${data.details||''}`
+      );
+      // TODO: change email
+      window.location.href = `mailto:cramerservicesllc@gmail.com?subject=${subject}&body=${body}`;
+      if (msg){ msg.textContent = 'Thanks! We opened your email app. If it didn’t open, call us or email directly.'; msg.style.color='#6b7280'; }
+    });
+
+    // OPTIONAL EmailJS wiring (replace mailto block above if you want silent sends)
+    // 1) <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    // 2) emailjs.init({ publicKey: 'YOUR_PUBLIC_KEY' });
+    // 3) await emailjs.send('SERVICE_ID','TEMPLATE_ID', data);
+  </script>
+
+  <!-- Schema (helps SEO / local) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"HVACBusiness",
+    "name":"Cramer Services",
+    "url":"https://cramerservicesllc.com/home-services-landing.html",
+    "telephone":"+1-314-267-8594",
+    "areaServed":"St. Louis, MO",
+    "image":"https://cramerservicesllc.com/CramerLogo_transparent.png",
+    "address":{"@type":"PostalAddress","addressLocality":"St. Louis","addressRegion":"MO","addressCountry":"US"}
+  }
+  </script>
+</body>
+</html>
