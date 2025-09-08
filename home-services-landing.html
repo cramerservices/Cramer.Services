@@ -155,12 +155,7 @@
           <option>Other</option>
         </select>
         <textarea name="details" rows="3" placeholder="Tell us what’s going on"></textarea>
-
-     <label class="consent-row">
-  <input type="checkbox" name="consent" required />
-  I agree to receive SMS or email updates as described in the
-  <a href="/privacyPolicy.html" target="_blank" rel="noopener">Privacy Policy</a>.
-</label>
+        
         <button class="btn btn-primary" type="submit">Request My Estimate</button>
         <small>By submitting, you agree to our <a href="/privacyPolicy.html" target="_blank" rel="noopener">Privacy Policy</a>. We never sell your data.</small>
         <div id="formMsg" role="status" style="min-height:1.2em;margin-top:.4rem;color:var(--muted)"></div>
@@ -318,11 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  // Validate consent
-  if (!form.consent || !form.consent.checked){
-    show('Please accept the Privacy Policy to continue.', true);
-    return;
-  }
+
 
   // Collect form data
   const data = Object.fromEntries(new FormData(form).entries());
