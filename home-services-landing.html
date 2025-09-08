@@ -156,9 +156,11 @@
         </select>
         <textarea name="details" rows="3" placeholder="Tell us what’s going on"></textarea>
 
-        <!-- Required Privacy checkbox on one line -->
-     
-
+     <label class="consent-row">
+  <input type="checkbox" name="consent" required />
+  I agree to receive SMS or email updates as described in the
+  <a href="/privacyPolicy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+</label>
         <button class="btn btn-primary" type="submit">Request My Estimate</button>
         <small>By submitting, you agree to our <a href="/privacyPolicy.html" target="_blank" rel="noopener">Privacy Policy</a>. We never sell your data.</small>
         <div id="formMsg" role="status" style="min-height:1.2em;margin-top:.4rem;color:var(--muted)"></div>
@@ -256,7 +258,8 @@
     </div>
   </footer>
 
-  <!-- Countdown + form handler -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
   <script>
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -287,40 +290,84 @@
       tick();
     })();
 
-    // Simple mailto submit (or wire to EmailJS if you prefer)
-    const form = document.getElementById('leadForm');
-    const msg  = document.getElementById('formMsg');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-   
-      const data = Object.fromEntries(new FormData(form).entries());
-      const subject = encodeURIComponent('Home Services Estimate Request');
-      const body = encodeURIComponent(
-        `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email||''}\nService: ${data.service}\nDetails: ${data.details||''}`
-      );
-      // TODO: change email
-      window.location.href = `mailto:cramerservicesllc@gmail.com?subject=${subject}&body=${body}`;
-      if (msg){ msg.textContent = 'Thanks! We opened your email app. If it didn’t open, call us or email directly.'; msg.style.color='#6b7280'; }
-    });
+   // === EmailJS configuration (reuse the same keys as ContactUs) ===
+const EMAILJS_PUBLIC_KEY  = 'TDIki3rqftcomcjJC';
+const EMAILJS_SERVICE_ID  = 'service_ebrskb5';
+const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
 
-    // OPTIONAL EmailJS wiring (replace mailto block above if you want silent sends)
-    // 1) <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    // 2) emailjs.init({ publicKey: 'YOUR_PUBLIC_KEY' });
-    // 3) await emailjs.send('SERVICE_ID','TEMPLATE_ID', data);
-  </script>
+// Wire up the form
+const form = document.getElementById('leadForm');
+const msg  = document.getElementById('formMsg');
+const card = document.getElementById('quote'); // the form card container
 
-  <!-- Schema (helps SEO / local) -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"HVACBusiness",
-    "name":"Cramer Services",
-    "url":"https://cramerservicesllc.com/home-services-landing.html",
-    "telephone":"+1-314-267-8594",
-    "areaServed":"St. Louis, MO",
-    "image":"https://cramerservicesllc.com/CramerLogo_transparent.png",
-    "address":{"@type":"PostalAddress","addressLocality":"St. Louis","addressRegion":"MO","addressCountry":"US"}
+function show(text, isError = false){
+  if (!msg) return;
+  msg.textContent = text;
+  msg.style.color = isError ? '#dc2626' : '#6b7280';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (!window.emailjs) {
+    console.error('EmailJS SDK failed to load');
+    show('Could not load mail service. Please refresh and try again.', true);
+    return;
   }
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+});
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  // Validate consent
+  if (!form.consent || !form.consent.checked){
+    show('Please accept the Privacy Policy to continue.', true);
+    return;
+  }
+
+  // Collect form data
+  const data = Object.fromEntries(new FormData(form).entries());
+
+  // Basic requireds (match your UI)
+  if (!data.name || !data.phone || !data.service){
+    show('Please complete name, phone, and service.', true);
+    return;
+  }
+
+  // Disable button while sending
+  const btn = form.querySelector('button[type="submit"]');
+  const prevLabel = btn ? btn.textContent : '';
+  if (btn){ btn.disabled = true; btn.textContent = 'Submitting…'; }
+  show('');
+
+  // Build template params similar to ContactUs
+  const templateParams = {
+    subject: 'Home Services Estimate Request',
+    service: data.service || '',
+    name:    data.name || '',
+    phone:   data.phone || '',
+    email:   data.email || '',
+    details: data.details || '',
+    time:    new Date().toLocaleString()
+  };
+
+  try {
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+
+    // Replace the form UI with a thank-you (same UX you use on ContactUs)
+    card.innerHTML = `
+      <h2 style="margin:.25rem 0 .3rem">Thank you!</h2>
+      <p class="muted" style="margin:0">
+        We received your request for <b>${templateParams.service || 'Service'}</b>.
+        We’ll reach out as soon as possible to confirm details and scheduling.
+      </p>
+    `;
+  } catch (err) {
+    console.error(err);
+    show('Could not submit. Please try again or email cramerservicesllc@gmail.com', true);
+    if (btn){ btn.disabled = false; btn.textContent = prevLabel; }
+  }
+});
+
   </script>
 </body>
 </html>
