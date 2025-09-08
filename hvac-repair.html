@@ -155,8 +155,7 @@
           <option>High-efficiency unit repair</option>
         </select>
         <textarea name="details" rows="3" placeholder="Describe the issues you’re experiencing with your system"></textarea>
-        <!-- Honeypot -->
-        <input type="text" name="_company" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off" />
+       
         <button class="btn btn-primary" type="submit">Request Service</button>
        <small>
   By submitting, you agree to our
@@ -301,11 +300,7 @@ const card = document.getElementById('service'); // the form card container
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Honeypot
-      if (form._company && form._company.value) {
-        if (msg) { msg.textContent = 'Submission blocked.'; msg.style.color = '#dc3545'; }
-        return;
-      }
+     
 
       const data = {
         subject: 'HVAC Repair Request',
