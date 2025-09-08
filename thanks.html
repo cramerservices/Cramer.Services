@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thank You | Cramer Services</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f8f9fb;
+      --card:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --accent:#0d6efd; /* Cramer blue */
+      --success:#22c55e;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:var(--bg); color:var(--text);
+      font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      display:grid; min-height:100dvh; place-items:center; padding:24px;
+    }
+    .card{
+      width:min(680px, 100%); background:var(--card); border-radius:20px;
+      padding:32px; box-shadow:0 10px 30px rgba(0,0,0,.07), 0 2px 6px rgba(0,0,0,.05);
+      text-align:center; border-top:6px solid var(--accent);
+    }
+    .check{
+      width:72px; height:72px; margin:0 auto 16px; display:grid; place-items:center;
+      border-radius:50%; background:rgba(13,110,253,.1);
+    }
+    h1{margin:8px 0 10px; font-size:28px; line-height:1.2}
+    p{margin:0 0 14px; color:var(--muted)}
+    .strong{color:var(--text)}
+    .actions{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:18px}
+    .btn{
+      padding:12px 16px; border-radius:12px; border:1px solid #e5e7eb; background:#fff;
+      text-decoration:none; color:var(--text); font-weight:600; transition:.15s ease;
+    }
+    .btn:hover{transform:translateY(-1px); box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    .btn.primary{background:var(--accent); color:#fff; border-color:var(--accent)}
+    .mini{font-size:12px; margin-top:10px; color:var(--muted)}
+    footer{margin-top:22px; font-size:13px; color:var(--muted)}
+  </style>
+  <!-- Optional: auto-redirect back to homepage after 8s -->
+  <!-- <meta http-equiv="refresh" content="8; url=/"> -->
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="thank-title">
+    <div class="check" aria-hidden="true">
+      <!-- Checkmark icon -->
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" stroke="var(--accent)" stroke-width="2" fill="none"/>
+        <path d="M7 12.5l3.2 3.1L17 8.5" stroke="var(--success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <h1 id="thank-title">Thanks! Your request was sent.</h1>
+    <p class="strong">One of our reps will reach out as soon as possible.</p>
+    <p>Typical response time: <strong>within the same day</strong> during business hours.</p>
+
+    <div class="actions">
+      <a class="btn primary" href="tel:13142678594">Call Now (314) 267-8594</a>
+      <a class="btn" href="sms:13142678594">Text Us</a>
+      <a class="btn" href="mailto:cramerservicesllc@gmail.com">Email Us</a>
+      <a class="btn" href="/">Return to Home</a> <!-- change to your homepage path -->
+      <!-- Optional: booking link -->
+      <!-- <a class="btn" href="/schedule.html">Book Online</a> -->
+    </div>
+
+    <div class="mini">If this is urgent, calling is fastest.</div>
+
+    <footer>
+      Cramer Services · St. Louis · Licensed & Insured · Warranties on Every Job
+    </footer>
+  </main>
+
+  <!-- Optional: Google Ads/Analytics conversion event -->
+  <!--
+  <script>
+    // gtag('event', 'generate_lead', { 'event_callback': function(){ console.log('lead recorded') }});
+  </script>
+  -->
+</body>
+</html>
