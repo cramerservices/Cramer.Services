@@ -308,31 +308,117 @@
       <a href="/privacyPolicy.html">Privacy Policy</a>
     </div>
   </footer>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-  <script>
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
+ <script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Simple form handler (replace with EmailJS if you prefer)
-    const form = document.getElementById('installForm');
-    const msg = document.getElementById('formMsg');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-     if (form._company && form._company.value) {
-  msg.textContent = 'Submission blocked.'; 
-  msg.style.color = '#dc3545'; 
-  return;
+  // Countdown to Sunday 11:59 PM local time (unchanged)
+  (function(){
+    const el = document.getElementById('countdown');
+    if (!el) return;
+    function nextSunday2359(){
+      const now = new Date();
+      const end = new Date(now);
+      const add = (7 - now.getDay()) % 7;
+      end.setDate(now.getDate() + add);
+      end.setHours(23,59,59,999);
+      if (end < now) end.setDate(end.getDate() + 7);
+      return end;
+    }
+    let deadline = nextSunday2359();
+    function tick(){
+      const t = deadline - new Date();
+      if (t <= 0){ deadline = nextSunday2359(); }
+      const d = Math.floor(t/86400000);
+      const h = Math.floor((t%86400000)/3600000);
+      const m = Math.floor((t%3600000)/60000);
+      el.textContent = `— ends in ${d}d ${h}h ${m}m`;
+      requestAnimationFrame(()=>setTimeout(tick, 15000));
+    }
+    tick();
+  })();
 
-      const data = Object.fromEntries(new FormData(form).entries());
-      // ↓ Option A: open email draft (quick + static)
-      const subject = encodeURIComponent('HVAC Install Estimate Request');
-      const body = encodeURIComponent(
-        `Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email||''}\nService: ${data.service}\nDetails: ${data.details||''}`
-      );
-      window.location.href = `mailto:cramerservicesllc@gmail.com?subject=${subject}&body=${body}`;
-      msg.textContent = 'Thanks! We opened your email client. If it didn’t open, call us at 314-267-8594 or email directly.';
-    });
-  </script>
+  // ===== EmailJS silent submit for HVAC Install form =====
+  // (Reuses the same keys as your Contact Us page)
+  const EMAILJS_PUBLIC_KEY  = 'TDIki3rqftcomcjJC';
+  const EMAILJS_SERVICE_ID  = 'service_ebrskb5';
+  const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
+
+  // Elements
+  const form = document.getElementById('installForm');
+  const msg  = document.getElementById('formMsg');
+  const card = document.getElementById('quote');
+
+  function show(text, isError = false){
+    if (!msg) return;
+    msg.textContent = text;
+    msg.style.color = isError ? '#dc2626' : '#6b7280';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    if (!window.emailjs) {
+      console.error('EmailJS SDK failed to load');
+      show('Could not load mail service. Please refresh and try again.', true);
+      return;
+    }
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Honeypot (in case you add one later)
+    if (form._company && form._company.value) {
+      show('Submission blocked.', true);
+      return;
+    }
+
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    // Basic requireds (does not change your placeholders/options)
+    if (!data.name || !data.phone || !data.service) {
+      show('Please complete name, phone, and service.', true);
+      return;
+    }
+
+    // Disable button while sending
+    const btn = form.querySelector('button[type="submit"]');
+    const prev = btn ? btn.textContent : '';
+    if (btn){ btn.disabled = true; btn.textContent = 'Submitting…'; }
+    show('');
+
+    // Map to your EmailJS template
+    const templateParams = {
+      subject: 'HVAC Install Estimate Request',
+      service: data.service || '',
+      name:    data.name || '',
+      phone:   data.phone || '',
+      email:   data.email || '',
+      details: data.details || '',
+      page:    'hvac-install',              // helpful context tag
+      time:    new Date().toLocaleString()
+    };
+
+    try {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+
+      // Success UI (matches the style/feel we used on the other page)
+      card.innerHTML = `
+        <h2 style="margin:.25rem 0 .3rem">Thank you!</h2>
+        <p class="muted" style="margin:0">
+          We received your request for <b>${templateParams.service || 'Installation'}</b>.
+          We’ll reach out shortly to confirm details and scheduling.
+        </p>
+      `;
+    } catch (err) {
+      console.error(err);
+      show('Could not submit. Please try again or email cramerservicesllc@gmail.com', true);
+      if (btn){ btn.disabled = false; btn.textContent = prev; }
+    }
+  });
+</script>
 
   <!-- (Optional) LocalBusiness schema for SEO -->
   <script type="application/ld+json">
