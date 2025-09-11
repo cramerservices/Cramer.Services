@@ -14,8 +14,8 @@
       --card:#ffffff;
       --text:#1b1f24;
       --muted:#6b7280;
-      --accent:#0d6efd;    /* brand blue */
-      --accent-2:#ffb703;  /* brand secondary (used for badges/buttons) */
+      --accent:#0d6efd;
+      --accent-2:#ffb703;
       --ring: 0 0 0 3px rgba(13,110,253,.22);
       --success:#1aa36f;
       --danger:#e11d48;
@@ -36,11 +36,13 @@
     header .brand img{width:40px;height:40px;object-fit:contain}
     header .call{font-weight:700}
     header .call a{color:var(--accent)}
-    /* Hero */
+
+    /* Hero with proper image background */
     .hero{
       position:relative;
-      background:linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.30)),
-                 img src=(Flooring.jpeg) center/cover no-repeat; /* ← Replace with your flooring image link */
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.30)),
+        url('Flooring.jpeg') center/cover no-repeat; /* ← your background image */
       color:#fff;
       padding:64px 16px 28px;
     }
@@ -50,36 +52,38 @@
     .hero p{margin:0 0 10px;color:#eef1f5}
     .trust{display:flex;gap:10px;flex-wrap:wrap}
     .trust .pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);padding:6px 10px;border-radius:999px;font-size:12px}
+
     /* Card / Form */
     .card{background:var(--card);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.06);padding:16px}
     form .row{display:grid;gap:12px}
+    @media(min-width:680px){ form .row{grid-template-columns:1fr 1fr} }
     label{font-size:13px;font-weight:600}
     input,select,textarea{
       width:100%;padding:12px 14px;border-radius:12px;border:1px solid #e5e7eb;background:#fff;font:inherit
     }
     input:focus,select:focus,textarea:focus{outline:none;box-shadow:var(--ring);border-color:transparent}
     textarea{min-height:110px;resize:vertical}
-    .agree{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--muted)}
+    .agree{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--muted);margin-top:6px}
     .agree input{margin-top:3px}
     .success,.error{display:none;margin-top:10px;padding:10px;border-radius:10px;font-size:14px}
     .success{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
     .error{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+
     /* Sections */
     .section{padding:26px 0}
     .section h2{margin:0 0 8px;font-size:22px}
     .bullets{display:grid;gap:10px}
     .bullet{display:flex;gap:10px;align-items:flex-start}
     .check{flex:0 0 22px;height:22px;border-radius:999px;background:var(--success);display:grid;place-items:center;color:#fff;font-weight:700;font-size:14px}
-    .gallery{display:grid;gap:10px;grid-template-columns:repeat(2,1fr)}
-    .faq details{background:var(--card);border-radius:14px;padding:12px}
-    .faq summary{cursor:pointer;font-weight:600}
+
     /* Reviews */
     .reviews h2{margin:0 0 8px;font-size:22px}
     .reviews-grid{display:grid;gap:12px;grid-template-columns:1fr}
     .review{background:var(--card);border:1px solid #eef0f4;border-radius:14px;padding:14px;box-shadow:0 6px 18px rgba(0,0,0,.04)}
     .stars{color:#f5a623;font-size:18px;letter-spacing:1px;margin-bottom:6px}
     .quote{margin:0 0 8px;color:#111}
-    .author{font-size:13px;color:var(--muted)}
+    .author{font-size:13px;color:#6b7280}
+
     /* Sticky mobile call bar */
     .sticky-call{
       position:fixed;bottom:10px;left:50%;transform:translateX(-50%);
@@ -89,15 +93,15 @@
     .sticky-call a,.sticky-call button{padding:10px 14px;border-radius:999px;border:none}
     .sticky-call .call{background:var(--accent);color:#fff;font-weight:700}
     .sticky-call .quote{background:var(--accent-2);color:#111;font-weight:700}
+
     /* Layout: mobile-first */
     @media(min-width:840px){
       .hero .container{grid-template-columns:1.2fr .8fr;align-items:stretch}
-      .gallery{grid-template-columns:repeat(4,1fr)}
       .reviews-grid{grid-template-columns:repeat(3,1fr)}
     }
   </style>
 
-  <!-- EmailJS SDK (same as ContactUs) -->
+  <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
     const EMAILJS_PUBLIC_KEY  = 'TDIki3rqftcomcjJC';
@@ -112,7 +116,6 @@
   <header>
     <div class="wrap container">
       <div class="brand">
-        <!-- Updated logo path -->
         <img src="LogoNameTrans.png" alt="Cramer Services logo">
         <div>
           <strong>Cramer Services</strong><br>
@@ -147,25 +150,49 @@
 
         <form id="leadForm" novalidate>
           <!-- CONTACT -->
-          <div class="row">
-            <div>
-              <label for="full_name">Full Name</label>
-              <input id="full_name" name="full_name" placeholder="Jane Doe" required>
-            </div>
-            <div>
-              <label for="phone">Phone</label>
-              <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="(314) 555-1234" required>
-            </div>
-            <div>
-              <label for="email">Email (optional)</label>
-              <input id="email" name="email" type="email" placeholder="you@example.com">
-            </div>
-            
-          </div>
-          </div>
+          <!-- CONTACT -->
+<div class="row">
+  <div>
+    <label for="full_name">Full Name</label>
+    <input id="full_name" name="full_name" placeholder="Jane Doe" required>
+  </div>
+  <div>
+    <label for="phone">Phone</label>
+    <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="(314) 555-1234" required>
+  </div>
+</div>
+
+<div class="row">
+  <div>
+    <label for="email">Email (optional)</label>
+    <input id="email" name="email" type="email" placeholder="you@example.com">
+  </div>
+  <div>
+    <label for="address">Service Address</label>
+    <input id="address" name="address" placeholder="Street, City, ZIP" required>
+  </div>
+</div>
+
+<!-- DETAILS -->
+<div class="row" style="grid-template-columns:1fr">
+  <div>
+    <label for="details">Project Details</label>
+    <textarea id="details" name="details" placeholder="Approx. square footage, rooms, existing flooring to remove, special requests…"></textarea>
+  </div>
+</div>
+
+<!-- CONSENT -->
+<div class="agree">
+  <input id="agree" name="agree" type="checkbox" required>
+  <label for="agree">By submitting you agree to the
+    <a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+    Standard messaging/data rates may apply; you can opt out at any time.
+  </label>
+</div>
+
 
           <!-- DETAILS -->
-          <div class="row">
+          <div class="row" style="grid-template-columns:1fr">
             <div>
               <label for="details">Project Details</label>
               <textarea id="details" name="details" placeholder="Approx. square footage, rooms, existing flooring to remove, special requests…"></textarea>
@@ -200,8 +227,6 @@
       <div class="bullet"><div class="check">✓</div><div><strong>Low maintenance</strong> — easy to clean, built to last.</div></div>
     </div>
   </section>
-
- 
 
   <section class="section container faq">
     <h2>Vinyl Flooring FAQs</h2>
@@ -249,7 +274,7 @@
     // Current year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // FORM HANDLER (EmailJS – same behavior as your ContactUs)
+    // FORM HANDLER (EmailJS)
     async function handleFormSubmit(e){
       e.preventDefault();
       const form = e.target;
@@ -259,46 +284,36 @@
       success.style.display = 'none';
       error.style.display = 'none';
 
-      const payload = {
-        subject: 'Vinyl Flooring Lead',
-        page: 'vinyl-flooring',
-        full_name: form.full_name.value.trim(),
-        phone: form.phone.value.trim(),
-        email: form.email.value.trim(),
-        address: form.address.value.trim(),
-        service: form.service.value,
-        timeline: form.timeline.value,
-        details: form.details.value.trim(),
-        consent: form.agree.checked,
-        source: window.location.href,
-        ts: new Date().toLocaleString()
-      };
+     const payload = {
+  subject: 'Vinyl Flooring Lead',
+  page: 'vinyl-flooring',
+  full_name: form.full_name.value.trim(),
+  phone: form.phone.value.trim(),
+  email: form.email.value.trim(),
+  address: form.address.value.trim(),
+  details: form.details.value.trim(),
+  consent: form.agree.checked,
+  source: window.location.href,
+  ts: new Date().toLocaleString()
+};
 
-      if(!payload.full_name || !payload.phone || !payload.address || !payload.service || !payload.timeline || !payload.consent){
-        error.textContent = 'Please complete required fields and agree to the Privacy Policy.';
-        error.style.display = 'block';
-        return;
-      }
+if(!payload.full_name || !payload.phone || !payload.address || !payload.consent){
+  error.textContent = 'Please complete required fields and agree to the Privacy Policy.';
+  error.style.display = 'block';
+  return;
+}
 
-      submitBtn.disabled = true; 
-      submitBtn.textContent = 'Submitting…';
-
-      try {
-        if (!window.emailjs) throw new Error('EmailJS not loaded');
-
-        const emailData = {
-          subject:  payload.subject,
-          page:     payload.page,
-          name:     payload.full_name,
-          phone:    payload.phone,
-          email:    payload.email,
-          address:  payload.address,
-          service:  payload.service,
-          timeline: payload.timeline,
-          details:  payload.details,
-          source:   payload.source,
-          time:     payload.ts
-        };
+const emailData = {
+  subject:  payload.subject,
+  page:     payload.page,
+  name:     payload.full_name,
+  phone:    payload.phone,
+  email:    payload.email,
+  address:  payload.address,
+  details:  payload.details,
+  source:   payload.source,
+  time:     payload.ts
+};
 
         await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailData);
 
@@ -317,3 +332,4 @@
   </script>
 </body>
 </html>
+
