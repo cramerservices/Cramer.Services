@@ -20,50 +20,74 @@
   .cta{display:inline-block;background:var(--accent);color:#fff;padding:.75rem 1rem;border-radius:8px;text-decoration:none;border:0;cursor:pointer;font-weight:600}
   .muted{color:var(--muted)}
   .row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
-/* Make the consent block span both grid columns */
-.consent-row { grid-column: 1 / -1; }
 
-/* Force checkbox + text to live in one row and start at the left edge */
-.consent-inline{
-  grid-column: 1 / -1;              /* span full form width regardless of outer grid */
-  display: grid;                     /* inner grid = checkbox + text */
-  grid-template-columns: 18px auto;  /* checkbox width + free-flowing text */
-  align-items: start;                /* top align with first line */
-  column-gap: .45rem;
-  margin: .6rem 0 .2rem;
-  text-align: left;
-}
+  /* Consent (span full width) */
+  .consent-row { grid-column: 1 / -1; }
+  .consent-inline{
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 18px auto;
+    align-items: start;
+    column-gap: .45rem;
+    margin: .6rem 0 .2rem;
+    text-align: left;
+  }
+  .consent-inline input[type="checkbox"]{
+    width: 18px; height: 18px; margin: 3px 0 0 0;
+  }
+  .consent-inline .consent-text{
+    margin: 0 !important; font-size: .95rem; color: #333; line-height: 1.35; display: block !important;
+  }
 
-/* Neutralize any theme margins on form labels/inputs */
-.consent-inline input[type="checkbox"]{
-  width: 18px; height: 18px;
-  margin: 3px 0 0 0;
-}
-.consent-inline .consent-text{
-  margin: 0 !important;
-  font-size: .95rem;
-  color: #333;
-  line-height: 1.35;
-  display: block !important;         /* override any inline/width rules from theme */
-}
+  /* Reviews */
+  .reviews{margin:1.25rem auto 2rem}
+  .reviews h2{margin:0 0 .75rem;font-size:1.25rem}
+  .reviews-grid{
+    display:grid;gap:.8rem;
+    grid-template-columns:1fr; /* mobile-first */
+  }
+  .review{
+    background:var(--card);
+    border:1px solid #eef0f4;
+    border-radius:12px;
+    padding:14px;
+    box-shadow:0 6px 18px rgba(0,0,0,.04);
+  }
+  .stars{color:#f5a623;font-size:18px;letter-spacing:1px;margin-bottom:6px}
+  .quote{margin:0 0 8px;color:#111}
+  .author{font-size:.9rem;color:var(--muted)}
 
+  @media(min-width:740px){
+    .reviews-grid{grid-template-columns:repeat(3,1fr)}
+  }
 
-
-
-
-
+  /* Small screens: stack inputs nicely */
+  @media(max-width:560px){
+    .row{grid-template-columns:1fr}
+  }
 </style>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PJLV039931">
-</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PJLV039931"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-PJLV039931');
 </script>
+
+<!-- EmailJS SDK (single include + init) -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  const EMAILJS_PUBLIC_KEY  = 'TDIki3rqftcomcjJC';
+  const EMAILJS_SERVICE_ID  = 'service_ebrskb5';
+  const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.emailjs) emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  });
+</script>
 </head>
+
 <body>
   <div class="wrap">
     <div class="card" id="card">
@@ -73,7 +97,7 @@
       <form id="bookForm" novalidate>
         <div class="row">
           <input name="name"  placeholder="Full Name" required>
-          <input name="phone" placeholder="Phone" required>
+          <input name="phone" type="tel" inputmode="tel" placeholder="Phone" required>
         </div>
         <div class="row">
           <input name="email" type="email" placeholder="Email" required>
@@ -81,34 +105,45 @@
         </div>
 
         <textarea name="notes" rows="4" placeholder="Please share as many details about your project as possible. The more we know, the better we can serve you."></textarea>
-<!-- Consent (single row, left-aligned with fields) -->
-<div class="consent-inline">
-  <input type="checkbox" id="consent" name="consent" required />
-  <label for="consent" class="consent-text">
-    I agree to receive SMS or email updates as described in the
-    <a href="/privacyPolicy.html" target="_blank">Privacy Policy</a>.
-  </label>
-</div>
 
-
-
-
-
+        <!-- Consent (single row, left-aligned with fields) -->
+        <div class="consent-inline">
+          <input type="checkbox" id="consent" name="consent" required />
+          <label for="consent" class="consent-text">
+            I agree to receive SMS or email updates as described in the
+            <a href="/privacyPolicy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+          </label>
+        </div>
 
         <button class="cta" type="submit">Submit</button>
         <p id="msg" class="muted" aria-live="polite"></p>
       </form>
     </div>
+
+    <!-- Reviews Section -->
+    <section class="reviews" aria-labelledby="reviews-title">
+      <h2 id="reviews-title">What Our Customers Say</h2>
+      <div class="reviews-grid">
+        <div class="review">
+          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <p class="quote">“Cramer Services was prompt and professional. The work looked great and the communication was excellent.”</p>
+          <div class="author">— L. Harris, St. Louis</div>
+        </div>
+        <div class="review">
+          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <p class="quote">“Clear pricing, fast scheduling, and they left everything cleaner than they found it. Highly recommend.”</p>
+          <div class="author">— M. Thompson, University City</div>
+        </div>
+        <div class="review">
+          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <p class="quote">“Quality workmanship and honest guidance. We’ll be using them again for our next project.”</p>
+          <div class="author">— M. Nguyen, St. Charles</div>
+        </div>
+      </div>
+    </section>
   </div>
 
-  <!-- EmailJS SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
-    // === Use your existing keys ===
-    const EMAILJS_PUBLIC_KEY  = 'TDIki3rqftcomcjJC';
-    const EMAILJS_SERVICE_ID  = 'service_ebrskb5';
-    const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
-
     // Utility
     const $$ = sel => document.querySelector(sel);
     function show(text, err=false){
@@ -121,12 +156,11 @@
       return isFinite(v) ? v.toLocaleString(undefined, { style:'currency', currency:'USD' }) : '';
     }
 
-    // Read URL params
+    // Read URL params for dynamic title
     const params = new URLSearchParams(location.search);
     const serviceName = params.get('service') || 'Service';
     const rawPrice    = params.get('price'); // optional
 
-    // Update title & subtitle
     (function(){
       const title = $$('#pageTitle');
       const sub   = $$('#pageSub');
@@ -145,7 +179,6 @@
         show('Could not load mail service. Please refresh and try again.', true);
         return;
       }
-      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
       const f = $$('#bookForm');
       const card = $$('#card');
@@ -162,7 +195,8 @@
           email:   (f.email.value || '').trim(),
           address: (f.address.value || '').trim(),
           notes:   (f.notes.value || '').trim(),
-          time:    new Date().toLocaleString()
+          time:    new Date().toLocaleString(),
+          source:  window.location.href
         };
 
         if (!data.name || !data.phone || !data.email || !data.address) {
@@ -174,6 +208,9 @@
 
         try {
           await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
+
+          // Optional GA event
+          try { gtag && gtag('event', 'lead_submit', { page: 'book-service', service: serviceName }); } catch(_) {}
 
           // Replace the form with a thank-you message
           card.innerHTML = `
@@ -191,3 +228,4 @@
   </script>
 </body>
 </html>
+
