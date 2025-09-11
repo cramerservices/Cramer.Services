@@ -1,230 +1,362 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Book Service</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-<style>
-  :root{--bg:#f8f9fb;--card:#fff;--accent:#0d6efd;--text:#1b1f24;--muted:#6c757d;--ring:0 0 0 3px rgba(13,110,253,.25)}
-  *{box-sizing:border-box}
-  body{margin:0;font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--text)}
-  .wrap{max-width:720px;margin:2rem auto;padding:1rem}
-  .card{background:var(--card);border:1px solid #dee2e6;border-radius:12px;padding:1rem 1.2rem}
-  h1{margin:.2rem 0 1rem}
-  form{display:grid;gap:.8rem;margin-top:1rem}
-  input,textarea{width:100%;padding:.75rem;border:1px solid #ced4da;border-radius:6px}
-  input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:var(--ring)}
-  .cta{display:inline-block;background:var(--accent);color:#fff;padding:.75rem 1rem;border-radius:8px;text-decoration:none;border:0;cursor:pointer;font-weight:600}
-  .muted{color:var(--muted)}
-  .row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vinyl Flooring | Cramer Services</title>
+  <meta name="description" content="Durable, water-resistant vinyl flooring—professionally installed fast. Get a same-day estimate.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f7f8fb;
+      --card:#ffffff;
+      --text:#1b1f24;
+      --muted:#6b7280;
+      --accent:#0d6efd;    /* brand blue */
+      --accent-2:#ffb703;  /* brand secondary (used for badges/buttons) */
+      --ring: 0 0 0 3px rgba(13,110,253,.22);
+      --success:#1aa36f;
+      --danger:#e11d48;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:1100px;margin:0 auto;padding:16px}
+    .grid{display:grid;gap:18px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:#fff;border:none;border-radius:12px;padding:14px 18px;font-weight:600;cursor:pointer}
+    .btn:focus{outline:none;box-shadow:var(--ring)}
+    .btn.secondary{background:var(--accent-2);color:#111}
+    .inline-cta{display:inline-flex;gap:10px;flex-wrap:wrap}
+    header{position:sticky;top:0;z-index:50;background:var(--card);border-top:6px solid #fff;border-bottom:6px solid #fff}
+    header .wrap{display:flex;align-items:center;justify-content:space-between;padding:10px 16px}
+    header .brand{display:flex;align-items:center;gap:10px}
+    header .brand img{width:40px;height:40px;object-fit:contain}
+    header .call{font-weight:700}
+    header .call a{color:var(--accent)}
+    /* Hero */
+    .hero{
+      position:relative;
+      background:linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.30)),
+                 url('YOUR-FLOORING-IMAGE-LINK.jpg') center/cover no-repeat; /* ← Replace with your flooring image link */
+      color:#fff;
+      padding:64px 16px 28px;
+    }
+    .hero .container{display:grid;gap:20px}
+    .badge{background:rgba(255,255,255,.9);color:#111;display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:600}
+    .hero h1{margin:8px 0 6px;font-size:30px;line-height:1.1}
+    .hero p{margin:0 0 10px;color:#eef1f5}
+    .trust{display:flex;gap:10px;flex-wrap:wrap}
+    .trust .pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);padding:6px 10px;border-radius:999px;font-size:12px}
+    /* Card / Form */
+    .card{background:var(--card);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.06);padding:16px}
+    form .row{display:grid;gap:12px}
+    label{font-size:13px;font-weight:600}
+    input,select,textarea{
+      width:100%;padding:12px 14px;border-radius:12px;border:1px solid #e5e7eb;background:#fff;font:inherit
+    }
+    input:focus,select:focus,textarea:focus{outline:none;box-shadow:var(--ring);border-color:transparent}
+    textarea{min-height:110px;resize:vertical}
+    .agree{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--muted)}
+    .agree input{margin-top:3px}
+    .success,.error{display:none;margin-top:10px;padding:10px;border-radius:10px;font-size:14px}
+    .success{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+    .error{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+    /* Sections */
+    .section{padding:26px 0}
+    .section h2{margin:0 0 8px;font-size:22px}
+    .bullets{display:grid;gap:10px}
+    .bullet{display:flex;gap:10px;align-items:flex-start}
+    .check{flex:0 0 22px;height:22px;border-radius:999px;background:var(--success);display:grid;place-items:center;color:#fff;font-weight:700;font-size:14px}
+    .gallery{display:grid;gap:10px;grid-template-columns:repeat(2,1fr)}
+    .faq details{background:var(--card);border-radius:14px;padding:12px}
+    .faq summary{cursor:pointer;font-weight:600}
+    /* Reviews */
+    .reviews h2{margin:0 0 8px;font-size:22px}
+    .reviews-grid{display:grid;gap:12px;grid-template-columns:1fr}
+    .review{background:var(--card);border:1px solid #eef0f4;border-radius:14px;padding:14px;box-shadow:0 6px 18px rgba(0,0,0,.04)}
+    .stars{color:#f5a623;font-size:18px;letter-spacing:1px;margin-bottom:6px}
+    .quote{margin:0 0 8px;color:#111}
+    .author{font-size:13px;color:var(--muted)}
+    /* Sticky mobile call bar */
+    .sticky-call{
+      position:fixed;bottom:10px;left:50%;transform:translateX(-50%);
+      display:flex;gap:10px;z-index:60;background:rgba(255,255,255,.9);
+      border:1px solid #e5e7eb;border-radius:999px;padding:8px 10px;backdrop-filter:blur(8px)
+    }
+    .sticky-call a,.sticky-call button{padding:10px 14px;border-radius:999px;border:none}
+    .sticky-call .call{background:var(--accent);color:#fff;font-weight:700}
+    .sticky-call .quote{background:var(--accent-2);color:#111;font-weight:700}
+    /* Layout: mobile-first */
+    @media(min-width:840px){
+      .hero .container{grid-template-columns:1.2fr .8fr;align-items:stretch}
+      .gallery{grid-template-columns:repeat(4,1fr)}
+      .reviews-grid{grid-template-columns:repeat(3,1fr)}
+    }
+  </style>
 
-  /* Consent (span full width) */
-  .consent-row { grid-column: 1 / -1; }
-  .consent-inline{
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: 18px auto;
-    align-items: start;
-    column-gap: .45rem;
-    margin: .6rem 0 .2rem;
-    text-align: left;
-  }
-  .consent-inline input[type="checkbox"]{
-    width: 18px; height: 18px; margin: 3px 0 0 0;
-  }
-  .consent-inline .consent-text{
-    margin: 0 !important; font-size: .95rem; color: #333; line-height: 1.35; display: block !important;
-  }
-
-  /* Reviews */
-  .reviews{margin:1.25rem auto 2rem}
-  .reviews h2{margin:0 0 .75rem;font-size:1.25rem}
-  .reviews-grid{
-    display:grid;gap:.8rem;
-    grid-template-columns:1fr; /* mobile-first */
-  }
-  .review{
-    background:var(--card);
-    border:1px solid #eef0f4;
-    border-radius:12px;
-    padding:14px;
-    box-shadow:0 6px 18px rgba(0,0,0,.04);
-  }
-  .stars{color:#f5a623;font-size:18px;letter-spacing:1px;margin-bottom:6px}
-  .quote{margin:0 0 8px;color:#111}
-  .author{font-size:.9rem;color:var(--muted)}
-
-  @media(min-width:740px){
-    .reviews-grid{grid-template-columns:repeat(3,1fr)}
-  }
-
-  /* Small screens: stack inputs nicely */
-  @media(max-width:560px){
-    .row{grid-template-columns:1fr}
-  }
-</style>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PJLV039931"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-PJLV039931');
-</script>
-
-<!-- EmailJS SDK (single include + init) -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script>
-  const EMAILJS_PUBLIC_KEY  = 'TDIki3rqftcomcjJC';
-  const EMAILJS_SERVICE_ID  = 'service_ebrskb5';
-  const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
-  document.addEventListener('DOMContentLoaded', () => {
-    if (window.emailjs) emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-  });
-</script>
+  <!-- EmailJS SDK (same as ContactUs) -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    const EMAILJS_PUBLIC_KEY  = 'TDIki3rqftcomcjJC';
+    const EMAILJS_SERVICE_ID  = 'service_ebrskb5';
+    const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.emailjs) emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    });
+  </script>
 </head>
-
 <body>
-  <div class="wrap">
-    <div class="card" id="card">
-      <h1 id="pageTitle">Book Service</h1>
-      <p id="pageSub" class="muted">Fill this out and we’ll reach out to confirm details and scheduling.</p>
-
-      <form id="bookForm" novalidate>
-        <div class="row">
-          <input name="name"  placeholder="Full Name" required>
-          <input name="phone" type="tel" inputmode="tel" placeholder="Phone" required>
-        </div>
-        <div class="row">
-          <input name="email" type="email" placeholder="Email" required>
-          <input name="address" class="full" style="grid-column:1/-1" placeholder="Service Address (Street, City, State)" required>
-        </div>
-
-        <textarea name="notes" rows="4" placeholder="Please share as many details about your project as possible. The more we know, the better we can serve you."></textarea>
-
-        <!-- Consent (single row, left-aligned with fields) -->
-        <div class="consent-inline">
-          <input type="checkbox" id="consent" name="consent" required />
-          <label for="consent" class="consent-text">
-            I agree to receive SMS or email updates as described in the
-            <a href="/privacyPolicy.html" target="_blank" rel="noopener">Privacy Policy</a>.
-          </label>
-        </div>
-
-        <button class="cta" type="submit">Submit</button>
-        <p id="msg" class="muted" aria-live="polite"></p>
-      </form>
-    </div>
-
-    <!-- Reviews Section -->
-    <section class="reviews" aria-labelledby="reviews-title">
-      <h2 id="reviews-title">What Our Customers Say</h2>
-      <div class="reviews-grid">
-        <div class="review">
-          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-          <p class="quote">“Cramer Services was prompt and professional. The work looked great and the communication was excellent.”</p>
-          <div class="author">— L. Harris, St. Louis</div>
-        </div>
-        <div class="review">
-          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-          <p class="quote">“Clear pricing, fast scheduling, and they left everything cleaner than they found it. Highly recommend.”</p>
-          <div class="author">— M. Thompson, University City</div>
-        </div>
-        <div class="review">
-          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-          <p class="quote">“Quality workmanship and honest guidance. We’ll be using them again for our next project.”</p>
-          <div class="author">— M. Nguyen, St. Charles</div>
+  <header>
+    <div class="wrap container">
+      <div class="brand">
+        <!-- Updated logo path -->
+        <img src="/assets/CramerLogo_transparent.png" alt="Cramer Services logo">
+        <div>
+          <strong>Cramer Services</strong><br>
+          <small>Licensed & Insured • St. Louis</small>
         </div>
       </div>
-    </section>
+      <div class="call"><a href="tel:13142678594">Call: (314) 267-8594</a></div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div>
+        <span class="badge">Vinyl Flooring</span>
+        <h1>Beautiful, Durable Vinyl Floors—Installed Fast & Done Right</h1>
+        <p>Free, no-pressure estimate. Transparent pricing. Most projects scheduled within a week.</p>
+        <div class="trust">
+          <span class="pill">Locally Owned</span>
+          <span class="pill">Warranty on Work</span>
+          <span class="pill">Great Communication</span>
+        </div>
+        <div class="inline-cta" style="margin-top:12px">
+          <a class="btn" href="tel:13142678594">📞 Tap to Call</a>
+          <a class="btn secondary" href="#quote-form">Get a Quick Quote</a>
+        </div>
+      </div>
+
+      <!-- Lead Form Card -->
+      <div class="card" id="quote-form">
+        <h2 style="margin:0 0 6px">Get Your Vinyl Flooring Quote</h2>
+        <p style="margin:0 0 12px;color:var(--muted)">Same form as your other landing pages—prepped for vinyl flooring leads.</p>
+
+        <form id="leadForm" novalidate>
+          <!-- CONTACT -->
+          <div class="row">
+            <div>
+              <label for="full_name">Full Name</label>
+              <input id="full_name" name="full_name" placeholder="Jane Doe" required>
+            </div>
+            <div>
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="(314) 555-1234" required>
+            </div>
+            <div>
+              <label for="email">Email (optional)</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com">
+            </div>
+            <div>
+              <label for="address">Service Address</label>
+              <input id="address" name="address" placeholder="Street, City, ZIP" required>
+            </div>
+          </div>
+
+          <!-- SERVICE SELECTION (Updated dropdown messaging) -->
+          <div class="row">
+            <div>
+              <label for="service">Service Needed</label>
+              <select id="service" name="service" required>
+                <option value="" selected disabled>Vinyl Flooring — choose an option</option>
+                <option>Install New Vinyl (LVP)</option>
+                <option>Install New Vinyl (LVT)</option>
+                <option>Sheet Vinyl Install</option>
+                <option>Glue-Down Vinyl</option>
+                <option>Floating/Click-Lock Vinyl</option>
+                <option>Stairs & Treads</option>
+                <option>Subfloor Repair/Leveling</option>
+                <option>Old Flooring Removal & Haul-Away</option>
+                <option>Quarter-Round/Trim & Transitions</option>
+                <option>Moisture Barrier Underlayment</option>
+                <option>Other (describe below)</option>
+              </select>
+            </div>
+            <div>
+              <label for="timeline">Timeline</label>
+              <select id="timeline" name="timeline" required>
+                <option value="" selected disabled>Select timeline</option>
+                <option>ASAP (this week)</option>
+                <option>1–2 weeks</option>
+                <option>Within a month</option>
+                <option>Just pricing for now</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- DETAILS -->
+          <div class="row">
+            <div>
+              <label for="details">Project Details</label>
+              <textarea id="details" name="details" placeholder="Approx. square footage, rooms, existing flooring to remove, special requests…"></textarea>
+            </div>
+          </div>
+
+          <!-- CONSENT -->
+          <div class="agree">
+            <input id="agree" name="agree" type="checkbox" required>
+            <label for="agree">By submitting you agree to the <a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>. Standard messaging/data rates may apply; you can opt out at any time.</label>
+          </div>
+
+          <div class="inline-cta" style="margin-top:12px">
+            <button class="btn" type="submit">Get My Free Estimate</button>
+            <a class="btn secondary" href="tel:13142678594">Or Tap to Call Now</a>
+          </div>
+
+          <div id="formSuccess" class="success">Thanks! We received your request and will reach out shortly.</div>
+          <div id="formError" class="error">Something went wrong. Please call (314) 267-8594 and we’ll help right away.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <h2>Why Homeowners Choose Vinyl Flooring</h2>
+    <div class="bullets">
+      <div class="bullet"><div class="check">✓</div><div><strong>Water-resistant & durable</strong> — great for kitchens, baths, and basements.</div></div>
+      <div class="bullet"><div class="check">✓</div><div><strong>Fast installs</strong> — most small/medium projects completed quickly.</div></div>
+      <div class="bullet"><div class="check">✓</div><div><strong>Beautiful styles</strong> — wood-look, stone-look, and modern patterns.</div></div>
+      <div class="bullet"><div class="check">✓</div><div><strong>Budget-friendly</strong> — excellent value vs. hardwood/tile.</div></div>
+      <div class="bullet"><div class="check">✓</div><div><strong>Low maintenance</strong> — easy to clean, built to last.</div></div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <h2>Recent Work (Swap in Your Photos)</h2>
+    <p style="color:var(--muted);margin-top:0">Replace the placeholders below with your vinyl installs.</p>
+    <div class="gallery">
+      <!-- Replace src values with your images or use CSS background images -->
+      <img src="/assets/vinyl-1.jpg" alt="Vinyl flooring project 1">
+      <img src="/assets/vinyl-2.jpg" alt="Vinyl flooring project 2">
+      <img src="/assets/vinyl-3.jpg" alt="Vinyl flooring project 3">
+      <img src="/assets/vinyl-4.jpg" alt="Vinyl flooring project 4">
+    </div>
+  </section>
+
+  <section class="section container faq">
+    <h2>Vinyl Flooring FAQs</h2>
+    <div class="grid">
+      <details><summary>Do you remove and haul away old flooring?</summary><div style="margin-top:8px">Yes—select “Old Flooring Removal & Haul-Away” and we’ll include it in your quote.</div></details>
+      <details><summary>Can you repair or level the subfloor?</summary><div style="margin-top:8px">Yes—we handle minor repairs and leveling. Mention it in the details box.</div></details>
+      <details><summary>What areas do you service?</summary><div style="margin-top:8px">Greater St. Louis and surrounding areas. Call to confirm your exact location.</div></details>
+      <details><summary>Do you offer warranties?</summary><div style="margin-top:8px">Yes—labor warranty plus manufacturer warranty on materials.</div></details>
+    </div>
+  </section>
+
+  <!-- Reviews Section -->
+  <section class="section container reviews" aria-labelledby="reviews-title">
+    <h2 id="reviews-title">What Our Customers Say</h2>
+    <div class="reviews-grid">
+      <div class="review">
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p class="quote">“Cramer Services did an amazing job installing our vinyl floors. Fast, clean, and the result looks premium.”</p>
+        <div class="author">— L. Harris, St. Louis</div>
+      </div>
+      <div class="review">
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p class="quote">“Clear pricing and great communication. They finished ahead of schedule and left everything spotless.”</p>
+        <div class="author">— M. Thompson, University City</div>
+      </div>
+      <div class="review">
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p class="quote">“The new LVP in our basement looks fantastic. Highly recommend for quality work and fair prices.”</p>
+        <div class="author">— M. Nguyen, St. Charles</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sticky mobile CTA -->
+  <div class="sticky-call" aria-hidden="false">
+    <a class="call" href="tel:13142678594">📞 Call Now</a>
+    <a class="quote" href="#quote-form">Get Free Estimate</a>
   </div>
 
+  <footer class="container" style="padding:20px 16px 60px;color:var(--muted)">
+    © <span id="year"></span> Cramer Services • Licensed & Insured • <a href="/privacy.html">Privacy</a>
+  </footer>
+
   <script>
-    // Utility
-    const $$ = sel => document.querySelector(sel);
-    function show(text, err=false){
-      const el = $$('#msg');
-      el.textContent = text;
-      el.style.color = err ? '#dc3545' : '#6c757d';
-    }
-    function fmtUSD(n){
-      const v = Number(n);
-      return isFinite(v) ? v.toLocaleString(undefined, { style:'currency', currency:'USD' }) : '';
-    }
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Read URL params for dynamic title
-    const params = new URLSearchParams(location.search);
-    const serviceName = params.get('service') || 'Service';
-    const rawPrice    = params.get('price'); // optional
+    // FORM HANDLER (EmailJS – same behavior as your ContactUs)
+    async function handleFormSubmit(e){
+      e.preventDefault();
+      const form = e.target;
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const success = document.getElementById('formSuccess');
+      const error = document.getElementById('formError');
+      success.style.display = 'none';
+      error.style.display = 'none';
 
-    (function(){
-      const title = $$('#pageTitle');
-      const sub   = $$('#pageSub');
+      const payload = {
+        subject: 'Vinyl Flooring Lead',
+        page: 'vinyl-flooring',
+        full_name: form.full_name.value.trim(),
+        phone: form.phone.value.trim(),
+        email: form.email.value.trim(),
+        address: form.address.value.trim(),
+        service: form.service.value,
+        timeline: form.timeline.value,
+        details: form.details.value.trim(),
+        consent: form.agree.checked,
+        source: window.location.href,
+        ts: new Date().toLocaleString()
+      };
 
-      let priceText = '';
-      if (rawPrice && rawPrice.trim() !== '' && !isNaN(Number(rawPrice))) {
-        priceText = ' — ' + fmtUSD(rawPrice);
-      }
-      title.textContent = `Book ${serviceName}${priceText}`;
-      sub.textContent   = 'Fill this out and we’ll reach out to confirm details and scheduling.';
-    })();
-
-    document.addEventListener('DOMContentLoaded', () => {
-      if (!window.emailjs) {
-        console.error('EmailJS SDK failed to load');
-        show('Could not load mail service. Please refresh and try again.', true);
+      if(!payload.full_name || !payload.phone || !payload.address || !payload.service || !payload.timeline || !payload.consent){
+        error.textContent = 'Please complete required fields and agree to the Privacy Policy.';
+        error.style.display = 'block';
         return;
       }
 
-      const f = $$('#bookForm');
-      const card = $$('#card');
+      submitBtn.disabled = true; 
+      submitBtn.textContent = 'Submitting…';
 
-      f.addEventListener('submit', async (e) => {
-        e.preventDefault();
+      try {
+        if (!window.emailjs) throw new Error('EmailJS not loaded');
 
-        const data = {
-          subject: `Booking — ${serviceName}`,
-          service: serviceName,
-          price:   rawPrice || '',
-          name:    (f.name.value || '').trim(),
-          phone:   (f.phone.value || '').trim(),
-          email:   (f.email.value || '').trim(),
-          address: (f.address.value || '').trim(),
-          notes:   (f.notes.value || '').trim(),
-          time:    new Date().toLocaleString(),
-          source:  window.location.href
+        const emailData = {
+          subject:  payload.subject,
+          page:     payload.page,
+          name:     payload.full_name,
+          phone:    payload.phone,
+          email:    payload.email,
+          address:  payload.address,
+          service:  payload.service,
+          timeline: payload.timeline,
+          details:  payload.details,
+          source:   payload.source,
+          time:     payload.ts
         };
 
-        if (!data.name || !data.phone || !data.email || !data.address) {
-          show('Please complete all required fields.', true); return;
-        }
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailData);
 
-        const btn = f.querySelector('button[type="submit"]');
-        const prev = btn.textContent; btn.disabled = true; btn.textContent = 'Submitting…'; show('');
-
-        try {
-          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
-
-          // Optional GA event
-          try { gtag && gtag('event', 'lead_submit', { page: 'book-service', service: serviceName }); } catch(_) {}
-
-          // Replace the form with a thank-you message
-          card.innerHTML = `
-            <h1>Thank you!</h1>
-            <p class="muted">We received your request for <b>${serviceName}</b>. We’ll get back to you as soon as possible.</p>
-          `;
-
-        } catch (err) {
-          console.error(err);
-          show('Could not submit. Please try again or email cramerservicesllc@gmail.com', true);
-          btn.disabled = false; btn.textContent = prev;
-        }
-      });
-    });
+        success.style.display = 'block';
+        form.reset();
+      } catch (err){
+        console.error(err);
+        error.textContent = 'Something went wrong. Please call (314) 267-8594 and we’ll help right away.';
+        error.style.display = 'block';
+      } finally {
+        submitBtn.disabled = false; 
+        submitBtn.textContent = 'Get My Free Estimate';
+      }
+    }
+    document.getElementById('leadForm').addEventListener('submit', handleFormSubmit);
   </script>
 </body>
 </html>
