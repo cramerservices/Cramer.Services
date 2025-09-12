@@ -109,15 +109,91 @@
   </style>
 
   <!-- EmailJS SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>
+<!-- EmailJS (single include + robust handler) -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  (function () {
     const EMAILJS_PUBLIC_KEY  = 'TDIki3rqftcomcjJC';
     const EMAILJS_SERVICE_ID  = 'service_ebrskb5';
     const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
+
+    // Wait for DOM to be ready so #leadForm exists
     document.addEventListener('DOMContentLoaded', () => {
-      if (window.emailjs) emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+      if (!window.emailjs) {
+        console.error('EmailJS SDK failed to load');
+        alert('Mail service failed to load. Please refresh or call us.');
+        return;
+      }
+      // Init (safe to call once)
+      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+      const form = document.getElementById('leadForm');
+      if (!form) {
+        console.error('leadForm not found in DOM');
+        return;
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const success = document.getElementById('formSuccess');
+        const errorEl = document.getElementById('formError');
+        const btn = form.querySelector('button[type="submit"]');
+        success.style.display = 'none';
+        errorEl.style.display = 'none';
+
+      const payload = {
+  subject:  'Vinyl Flooring Lead',
+  page:     'vinyl-flooring',
+  name:     (form.full_name?.value || '').trim(),
+  phone:    (form.phone?.value || '').trim(),
+  email:    (form.email?.value || '').trim(),
+  address:  (form.address?.value || '').trim(),
+  details:  (form.details?.value || '').trim(),
+
+  // ✅ Hard-code service for all submissions on this page
+  service:  'flooring',
+
+  // timeline is optional—send empty if template still expects it
+  timeline: '',
+
+  source:   window.location.href,
+  time:     new Date().toLocaleString()
+};
+
+
+        // Minimal validation
+        if (!payload.name || !payload.phone || !payload.address) {
+          errorEl.textContent = 'Please complete required fields (Name, Phone, Address).';
+          errorEl.style.display = 'block';
+          return;
+        }
+
+        // UI state
+        const prev = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = 'Submitting…';
+
+        console.log('[EmailJS] Sending payload:', payload);
+        try {
+          const resp = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, payload);
+          console.log('[EmailJS] Success:', resp);
+
+          success.style.display = 'block';
+          form.reset();
+        } catch (err) {
+          console.error('[EmailJS] Error:', err);
+          errorEl.textContent = 'Could not send. Please try again or call (314) 267-8594.';
+          errorEl.style.display = 'block';
+        } finally {
+          btn.disabled = false;
+          btn.textContent = prev;
+        }
+      });
     });
-  </script>
+  })();
+</script>
+
 </head>
 <body>
   <header>
@@ -308,66 +384,74 @@
     © <span id="year"></span> Cramer Services • Licensed & Insured • <a href="/privacy.html">Privacy</a>
   </footer>
 
-  <script>
-    // Current year
-    document.getElementById('year').textContent = new Date().getFullYear();
+<script>
+  // Current year
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-    // FORM HANDLER (EmailJS)
-    async function handleFormSubmit(e){
-      e.preventDefault();
-      const form = e.target;
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const success = document.getElementById('formSuccess');
-      const error = document.getElementById('formError');
-      success.style.display = 'none';
-      error.style.display = 'none';
+  async function handleFormSubmit(e){
+    e.preventDefault();
+    const form = e.target;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const success = document.getElementById('formSuccess');
+    const error = document.getElementById('formError');
+    success.style.display = 'none';
+    error.style.display = 'none';
 
-     const payload = {
-  subject: 'Vinyl Flooring Lead',
-  page: 'vinyl-flooring',
-  full_name: form.full_name.value.trim(),
-  phone: form.phone.value.trim(),
-  email: form.email.value.trim(),
-  address: form.address.value.trim(),
-  details: form.details.value.trim(),
-  consent: form.agree.checked,
-  source: window.location.href,
-  ts: new Date().toLocaleString()
-};
+    const payload = {
+      subject: 'Vinyl Flooring Lead',
+      page: 'vinyl-flooring',
+      full_name: form.full_name.value.trim(),
+      phone: form.phone.value.trim(),
+      email: form.email.value.trim(),
+      address: form.address.value.trim(),
+      details: form.details.value.trim(),
+      consent: form.agree.checked,
+      source: window.location.href,
+      ts: new Date().toLocaleString()
+    };
 
-if(!payload.full_name || !payload.phone || !payload.address || !payload.consent){
-  error.textContent = 'Please complete required fields and agree to the Privacy Policy.';
-  error.style.display = 'block';
-  return;
-}
-
-const emailData = {
-  subject:  payload.subject,
-  page:     payload.page,
-  name:     payload.full_name,
-  phone:    payload.phone,
-  email:    payload.email,
-  address:  payload.address,
-  details:  payload.details,
-  source:   payload.source,
-  time:     payload.ts
-};
-
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailData);
-
-        success.style.display = 'block';
-        form.reset();
-      } catch (err){
-        console.error(err);
-        error.textContent = 'Something went wrong. Please call (314) 267-8594 and we’ll help right away.';
-        error.style.display = 'block';
-      } finally {
-        submitBtn.disabled = false; 
-        submitBtn.textContent = 'Get My Free Estimate';
-      }
+    if (!payload.full_name || !payload.phone || !payload.address || !payload.consent){
+      error.textContent = 'Please complete required fields and agree to the Privacy Policy.';
+      error.style.display = 'block';
+      return;
     }
-    document.getElementById('leadForm').addEventListener('submit', handleFormSubmit);
-  </script>
+
+    // Map to EmailJS template variables (include hard-coded service)
+    const emailData = {
+      subject:  payload.subject,
+      page:     payload.page,
+      name:     payload.full_name,
+      phone:    payload.phone,
+      email:    payload.email,
+      address:  payload.address,
+      details:  payload.details,
+      service:  'flooring',   // ← always send "flooring"
+      timeline: '',           // ← empty if your template still expects it
+      source:   payload.source,
+      time:     payload.ts
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    try {
+      if (!window.emailjs) throw new Error('EmailJS not loaded');
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailData);
+      success.style.display = 'block';
+      form.reset();
+    } catch (err){
+      console.error(err);
+      error.textContent = 'Something went wrong. Please call (314) 267-8594 and we’ll help right away.';
+      error.style.display = 'block';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Get My Free Estimate';
+    }
+  }
+
+  document.getElementById('leadForm').addEventListener('submit', handleFormSubmit);
+</script>
+
 </body>
 </html>
 
