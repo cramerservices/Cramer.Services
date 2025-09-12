@@ -111,6 +111,28 @@
       .hero .container{grid-template-columns:1.2fr .8fr;align-items:stretch}
       .reviews-grid{grid-template-columns:repeat(3,1fr)}
     }
+    /* Tight green checkmarks directly before text */
+.bullets{ display:grid; gap:8px; }
+
+.bullet{
+  display:flex;
+  align-items:center;
+  gap:6px;                 /* tiny gap between ✓ and text */
+}
+
+.check{
+  /* make it just a green check, no circle */
+  background:none;
+  border:0;
+  width:auto; height:auto;
+  padding:0; margin:0;
+  color:#16a34a;           /* green */
+  font-weight:700;
+  font-size:18px;
+  line-height:1;
+  flex:0 0 auto;
+}
+
   </style>
 
   <!-- EmailJS SDK + init (no handler here) -->
@@ -213,13 +235,14 @@
 
   <section class="section container">
     <h2>Why Homeowners Choose Vinyl Flooring</h2>
-    <div class="bullets">
-      <div class="bullet"><div class="check">✓</div><div><strong>Water-resistant & durable</strong> — great for kitchens, baths, and basements.</div></div>
-      <div class="bullet"><div class="check">✓</div><div><strong>Fast installs</strong> — most small/medium projects completed quickly.</div></div>
-      <div class="bullet"><div class="check">✓</div><div><strong>Beautiful styles</strong> — wood-look, stone-look, and modern patterns.</div></div>
-      <div class="bullet"><div class="check">✓</div><div><strong>Budget-friendly</strong> — excellent value vs. hardwood/tile.</div></div>
-      <div class="bullet"><div class="check">✓</div><div><strong>Low maintenance</strong> — easy to clean, built to last.</div></div>
-    </div>
+<div class="bullets">
+  <div class="bullet"><div class="check">✓</div><div><strong>Water-resistant & durable</strong> — great for kitchens, baths, and basements.</div></div>
+  <div class="bullet"><div class="check">✓</div><div><strong>Fast installs</strong> — most small/medium projects completed quickly.</div></div>
+  <div class="bullet"><div class="check">✓</div><div><strong>Beautiful styles</strong> — wood-look, stone-look, and modern patterns.</div></div>
+  <div class="bullet"><div class="check">✓</div><div><strong>Budget-friendly</strong> — excellent value vs. hardwood/tile.</div></div>
+  <div class="bullet"><div class="check">✓</div><div><strong>Low maintenance</strong> — easy to clean, built to last.</div></div>
+</div>
+
   </section>
 
   <section class="section container faq">
