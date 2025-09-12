@@ -130,6 +130,32 @@
   .sticky-call .call{ font-weight: 800; }
   .sticky-call .quote{ font-weight: 700; }
 }
+/* Left-aligned, single-line consent */
+.consent-inline{
+  display: flex;               /* side-by-side layout */
+  align-items: center;          /* vertically align checkbox and text */
+  justify-content: flex-start;  /* left align inside the form */
+  gap: 8px;                     /* space between checkbox and text */
+  margin-top: 8px;
+  white-space: nowrap;          /* keep text on one line until screen forces wrap */
+}
+
+.consent-inline input[type="checkbox"]{
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.consent-text{
+  margin: 0;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.consent-text a{
+  text-decoration: underline;
+  color: var(--accent);
+}
 
   </style>
 
@@ -323,6 +349,7 @@
     I agree to <a href="/privacyPolicy.html" target="_blank" rel="noopener">Privacy Policy</a>
   </label>
 </div>
+
 
 
 
