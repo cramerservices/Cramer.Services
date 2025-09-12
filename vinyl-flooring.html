@@ -105,6 +105,31 @@
   color: var(--text);
   margin-bottom: 14px;
 }
+/* Mobile boost for sticky call/quote bar */
+@media (max-width: 480px){
+  .sticky-call{
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 24px);
+    padding: 10px 12px;
+    gap: 12px;
+    border-radius: 16px;
+    box-shadow: 0 8px 22px rgba(0,0,0,.15);
+    /* Respect iPhone safe area */
+    margin-bottom: env(safe-area-inset-bottom, 0);
+  }
+  .sticky-call a,
+  .sticky-call button{
+    flex: 1 1 auto;
+    font-size: 16px;           /* readable */
+    line-height: 1.2;
+    padding: 14px 16px;        /* bigger tap target */
+    min-height: 44px;          /* WCAG target size */
+    border-radius: 999px;
+  }
+  .sticky-call .call{ font-weight: 800; }
+  .sticky-call .quote{ font-weight: 700; }
+}
 
   </style>
 
@@ -192,6 +217,32 @@
       });
     });
   })();
+  /* Robust consent layout (checkbox + text on one line that wraps) */
+.consent-inline{
+  display: grid;
+  grid-template-columns: 20px auto;
+  align-items: start;
+  column-gap: .5rem;
+  row-gap: 0;
+  margin-top: 8px;
+}
+.consent-inline input[type="checkbox"]{
+  width: 20px; height: 20px; margin-top: 2px;
+}
+.consent-text{
+  display: block !important;         /* prevent theme overrides */
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.35;
+  margin: 0 !important;
+}
+.consent-text a{ text-decoration: underline; }
+
+/* Extra insurance on very small phones */
+@media (max-width: 380px){
+  .consent-text{ font-size: 15px; }
+}
+
 </script>
 
 </head>
@@ -265,13 +316,15 @@
     </div>
 
     <!-- CONSENT -->
-    <div class="agree">
-      <input id="agree" name="agree" type="checkbox" required>
-      <label for="agree">By submitting you agree to the
-        <a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.
-        Standard messaging/data rates may apply; you can opt out at any time.
-      </label>
-    </div>
+  <!-- CONSENT -->
+<div class="agree consent-inline">
+  <input type="checkbox" id="agree" name="agree" required>
+  <label for="agree" class="consent-text">
+    I agree to receive SMS or email updates as described in the
+    <a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+  </label>
+</div>
+
 
     <div class="inline-cta" style="margin-top:12px">
       <button class="btn" type="submit">Get My Free Estimate</button>
