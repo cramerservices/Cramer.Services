@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fiber Optic Headliners | Cramer Services</title>
+  <meta name="description" content="Custom fiber optic 'starry sky' headliners — clean installs, smart controls, and fast scheduling. Get a same‑day estimate.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1220;          /* darker vibe for night-sky theme */
+      --card:#0f172a;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --accent:#0d6efd;
+      --accent-2:#ffb703;
+      --ring:0 0 0 3px rgba(13,110,253,.35);
+      --success:#1aa36f;
+      --danger:#e11d48;
+      --border: #1f2937;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:radial-gradient(1000px 400px at 15% 10%, #111827 0%, #0b1220 45%, #070b13 100%);color:var(--text);font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:1100px;margin:0 auto;padding:16px}
+    .grid{display:grid;gap:18px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:#fff;border:none;border-radius:12px;padding:14px 18px;font-weight:600;cursor:pointer}
+    .btn:focus{outline:none;box-shadow:var(--ring)}
+    .btn.secondary{background:var(--accent-2);color:#111}
+    .inline-cta{display:inline-flex;gap:10px;flex-wrap:wrap}
+
+    header{position:sticky;top:0;z-index:50;background:rgba(15,23,42,.9);backdrop-filter:blur(8px);border-top:6px solid #fff;border-bottom:6px solid #fff}
+    header .wrap{display:flex;align-items:center;justify-content:space-between;padding:10px 16px}
+    header .brand{display:flex;align-items:center;gap:10px}
+    header .brand img{width:40px;height:40px;object-fit:contain}
+    header .call{font-weight:700}
+    header .call a{color:var(--accent)}
+
+    /* Hero */
+    .hero{
+      position:relative; color:#fff; padding:64px 16px 28px;
+      background:
+        radial-gradient(1000px 400px at 15% 10%, rgba(13,110,253,.20) 0%, rgba(13,110,253,0) 45%),
+        linear-gradient(to bottom, rgba(0,0,0,.50), rgba(0,0,0,.35)),
+        url('headliner-hero.jpg') center/cover no-repeat;
+      min-height:480px;
+    }
+    .hero .container{display:grid;gap:20px}
+    .badge{background:rgba(255,255,255,.92);color:#111;display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700}
+    .hero h1{margin:8px 0 6px;font-size:30px;line-height:1.1}
+    .hero p{margin:0 0 10px;color:#e5e7eb}
+    .trust{display:flex;gap:10px;flex-wrap:wrap}
+    .trust .pill{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.25);padding:6px 10px;border-radius:999px;font-size:12px}
+
+    /* Card / Form */
+    .card{background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.35);padding:16px}
+    form .row{display:grid;gap:12px}
+    @media(min-width:680px){ form .row{grid-template-columns:1fr 1fr} }
+    label{font-size:13px;font-weight:600}
+    input,select,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #334155;background:#0b1220;color:#e5e7eb;font:inherit}
+    input:focus,select:focus,textarea:focus{outline:none;box-shadow:var(--ring);border-color:transparent}
+    textarea{min-height:110px;resize:vertical}
+    .success,.error{display:none;margin-top:10px;padding:10px;border-radius:10px;font-size:14px}
+    .success{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+    .error{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+    .form-heading{font-size:24px;font-weight:700;color:#fff;margin-bottom:14px}
+
+    /* Consent single line */
+    .consent-inline{display:flex;align-items:center;justify-content:flex-start;gap:8px;margin-top:8px;white-space:nowrap}
+    .consent-inline input[type="checkbox"]{width:20px;height:20px;flex-shrink:0}
+    .consent-text{margin:0;font-size:14px;color:#e5e7eb}
+    .consent-text a{color:var(--accent);text-decoration:underline}
+
+    /* Reviews */
+    .reviews h2{margin:0 0 8px;font-size:22px}
+    .reviews-grid{display:grid;gap:12px;grid-template-columns:1fr}
+    .review{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+    .stars{color:#f5a623;font-size:18px;letter-spacing:1px;margin-bottom:6px}
+    .quote{margin:0 0 8px;color:#fff}
+    .author{font-size:13px;color:#9ca3af}
+
+    /* Sticky mobile call bar */
+    .sticky-call{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:60;background:rgba(17,24,39,.9);border:1px solid var(--border);border-radius:999px;padding:8px 10px;backdrop-filter:blur(8px)}
+    .sticky-call a,.sticky-call button{padding:10px 14px;border-radius:999px;border:none}
+    .sticky-call .call{background:var(--accent);color:#fff;font-weight:700}
+    .sticky-call .quote{background:var(--accent-2);color:#111;font-weight:700}
+    @media (max-width:480px){
+      .sticky-call{width:calc(100% - 24px);padding:10px 12px;gap:12px;border-radius:16px;box-shadow:0 8px 22px rgba(0,0,0,.35);margin-bottom:env(safe-area-inset-bottom, 0)}
+      .sticky-call a,.sticky-call button{flex:1 1 auto;font-size:16px;line-height:1.2;padding:14px 16px;min-height:44px}
+    }
+
+    /* Layout */
+    @media(min-width:840px){ .hero .container{grid-template-columns:1.2fr .8fr;align-items:stretch} .reviews-grid{grid-template-columns:repeat(3,1fr)} }
+
+    /* Tight green checkmarks directly before text */
+    .bullets{ display:grid; gap:8px; }
+    .bullet{ display:flex; align-items:center; gap:6px; }
+    .check{ background:none; border:0; width:auto; height:auto; padding:0; margin:0; color:#16a34a; font-weight:700; font-size:18px; line-height:1; flex:0 0 auto; }
+  </style>
+
+  <!-- EmailJS SDK + init (same IDs as flooring page for consistency) -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    const EMAILJS_PUBLIC_KEY  = 'TDIki3rqftcomcjJC';
+    const EMAILJS_SERVICE_ID  = 'service_ebrskb5';
+    const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.emailjs) emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    });
+  </script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PJLV039931"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-PJLV039931');
+  </script>
+</head>
+<body>
+  <header>
+    <div class="wrap container">
+      <div class="brand">
+        <img src="CramerLogo_transparent.png" alt="Cramer Services logo">
+        <div>
+          <strong>Cramer Services</strong><br>
+          <small>Licensed & Insured • St. Louis</small>
+        </div>
+      </div>
+      <div class="call"><a href="tel:13142678594">Call: (314) 267-8594</a></div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div>
+        <span class="badge">Fiber Optic Headliners</span>
+        <h1>Custom “Starry Sky” Headliners — Clean Installs. Premium Look.</h1>
+        <p>Same‑day estimate. Mobile service. Options for twinkle, color, and app/remote control.</p>
+        <div class="trust">
+          <span class="pill">Lifetime‑LED Options</span>
+          <span class="pill">Neat Wiring</span>
+          <span class="pill">Warranty on Work</span>
+        </div>
+        <div class="inline-cta" style="margin-top:12px">
+          <a class="btn" href="tel:13142678594">📞 Tap to Call</a>
+          <a class="btn secondary" href="#quote-form">Get a Quick Quote</a>
+        </div>
+      </div>
+
+      <!-- Lead Form Card -->
+      <div class="card" id="quote-form">
+        <h2 class="form-heading" style="text-align:center">Request Your Free Estimate</h2>
+        <form id="leadForm" novalidate>
+          <!-- CONTACT -->
+          <div class="row">
+            <div>
+              <label for="full_name">Full Name</label>
+              <input id="full_name" name="full_name" placeholder="Full Name" required>
+            </div>
+            <div>
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="(314) 555-1234" required>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="email">Email (optional)</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com">
+            </div>
+            <div>
+              <label for="vehicle">Vehicle (Year • Make • Model)</label>
+              <input id="vehicle" name="vehicle" placeholder="2020 • Dodge • Charger" required>
+            </div>
+          </div>
+
+          <!-- DETAILS -->
+          <div class="row">
+            <div>
+              <label for="options">Options</label>
+              <select id="options" name="options">
+                <option value="basic">Basic white stars</option>
+                <option value="rgbw">RGBW colors + twinkle</option>
+                <option value="music">Music‑reactive / app control</option>
+              </select>
+            </div>
+            <div>
+              <label for="fiber_count">Approx. Star Count</label>
+              <select id="fiber_count" name="fiber_count">
+                <option value="200-300">200–300</option>
+                <option value="400-500">400–500</option>
+                <option value="600+">600+</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row" style="grid-template-columns:1fr">
+            <div>
+              <label for="details">Project Details</label>
+              <textarea id="details" name="details" placeholder="Headliner material/condition, sunroof, desired patterns, timeline…"></textarea>
+            </div>
+          </div>
+
+          <!-- Hidden service label to tag every submission explicitly -->
+          <input type="hidden" id="service_label" name="service_label" value="Fiber Optic Headliner">
+
+          <!-- CONSENT -->
+          <div class="agree consent-inline">
+            <input type="checkbox" id="agree" name="agree" required>
+            <label for="agree" class="consent-text">I agree to <a href="/privacyPolicy.html" target="_blank" rel="noopener">Privacy Policy</a></label>
+          </div>
+
+          <div class="inline-cta" style="margin-top:12px">
+            <button class="btn" type="submit">Get My Free Estimate</button>
+            <a class="btn secondary" href="tel:13142678594">Or Tap to Call Now</a>
+          </div>
+
+          <div id="formSuccess" class="success">Thanks! We received your fiber optic headliner request and will reach out shortly.</div>
+          <div id="formError" class="error">Something went wrong. Please call (314) 267-8594 and we’ll help right away.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <h2>Why Drivers Choose Fiber Optic Headliners</h2>
+    <div class="bullets">
+      <div class="bullet"><div class="check">✓</div><div><strong>Show‑stopping look</strong> — starry sky with twinkle and color control.</div></div>
+      <div class="bullet"><div class="check">✓</div><div><strong>Clean, careful install</strong> — neat wiring and factory‑like finish.</div></div>
+      <div class="bullet"><div class="check">✓</div><div><strong>Smart features</strong> — app/remote, music‑reactive, scenes, timers.</div></div>
+      <div class="bullet"><div class="check">✓</div><div><strong>Flexible packages</strong> — from 200 to 600+ stars to fit any budget.</div></div>
+      <div class="bullet"><div class="check">✓</div><div><strong>Warranty on workmanship</strong> — plus manufacturer warranty on kits.</div></div>
+    </div>
+  </section>
+
+  <section class="section container faq">
+    <h2>Headliner FAQs</h2>
+    <div class="grid">
+      <details><summary>How long does the install take?</summary><div style="margin-top:8px">Most cars are completed same day; larger star counts may take longer.</div></details>
+      <details><summary>Can you do vehicles with a sunroof?</summary><div style="margin-top:8px">Yes—patterns can be designed around the sunroof opening for a clean look.</div></details>
+      <details><summary>Do the stars drain my battery?</summary><div style="margin-top:8px">Power draw is low; we wire to switched circuits or add a dedicated switch.</div></details>
+      <details><summary>What areas do you service?</summary><div style="margin-top:8px">Greater St. Louis and surrounding areas. Call to confirm your exact location.</div></details>
+      <details><summary>Do you offer warranties?</summary><div style="margin-top:8px">Yes—labor warranty plus manufacturer warranty on LED/driver components.</div></details>
+      <details><summary>Can I customize patterns or constellations?</summary><div style="margin-top:8px">Absolutely—tell us your ideas in the details box and we’ll design it.</div></details>
+    </div>
+  </section>
+
+  <section class="section container reviews" aria-labelledby="reviews-title">
+    <h2 id="reviews-title">What Our Customers Say</h2>
+    <div class="reviews-grid">
+      <div class="review">
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p class="quote">“The star headliner transformed my interior. Super clean work and the app control is awesome.”</p>
+        <div class="author">— T. Robinson, St. Louis</div>
+      </div>
+      <div class="review">
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p class="quote">“Great communication and fast scheduling. Looks OEM but way cooler.”</p>
+        <div class="author">— A. Nguyen, University City</div>
+      </div>
+      <div class="review">
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p class="quote">“Went with 600+ stars and music mode—worth it. Highly recommend.”</p>
+        <div class="author">— D. Martin, St. Charles</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sticky mobile CTA -->
+  <div class="sticky-call" aria-hidden="false">
+    <a class="call" href="tel:13142678594">📞 Call Now</a>
+    <a class="quote" href="#quote-form">Get Free Estimate</a>
+  </div>
+
+  <footer class="container" style="padding:20px 16px 60px;color:var(--muted)">
+    © <span id="year"></span> Cramer Services • Licensed & Insured • <a href="/privacy.html">Privacy</a>
+  </footer>
+
+  <!-- SINGLE submit handler -->
+  <script>
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    async function handleFormSubmit(e){
+      e.preventDefault();
+      const form = e.target;
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const success = document.getElementById('formSuccess');
+      const errorEl = document.getElementById('formError');
+      success.style.display = 'none';
+      errorEl.style.display = 'none';
+
+      const payload = {
+        subject: 'Fiber Optic Headliner Lead',            // <— labeled clearly
+        page: 'fiber-optic-headliner',                    // <— labeled clearly
+        full_name: form.full_name.value.trim(),
+        phone: form.phone.value.trim(),
+        email: form.email.value.trim(),
+        vehicle: form.vehicle.value.trim(),
+        options: form.options.value,
+        fiber_count: form.fiber_count.value,
+        details: form.details.value.trim(),
+        consent: form.agree.checked,
+        source: window.location.href,
+        ts: new Date().toLocaleString(),
+        service_label: form.service_label.value          // hidden field = "Fiber Optic Headliner"
+      };
+
+      if (!payload.full_name || !payload.phone || !payload.vehicle || !payload.consent){
+        errorEl.textContent = 'Please complete required fields and agree to the Privacy Policy.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      // Map to EmailJS template vars (uses same service/template IDs as your other page)
+      const emailData = {
+        subject:  payload.subject,
+        page:     payload.page,
+        name:     payload.full_name,
+        phone:    payload.phone,
+        email:    payload.email,
+        address:  payload.vehicle,         // reusing template var to carry vehicle
+        details:  `${payload.details}\n\nOptions: ${payload.options}\nStar Count: ${payload.fiber_count}`,
+        service:  'fiber-optic-headliner', // explicit service tag for your inbox filtering
+        timeline: '',
+        source:   payload.source,
+        time:     payload.ts
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting…';
+
+      try {
+        if (!window.emailjs) throw new Error('EmailJS not loaded');
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailData);
+        success.style.display = 'block';
+        form.reset();
+        if (history.replaceState) history.replaceState(null, '', location.pathname + '#quote-form');
+      } catch (err){
+        console.error(err);
+        errorEl.textContent = 'Something went wrong. Please try again or call (314) 267-8594.';
+        errorEl.style.display = 'block';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Get My Free Estimate';
+      }
+    }
+
+    document.getElementById('leadForm').addEventListener('submit', handleFormSubmit);
+  </script>
+</body>
+</html>
