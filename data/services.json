@@ -2,8 +2,8 @@
   {
     "slug": "AC-tuneup",
     "name": "AC Tuneup",
-    "price": 75.0,
-    "salePrice": 125.0,
+    "price": 100.0,
+    "salePrice": 150.0,
     "image": "HVAC_IMG_4.JPG",
     "description": "Seasonal maintenance to keep your system efficient, safe, and reliable",
     "bullets": [
@@ -11,8 +11,8 @@
       "Check refrigerant level",
       "Replace/Install Air Filter",
       "Clean interior and exterior coils",
-      "Clean blower componets",
-      "Insepect electrical componenets"
+      "Clean blower components",
+      "Inspect electrical components"
     ],
     "actionType": "contact",
     "contactLink": "",
@@ -21,7 +21,7 @@
   {
     "slug": "Furnace-tuneup",
     "name": "Furnace Tuneup",
-    "price": 85.0,
+    "price": 100.0,
     "salePrice": 150.0,
     "image": "Furnace.JPG",
     "description": "Seasonal maintenance to keep your system efficient, safe, and reliable",
@@ -39,7 +39,7 @@
   {
     "slug": "hvac-repair",
     "name": "HVAC Repair",
-    "price": 100.0,
+    "price": 0.0,
     "salePrice": null,
     "image": "HVAC_IMG_2.JPG",
     "description": "Fast, expert diagnostics and transparent pricing for needed fixes",
@@ -55,9 +55,9 @@
     "checkoutLink": ""
   },
   {
-    "slug": "hvac-install Proposal",
-    "name": "HVAC Install Proposal",
-    "price": "Free",
+    "slug": "hvac-install Estimate",
+    "name": "HVAC Install Estimate",
+    "price": 0.0,
     "salePrice": null,
     "image": "HVAC_IMG_3.JPG",
     "description": "On-site evaluation and written quote within 48 hours",
@@ -71,84 +71,173 @@
     "checkoutLink": ""
   },
   {
-    "slug": "Other",
-    "name": "Other",
-    "price": "Free",
+    "slug": "Mini-Spit-Install-Estimate",
+    "name": "Mini Spit Install Estimate",
+    "price": 0.0,
     "salePrice": null,
-    "image": "CramerLogo&Name 30, 2025, 02_50_59 PM.png",
-    "description": "If you don’t see a service that matches your needs, select this option and our team will review your request to let you know how we can help",
+    "image": "Cramer-Logo.png",
+    "description": "Professional installation of single-zone or multi-zone ductless mini-split systems.",
     "bullets": [
-      "Call us today, tell us your needs, and our team will provide the reliable support you’re looking for."
+      "Mount indoor wall unit",
+      "Set outdoor condenser",
+      "Run refrigerant and condensate lines",
+      "Vacuum and charge system",
+      "Test electrical connections",
+      "Calibrate remote or smart controller."
     ],
     "actionType": "contact",
     "contactLink": "",
     "checkoutLink": ""
   },
   {
-    "slug": "Vinyl-Flooring-Proposal",
-    "name": "Vinyl Flooring Proposal",
-    "price": "Free",
+    "slug": "Mini-Spit-Repair-Estimate",
+    "name": "Mini Spit Repair Estimate",
+    "price": 0.0,
     "salePrice": null,
-    "image": "Flooring.jpeg",
-    "description": "On-site evaluation and written quote within 48 hours",
+    "image": "Cramer-Logo.png",
+    "description": "Diagnostic and repair services for malfunctioning ductless systems.",
     "bullets": [
-      "Professional on-site measurement and evaluation of your flooring space",
-      "Product options tailored to design preferences, durability needs, and budget",
-      "Clear installation plan, timeline, and transparent cost estimate"
+      "Inspect refrigerant lines for leaks",
+      "Check inverter board and fan motors",
+      "Test communication cables",
+      "Clean air filters and coils",
+      "Replace defective sensors or drain pumps",
+      "Verify proper refrigerant charge."
     ],
     "actionType": "contact",
     "contactLink": "",
     "checkoutLink": ""
   },
   {
-    "slug": "Hot-Water-Tank-Proposal",
-    "name": "Hot Water Tank Proposal",
-    "price": "Free",
+    "slug": "Thermostat-repair-&-installs",
+    "name": "Thermostat repair and installs",
+    "price": 0.0,
     "salePrice": null,
-    "image": "WaterHeater.JPG",
-    "description": "On-site evaluation and written quote within 48 hours",
+    "image": "Cramer-Logo.png",
+    "description": "Replacement or installation of programmable and smart thermostats to improve comfort and efficiency.",
     "bullets": [
-      "Professional on-site assessment of your home or business",
-      "Equipment options tailored to space, budget, and comfort goals",
-      "Professional Installation",
-      "5 year warranty",
-      "Clear installation plan and timeline"
+      "Remove old thermostat",
+      "Inspect and label wiring",
+      "Install new base and connect wires",
+      "Configure heating/cooling programs",
+      "Connect to Wi-Fi",
+      "Test system operation."
     ],
     "actionType": "contact",
     "contactLink": "",
     "checkoutLink": ""
   },
   {
-    "slug": "Light-Fixture-Replacment-and-Install",
-    "name": "Light Fixture Replacement/ install",
-    "price": "Free",
+    "slug": "Heat-Pump-Installation",
+    "name": "Heat Pump Installation",
+    "price": 0.0,
     "salePrice": null,
-    "image": "LightFixture.JPG",
-    "description": "On-site evaluation and written quote within 48 hours",
+    "image": "Cramer-Logo.png",
+    "description": "Installation of high-efficiency heat pumps for year-round heating and cooling.",
     "bullets": [
-      "Professional on-site assessment of your home or business",
-      "Fixture options tailored to space, budget, and comfort goals",
-      "Professional Installation",
-      "5 year warranty",
-      "Clear installation plan and timeline"
+      "Set outdoor and indoor units",
+      "Connect refrigerant lines",
+      "Seal and insulate ducts",
+      "Wire defrost and control board",
+      "Charge system",
+      "Test heating and cooling cycles",
+      "Verify reversing valve function."
     ],
     "actionType": "contact",
     "contactLink": "",
     "checkoutLink": ""
   },
   {
-    "slug": "General-Repair",
-    "name": "General Repair",
-    "price": 100.0,
+    "slug": "Air-Purifier-&-Filtration-Systems",
+    "name": "Air Purifier & Filtration Systems",
+    "price": 0.0,
     "salePrice": null,
-    "image": "CramerLogo&Name 30, 2025, 02_50_59 PM.png",
-    "description": "Fast, expert diagnostics and transparent pricing for needed fixes",
+    "image": "Cramer-Logo.png",
+    "description": "Installation of whole-home filtration or purification systems to improve indoor air quality.",
     "bullets": [
-      "Skilled technician diagnoses issue & explains options",
-      "Up-front pricing by repair",
-      "Diagnostic fee due at scheduling",
-      "Fee is credited if repair proceeds",
-      "Limited 0–5 year warranty depending on the scope of work"
+      "Assess ductwork compatibility",
+      "Install purifier housing and filter",
+      "Connect electrical supply",
+      "Seal duct joints",
+      "Test airflow",
+      "Measure indoor air quality improvement."
+    ],
+    "actionType": "contact",
+    "contactLink": "",
+    "checkoutLink": ""
+  },
+  {
+    "slug": "Humidifiers-&-Dehumidifiers",
+    "name": "Humidifiers & Dehumidifiers",
+    "price": 0.0,
+    "salePrice": null,
+    "image": "Cramer-Logo.png",
+    "description": "Maintain balanced indoor humidity levels to enhance comfort and protect property.",
+    "bullets": [
+      "Mount unit on supply or return duct",
+      "Connect water line and drain",
+      "Wire to control board",
+      "Adjust humidity settings",
+      "Test operation",
+      "Inspect for leaks or clogs."
+    ],
+    "actionType": "contact",
+    "contactLink": "",
+    "checkoutLink": ""
+  },
+  {
+    "slug": "Duct-Sealing-/-Replacement",
+    "name": "Duct Sealing / Replacement",
+    "price": 0.0,
+    "salePrice": null,
+    "image": "Cramer-Logo.png",
+    "description": "Repair or replace damaged air ducts to restore airflow and energy efficiency",
+    "bullets": [
+      "Inspect for leaks or crushed sections",
+      "Remove damaged ductwork",
+      "Install new flexible or rigid ducts",
+      "Apply mastic sealant",
+      "Wrap with insulation",
+      "Verify balanced airflow."
+    ],
+    "actionType": "contact",
+    "contactLink": "",
+    "checkoutLink": ""
+  },
+  {
+    "slug": "System-Inspections",
+    "name": "System Inspections",
+    "price": 0.0,
+    "salePrice": null,
+    "image": "Cramer-Logo.png",
+    "description": "Comprehensive system checks to ensure safe and efficient operation",
+    "bullets": [
+      "Inspect electrical components",
+      "Check refrigerant level",
+      "Measure temperature differentials",
+      "Test safety controls",
+      "Inspect blower and fan motors",
+      "Review system efficiency report"
+    ],
+    "actionType": "contact",
+    "contactLink": "",
+    "checkoutLink": ""
+  },
+  {
+    "slug": "Efficiency-Testing",
+    "name": "Efficiency Testing",
+    "price": 0.0,
+    "salePrice": null,
+    "image": "Cramer-Logo.png",
+    "description": "Detailed performance evaluation of your HVAC system to identify energy loss, optimize output, and lower utility costs",
+    "bullets": [
+      "Measure airflow and static pressure",
+      "Check temperature differential",
+      "Verify refrigerant charge",
+      "Test electrical draw and amperage",
+      "Inspect duct insulation",
+      "Review SEER/AFUE performance ratings",
+      "Provide efficiency improvement recommendations"
     ],
     "actionType": "contact",
     "contactLink": "",
