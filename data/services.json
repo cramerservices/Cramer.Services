@@ -75,7 +75,7 @@
     "name": "Mini Spit Install Estimate",
     "price": 0.0,
     "salePrice": null,
-    "image": "Cramer-Logo.png",
+    "image": "CramerLogoText.png",
     "description": "Professional installation of single-zone or multi-zone ductless mini-split systems.",
     "bullets": [
       "Mount indoor wall unit",
@@ -94,7 +94,7 @@
     "name": "Mini Spit Repair Estimate",
     "price": 0.0,
     "salePrice": null,
-    "image": "Cramer-Logo.png",
+    "image": "CramerLogoText.png",
     "description": "Diagnostic and repair services for malfunctioning ductless systems.",
     "bullets": [
       "Inspect refrigerant lines for leaks",
@@ -113,7 +113,7 @@
     "name": "Thermostat repair and installs",
     "price": 0.0,
     "salePrice": null,
-    "image": "Cramer-Logo.png",
+    "image": "CramerLogoText.png",
     "description": "Replacement or installation of programmable and smart thermostats to improve comfort and efficiency.",
     "bullets": [
       "Remove old thermostat",
@@ -132,7 +132,7 @@
     "name": "Heat Pump Installation",
     "price": 0.0,
     "salePrice": null,
-    "image": "Cramer-Logo.png",
+    "image": "CramerLogoText.png",
     "description": "Installation of high-efficiency heat pumps for year-round heating and cooling.",
     "bullets": [
       "Set outdoor and indoor units",
@@ -152,7 +152,7 @@
     "name": "Air Purifier & Filtration Systems",
     "price": 0.0,
     "salePrice": null,
-    "image": "Cramer-Logo.png",
+    "image": "CramerLogoText.png",
     "description": "Installation of whole-home filtration or purification systems to improve indoor air quality.",
     "bullets": [
       "Assess ductwork compatibility",
@@ -171,7 +171,7 @@
     "name": "Humidifiers & Dehumidifiers",
     "price": 0.0,
     "salePrice": null,
-    "image": "Cramer-Logo.png",
+    "image": "CramerLogoText.png",
     "description": "Maintain balanced indoor humidity levels to enhance comfort and protect property.",
     "bullets": [
       "Mount unit on supply or return duct",
@@ -190,7 +190,7 @@
     "name": "Duct Sealing / Replacement",
     "price": 0.0,
     "salePrice": null,
-    "image": "Cramer-Logo.png",
+    "image": "CramerLogoText.png",
     "description": "Repair or replace damaged air ducts to restore airflow and energy efficiency",
     "bullets": [
       "Inspect for leaks or crushed sections",
@@ -209,7 +209,7 @@
     "name": "System Inspections",
     "price": 0.0,
     "salePrice": null,
-    "image": "Cramer-Logo.png",
+    "image": "CramerLogoText.png",
     "description": "Comprehensive system checks to ensure safe and efficient operation",
     "bullets": [
       "Inspect electrical components",
@@ -228,7 +228,7 @@
     "name": "Efficiency Testing",
     "price": 0.0,
     "salePrice": null,
-    "image": "Cramer-Logo.png",
+    "image": "CramerLogoText.png",
     "description": "Detailed performance evaluation of your HVAC system to identify energy loss, optimize output, and lower utility costs",
     "bullets": [
       "Measure airflow and static pressure",
