@@ -417,13 +417,15 @@ const card = document.getElementById('service'); // the form card container
         return;
       }
 
+      const details = (form.details?.value || '').trim();
       const data = {
         subject: 'HVAC Repair Request',
         name:    (form.name?.value || '').trim(),
         phone:   (form.phone?.value || '').trim(),
         email:   (form.email?.value || '').trim(),
         service: (form.service?.value || '').trim(),
-        details: (form.details?.value || '').trim(),
+        details: details,
+        message: details,
         time:    new Date().toLocaleString()
       };
 

@@ -398,14 +398,16 @@
     show('');
 
     // Map to your EmailJS template
+    const details = data.details || '';
     const templateParams = {
       subject: 'HVAC Install Estimate Request',
       service: data.service || '',
       name:    data.name || '',
       phone:   data.phone || '',
       email:   data.email || '',
-      details: data.details || '',
-      page:    'hvac-install',              // helpful context tag
+      details: details,
+      message: details,
+      page:    'hvac-install',
       time:    new Date().toLocaleString()
     };
 

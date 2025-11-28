@@ -86,13 +86,15 @@
           return;
         }
 
+        const details = (f.details.value || '').trim();
         const data = {
-          subject: 'Contact Form Submission',
+          subject: 'Contact Form Submission - ' + (f.service.value || 'Service Request'),
           name:    (f.name.value || '').trim(),
           phone:   (f.phone.value || '').trim(),
           email:   (f.email.value || '').trim(),
           service: (f.service.value || '').trim(),
-          details: (f.details.value || '').trim(),
+          details: details,
+          message: details,
           time:    new Date().toLocaleString()
         };
 

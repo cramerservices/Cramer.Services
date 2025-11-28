@@ -340,13 +340,15 @@ form.addEventListener('submit', async (e) => {
   show('');
 
   // Build template params similar to ContactUs
+  const details = data.details || '';
   const templateParams = {
     subject: 'Home Services Estimate Request',
     service: data.service || '',
     name:    data.name || '',
     phone:   data.phone || '',
     email:   data.email || '',
-    details: data.details || '',
+    details: details,
+    message: details,
     time:    new Date().toLocaleString()
   };
 

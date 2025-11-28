@@ -114,12 +114,14 @@
           return;
         }
 
+        const details = form.details.value.trim();
         const data = {
           name:    form.name.value.trim(),
           phone:   form.phone.value.trim(),
           email:   form.email.value.trim(),
           service: 'Subscription - ' + (planMap[planParam] || 'Essential HVAC PLAN'),
-          details: form.details.value.trim(),
+          details: details,
+          message: details,
           plan:    planMap[planParam] || 'Essential HVAC PLAN',
           time:    new Date().toLocaleString(),
           subject: `New subscription — ${(planMap[planParam]||'Plan')} — ${form.name.value.trim()||'Customer'}`
