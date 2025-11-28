@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cramerservices.net/sitemap.xml
