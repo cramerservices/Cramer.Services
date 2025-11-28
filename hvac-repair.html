@@ -262,23 +262,23 @@
     <div id="service" class="card form" aria-labelledby="formTitle">
       <h2 id="formTitle" style="margin:.25rem 0 .6rem">Request HVAC Repair</h2>
       <form id="repairForm">
-        <div class="grid">
-          <input name="name" placeholder="Full Name*" required />
-          <input name="phone" placeholder="Phone*" required inputmode="tel" />
-        </div>
-        <input name="email" placeholder="Email (optional)" type="email" />
+        <input type="text" name="_company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
+
+        <input name="name" placeholder="Full Name*" required />
+        <input name="phone" type="tel" placeholder="Phone Number*" required inputmode="tel" />
+        <input name="email" placeholder="Email Address*" type="email" required />
         <select name="service" required>
-          <option value="">I need help with… *</option>
-          <option>AC not cooling</option>
-          <option>Furnace not heating</option>
-          <option>Heat pump issue</option>
-          <option>Thermostat problem</option>
-          <option>Strange noise / smell</option>
-          <option>Leak / water near unit</option>
-          <option>Airflow / rooms not comfortable</option>
-          <option>High-efficiency unit repair</option>
+          <option value="">Select Service Type*</option>
+          <option value="HVAC - AC not cooling">HVAC - AC not cooling</option>
+          <option value="HVAC - Furnace not heating">HVAC - Furnace not heating</option>
+          <option value="HVAC - Heat pump issue">HVAC - Heat pump issue</option>
+          <option value="HVAC - Thermostat problem">HVAC - Thermostat problem</option>
+          <option value="HVAC - Strange noise/smell">HVAC - Strange noise/smell</option>
+          <option value="HVAC - Leak/water near unit">HVAC - Leak/water near unit</option>
+          <option value="HVAC - Airflow issues">HVAC - Airflow issues</option>
+          <option value="HVAC - Other repair">HVAC - Other repair</option>
         </select>
-        <textarea name="details" rows="3" placeholder="Describe the issues you’re experiencing with your system"></textarea>
+        <textarea name="details" rows="5" placeholder="Tell us about your project (e.g., issue description, equipment details, preferred timeline)"></textarea>
        
         <button class="btn btn-primary" type="submit">Request Service</button>
        <small>
@@ -412,20 +412,23 @@ const card = document.getElementById('service'); // the form card container
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-     
+      if (form._company && form._company.value) {
+        if (msg) { msg.textContent = 'Submission blocked.'; msg.style.color = '#dc3545'; }
+        return;
+      }
 
       const data = {
         subject: 'HVAC Repair Request',
         name:    (form.name?.value || '').trim(),
         phone:   (form.phone?.value || '').trim(),
         email:   (form.email?.value || '').trim(),
-        service: (form.service?.value || '').trim(),  // dropdown issue summary
+        service: (form.service?.value || '').trim(),
         details: (form.details?.value || '').trim(),
         time:    new Date().toLocaleString()
       };
 
-      if (!data.name || !data.phone || !data.service) {
-        if (msg) { msg.textContent = 'Please complete required fields.'; msg.style.color = '#dc3545'; }
+      if (!data.name || !data.phone || !data.email || !data.service) {
+        if (msg) { msg.textContent = 'Please complete all required fields.'; msg.style.color = '#dc3545'; }
         return;
       }
 

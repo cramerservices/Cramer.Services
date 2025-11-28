@@ -154,45 +154,26 @@
       <div class="card" id="quote-form">
         <h2 class="form-heading" style="text-align:center">Request Your Free Estimate</h2>
         <form id="leadForm" novalidate>
-          <!-- CONTACT -->
-          <div class="row">
-            <div>
-              <label for="full_name">Full Name</label>
-              <input id="full_name" name="full_name" placeholder="Full Name" required>
-            </div>
-            <div>
-              <label for="phone">Phone</label>
-              <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="(314) 555-1234" required>
-            </div>
-          </div>
+          <input type="text" name="_company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
 
-          <div class="row">
-            <div>
-              <label for="email">Email (optional)</label>
-              <input id="email" name="email" type="email" placeholder="you@example.com">
-            </div>
-            <div>
-              <label for="vehicle">Vehicle (Year • Make • Model)</label>
-              <input id="vehicle" name="vehicle" placeholder="2020 • Dodge • Charger" required>
-            </div>
-          </div>
+          <input id="name" name="name" placeholder="Full Name*" required>
+          <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="Phone Number*" required>
+          <input id="email" name="email" type="email" placeholder="Email Address*" required>
+          <select id="service" name="service" required disabled style="opacity:0.6">
+            <option value="Fiber Optic Headliner Installation">Fiber Optic Headliner Installation</option>
+          </select>
+          <textarea id="details" name="details" rows="5" placeholder="Tell us about your project (e.g., vehicle year/make/model, options preference, star count, timeline)"></textarea>
 
-          <!-- DETAILS -->
-          <div class="row">
-            <div>
-              <label for="options">Options</label>
-              <select id="options" name="options">
-                <option value="basic">Basic white stars</option>
-                <option value="rgbw">RGBW colors + twinkle</option>
-                <option value="music">Music‑reactive / app control</option>
-              </select>
-            </div>
-            <div>
-              <label for="fiber_count">Approx. Star Count</label>
-              <select id="fiber_count" name="fiber_count">
-                <option value="200-300">200–300</option>
-                <option value="400-500">400–500</option>
-                <option value="600+">600+</option>
+          <div style="display:none">
+            <select id="options" name="options">
+              <option value="basic">Basic white stars</option>
+              <option value="rgbw">RGBW colors + twinkle</option>
+              <option value="music">Music‑reactive / app control</option>
+            </select>
+            <select id="fiber_count" name="fiber_count">
+              <option value="200-300">200–300</option>
+              <option value="400-500">400–500</option>
+              <option value="600+">600+</option>
               </select>
             </div>
           </div>
@@ -293,41 +274,37 @@
       success.style.display = 'none';
       errorEl.style.display = 'none';
 
-      const payload = {
-        subject: 'Fiber Optic Headliner Lead',            // <— labeled clearly
-        page: 'fiber-optic-headliner',                    // <— labeled clearly
-        full_name: form.full_name.value.trim(),
-        phone: form.phone.value.trim(),
-        email: form.email.value.trim(),
-        vehicle: form.vehicle.value.trim(),
-        options: form.options.value,
-        fiber_count: form.fiber_count.value,
-        details: form.details.value.trim(),
-        consent: form.agree.checked,
-        source: window.location.href,
-        ts: new Date().toLocaleString(),
-        service_label: form.service_label.value          // hidden field = "Fiber Optic Headliner"
-      };
-
-      if (!payload.full_name || !payload.phone || !payload.vehicle || !payload.consent){
-        errorEl.textContent = 'Please complete required fields and agree to the Privacy Policy.';
+      if (form._company && form._company.value) {
+        errorEl.textContent = 'Submission blocked.';
         errorEl.style.display = 'block';
         return;
       }
 
-      // Map to EmailJS template vars (uses same service/template IDs as your other page)
+      const payload = {
+        subject: 'Fiber Optic Headliner Installation Request',
+        name: form.name.value.trim(),
+        phone: form.phone.value.trim(),
+        email: form.email.value.trim(),
+        service: form.service.value.trim(),
+        details: form.details.value.trim(),
+        consent: form.agree.checked,
+        time: new Date().toLocaleString()
+      };
+
+      if (!payload.name || !payload.phone || !payload.email || !payload.service || !payload.consent){
+        errorEl.textContent = 'Please complete all required fields and agree to the Privacy Policy.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
       const emailData = {
         subject:  payload.subject,
-        page:     payload.page,
-        name:     payload.full_name,
+        name:     payload.name,
         phone:    payload.phone,
         email:    payload.email,
-        address:  payload.vehicle,         // reusing template var to carry vehicle
-        details:  `${payload.details}\n\nOptions: ${payload.options}\nStar Count: ${payload.fiber_count}`,
-        service:  'fiber-optic-headliner', // explicit service tag for your inbox filtering
-        timeline: '',
-        source:   payload.source,
-        time:     payload.ts
+        service:  payload.service,
+        details:  payload.details,
+        time:     payload.time
       };
 
       submitBtn.disabled = true;

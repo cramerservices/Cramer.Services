@@ -149,22 +149,20 @@
     <div id="quote" class="card form" aria-labelledby="formTitle">
       <h2 id="formTitle" style="margin:.25rem 0 .6rem">Get Your Free Estimate</h2>
       <form id="leadForm">
-        <div class="grid">
-          <input name="name" placeholder="Full Name*" required />
-          <input name="phone" placeholder="Phone*" required inputmode="tel" />
-        </div>
-        <input name="email" placeholder="Email (optional)" type="email" />
+        <input type="text" name="_company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
+
+        <input name="name" placeholder="Full Name*" required />
+        <input name="phone" type="tel" placeholder="Phone Number*" required inputmode="tel" />
+        <input name="email" placeholder="Email Address*" type="email" required />
         <select name="service" required>
-          <option value="">I need help with… *</option>
-          <option>HVAC (repair or install)</option>
-          <option>Plumbing</option>
-          <option>Electrical</option>
-          <option>Handyman / General Repairs</option>
-          <option>Roofing / Gutters</option>
-          <option>Painting / Drywall</option>
-          <option>Other</option>
+          <option value="">Select Service Type*</option>
+          <option value="HVAC">HVAC</option>
+          <option value="Plumbing">Plumbing</option>
+          <option value="Electrical">Electrical</option>
+          <option value="Multiple Services">Multiple Services</option>
+          <option value="Other">Other</option>
         </select>
-        <textarea name="details" rows="3" placeholder="Tell us what’s going on"></textarea>
+        <textarea name="details" rows="5" placeholder="Tell us about your project (e.g., issue description, service needed, preferred timeline)"></textarea>
         
         <button class="btn btn-primary" type="submit">Request My Estimate</button>
         <small>By submitting, you agree to our <a href="/privacyPolicy.html" target="_blank" rel="noopener">Privacy Policy</a>. We never sell your data.</small>
@@ -323,14 +321,15 @@ document.addEventListener('DOMContentLoaded', () => {
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
+  if (form._company && form._company.value) {
+    show('Submission blocked.', true);
+    return;
+  }
 
-
-  // Collect form data
   const data = Object.fromEntries(new FormData(form).entries());
 
-  // Basic requireds (match your UI)
-  if (!data.name || !data.phone || !data.service){
-    show('Please complete name, phone, and service.', true);
+  if (!data.name || !data.phone || !data.email || !data.service){
+    show('Please complete all required fields.', true);
     return;
   }
 

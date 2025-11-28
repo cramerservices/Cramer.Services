@@ -192,38 +192,16 @@
         <h2 class="form-heading" style="text-align:center">Request Your Free Estimate</h2>
 
         <form id="leadForm" novalidate>
-          <!-- CONTACT -->
-          <div class="row">
-            <div>
-              <label for="full_name">Full Name</label>
-              <input id="full_name" name="full_name" placeholder="Full Name" required>
-            </div>
-            <div>
-              <label for="phone">Phone</label>
-              <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="(314) 555-1234" required>
-            </div>
-          </div>
+          <input type="text" name="_company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
 
-          <div class="row">
-            <div>
-              <label for="email">Email (optional)</label>
-              <input id="email" name="email" type="email" placeholder="you@example.com">
-            </div>
-            <div>
-              <label for="address">Service Address</label>
-              <input id="address" name="address" placeholder="Street, City, ZIP" required>
-            </div>
-          </div>
+          <input id="name" name="name" placeholder="Full Name*" required>
+          <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="Phone Number*" required>
+          <input id="email" name="email" type="email" placeholder="Email Address*" required>
+          <select id="service" name="service" required disabled style="opacity:0.6">
+            <option value="Vinyl Flooring Installation">Vinyl Flooring Installation</option>
+          </select>
+          <textarea id="details" name="details" rows="5" placeholder="Tell us about your project (e.g., square footage, rooms, removal needed, preferred timeline)"></textarea>
 
-          <!-- DETAILS -->
-          <div class="row" style="grid-template-columns:1fr">
-            <div>
-              <label for="details">Project Details</label>
-              <textarea id="details" name="details" placeholder="Square footage, rooms, removal needed, special requests…"></textarea>
-            </div>
-          </div>
-
-          <!-- CONSENT -->
           <div class="agree consent-inline">
             <input type="checkbox" id="agree" name="agree" required>
             <label for="agree" class="consent-text">
@@ -317,38 +295,37 @@
       success.style.display = 'none';
       errorEl.style.display = 'none';
 
-      const payload = {
-        subject: 'Vinyl Flooring Lead',
-        page: 'vinyl-flooring',
-        full_name: form.full_name.value.trim(),
-        phone: form.phone.value.trim(),
-        email: form.email.value.trim(),
-        address: form.address.value.trim(),
-        details: form.details.value.trim(),
-        consent: form.agree.checked,
-        source: window.location.href,
-        ts: new Date().toLocaleString()
-      };
-
-      if (!payload.full_name || !payload.phone || !payload.address || !payload.consent){
-        errorEl.textContent = 'Please complete required fields and agree to the Privacy Policy.';
+      if (form._company && form._company.value) {
+        errorEl.textContent = 'Submission blocked.';
         errorEl.style.display = 'block';
         return;
       }
 
-      // Map to EmailJS template vars (service hard-coded)
+      const payload = {
+        subject: 'Vinyl Flooring Installation Request',
+        name: form.name.value.trim(),
+        phone: form.phone.value.trim(),
+        email: form.email.value.trim(),
+        service: form.service.value.trim(),
+        details: form.details.value.trim(),
+        consent: form.agree.checked,
+        time: new Date().toLocaleString()
+      };
+
+      if (!payload.name || !payload.phone || !payload.email || !payload.service || !payload.consent){
+        errorEl.textContent = 'Please complete all required fields and agree to the Privacy Policy.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
       const emailData = {
         subject:  payload.subject,
-        page:     payload.page,
-        name:     payload.full_name,
+        name:     payload.name,
         phone:    payload.phone,
         email:    payload.email,
-        address:  payload.address,
+        service:  payload.service,
         details:  payload.details,
-        service:  'flooring',
-        timeline: '',
-        source:   payload.source,
-        time:     payload.ts
+        time:     payload.time
       };
 
       submitBtn.disabled = true;

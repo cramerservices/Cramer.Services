@@ -183,22 +183,22 @@
     <div id="quote" class="card form" aria-labelledby="formTitle">
       <h2 id="formTitle" style="margin:.25rem 0 .6rem">Get Your Free Install Estimate</h2>
 <form id="installForm">
-  <div class="grid">
-    <input name="name" placeholder="Full Name*" required />
-    <input name="phone" placeholder="Phone*" required inputmode="tel" />
-  </div>
-  <input name="email" placeholder="Email (optional)" type="email" />
+  <input type="text" name="_company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
+
+  <input name="name" placeholder="Full Name*" required />
+  <input name="phone" type="tel" placeholder="Phone Number*" required inputmode="tel" />
+  <input name="email" placeholder="Email Address*" type="email" required />
   <select name="service" required>
-    <option value="">I'm interested in… *</option>
-    <option>AC Replacement</option>
-    <option>Furnace Installation</option>
-    <option>Furnace + AC Installation</option>
-    <option>Heat Pump Installation</option>
-    <option>Geothermal System Installation</option>
-    <option>High-Efficiency Unit Upgrade</option>
-    <option>HVAC Repair / Diagnostic</option>
+    <option value="">Select Service Type*</option>
+    <option value="HVAC - AC Replacement">HVAC - AC Replacement</option>
+    <option value="HVAC - Furnace Installation">HVAC - Furnace Installation</option>
+    <option value="HVAC - Furnace + AC Installation">HVAC - Furnace + AC Installation</option>
+    <option value="HVAC - Heat Pump Installation">HVAC - Heat Pump Installation</option>
+    <option value="HVAC - Geothermal System">HVAC - Geothermal System</option>
+    <option value="HVAC - High-Efficiency Upgrade">HVAC - High-Efficiency Upgrade</option>
+    <option value="HVAC - Other Installation">HVAC - Other Installation</option>
   </select>
-  <textarea name="details" rows="3" placeholder="Anything we should know? (age of system, hot/cold rooms, timeline)"></textarea>
+  <textarea name="details" rows="5" placeholder="Tell us about your project (e.g., current system age, specific concerns, preferred timeline)"></textarea>
 
 <!-- Submit button -->
 <button class="btn btn-primary" type="submit">Request An Estimate</button>
@@ -379,7 +379,6 @@
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Honeypot (in case you add one later)
     if (form._company && form._company.value) {
       show('Submission blocked.', true);
       return;
@@ -387,9 +386,8 @@
 
     const data = Object.fromEntries(new FormData(form).entries());
 
-    // Basic requireds (does not change your placeholders/options)
-    if (!data.name || !data.phone || !data.service) {
-      show('Please complete name, phone, and service.', true);
+    if (!data.name || !data.phone || !data.email || !data.service) {
+      show('Please complete all required fields.', true);
       return;
     }
 
