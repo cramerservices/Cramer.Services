@@ -53,6 +53,7 @@
   nav ul{ display:flex; gap:1rem; list-style:none; margin:0; padding:0 }
   nav a{ padding:.5rem .7rem; border-radius:6px }
   nav a:hover{ background:#f1f3f5; text-decoration:none }
+  nav a.active{ background:#e7f1ff; color:var(--accent); font-weight:600 }
 
   .cta{
     background:var(--accent); color:#fff; font-weight:600;
@@ -262,9 +263,11 @@
 
     <nav>
       <ul>
-        <li><a href="#services">Services</a></li>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#electrical">Electrical</a></li>
+        <li><a href="#hvac">HVAC</a></li>
+        <li><a href="#plumbing">Plumbing</a></li>
         <li><a href="#plans">Subscriptions</a></li>
-        <li><a href="ContactUs.html">Request a Quote</a></li>
       </ul>
     </nav>
 
@@ -280,27 +283,86 @@
 
 <main id="home" class="container hero">
   <div>
-    <h1 class="headline">Keep Your Comfort Simple — Call Cramer!</h1>
-    <p class="sub">Cramer Services provides professional HVAC repairs, replacements, and maintenance to keep your home running smoothly. Whether it’s a hot summer day or a cold winter night, we’ve got you covered.</p>
-    <a class="cta" href="ContactUs.html">Contact Us</a>
+    <h1 class="headline">Your Trusted Partner for Electrical, HVAC & Plumbing</h1>
+    <p class="sub">Cramer Services provides comprehensive electrical, HVAC, and plumbing solutions for your home or business. From routine maintenance to emergency repairs, our expert team delivers reliable service you can count on.</p>
+    <a class="cta" href="ContactUs.html">Get Started</a>
   </div>
   <div class="hero-card">
     <img src="ChatGPT Image Aug 13, 2025, 04_01_24 PM.png" alt="Happy family in front of home"/>
   </div>
 </main>
 
-<!-- IMAGE TILE SERVICES -->
-<section id="services" class="home-services container">
+<!-- SERVICE TABS -->
+<section id="electrical" class="service-section container" style="padding-top:3rem;">
+  <h2>Electrical Services</h2>
+  <p class="muted">Professional electrical installations, repairs, and maintenance for your home or business.</p>
+  <div class="cards">
+    <div class="card">
+      <h3>Electrical Repairs</h3>
+      <p class="muted">Troubleshooting and fixing electrical issues, from outlets to circuit breakers.</p>
+    </div>
+    <div class="card">
+      <h3>Lighting Installation</h3>
+      <p class="muted">Interior and exterior lighting solutions, fixture installation, and upgrades.</p>
+    </div>
+    <div class="card">
+      <h3>Panel Upgrades</h3>
+      <p class="muted">Electrical panel replacements and upgrades to meet modern power demands.</p>
+    </div>
+    <div class="card">
+      <h3>Wiring & Rewiring</h3>
+      <p class="muted">Complete wiring solutions for new construction, renovations, and updates.</p>
+    </div>
+  </div>
+  <a class="cta" href="ContactUs.html" style="margin-top:16px; display:inline-block;">Request Electrical Service</a>
+</section>
 
-  <h2>Services</h2>
-  <p class="muted">Select a service to see details and pricing.</p>
+<section id="hvac" class="service-section container">
+  <h2>HVAC Services</h2>
+  <p class="muted">Expert heating, ventilation, and air conditioning services to keep your space comfortable year-round.</p>
+  <div class="cards">
+    <div class="card">
+      <h3>HVAC Repairs</h3>
+      <p class="muted">Fast, reliable repairs for furnaces, air conditioners, and ventilation systems.</p>
+    </div>
+    <div class="card">
+      <h3>System Installation</h3>
+      <p class="muted">Complete HVAC system installation for new construction and replacements.</p>
+    </div>
+    <div class="card">
+      <h3>Maintenance & Tune-ups</h3>
+      <p class="muted">Seasonal maintenance to keep your system running efficiently and prevent breakdowns.</p>
+    </div>
+    <div class="card">
+      <h3>Emergency Service</h3>
+      <p class="muted">24/7 emergency HVAC service when you need it most.</p>
+    </div>
+  </div>
+  <a class="cta" href="ContactUs.html" style="margin-top:16px; display:inline-block;">Request HVAC Service</a>
+</section>
 
- <div id="home-services-grid" class="services-tiles"></div>
-
-  <a class="cta" href="services.html" style="margin-top:16px; display:inline-block;">
-  More Services
-</a>
-
+<section id="plumbing" class="service-section container">
+  <h2>Plumbing Services</h2>
+  <p class="muted">Complete plumbing solutions for installations, repairs, and maintenance.</p>
+  <div class="cards">
+    <div class="card">
+      <h3>Plumbing Repairs</h3>
+      <p class="muted">Fixing leaks, clogs, and plumbing issues throughout your property.</p>
+    </div>
+    <div class="card">
+      <h3>Fixture Installation</h3>
+      <p class="muted">Installing sinks, toilets, faucets, and other plumbing fixtures.</p>
+    </div>
+    <div class="card">
+      <h3>Water Heater Service</h3>
+      <p class="muted">Water heater installation, repair, and maintenance for reliable hot water.</p>
+    </div>
+    <div class="card">
+      <h3>Drain Cleaning</h3>
+      <p class="muted">Professional drain cleaning and sewer line services to keep things flowing.</p>
+    </div>
+  </div>
+  <a class="cta" href="ContactUs.html" style="margin-top:16px; display:inline-block;">Request Plumbing Service</a>
 </section>
 <section id="choose-us" class="container">
   <h2 style="text-align:center;">Why Choose Cramer Services?</h2>
@@ -495,87 +557,19 @@
       const open = menu.classList.toggle('show');
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
+
+    const navLinks = document.querySelectorAll('header nav a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        navLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        if(menu.classList.contains('show')) {
+          menu.classList.remove('show');
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
   })();
-  
-(function () {
-  const JSON_URL = 'data/services.json';
-  const COUNT = 3;
-
-  // Treat these as “must-have” for a homepage card.
-  function isValidService(s) {
-    if (!s) return false;
-    if (!s.slug || !String(s.slug).trim()) return false;
-    if (!s.name || !String(s.name).trim()) return false;
-    if (!s.image || !String(s.image).trim()) return false;
-    return true;
-  }
-
-  // If someone put a YouTube link in "image", convert to a thumbnail
-  function normalizeImage(src) {
-    if (!src) return '';
-    const s = String(src).trim();
-
-    // YouTube formats
-    const yt1 = s.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/);
-    const yt2 = s.match(/youtube\.com\/watch\?v=([A-Za-z0-9_-]{6,})/);
-    const videoId = yt1?.[1] || yt2?.[1];
-    if (videoId) return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-
-    return s;
-  }
-
-  function shuffle(arr) {
-    const a = arr.slice();
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
-
-function renderCard(svc) {
-  const url = `service.html?slug=${encodeURIComponent(svc.slug)}`; // match routing
-  const img = normalizeImage(svc.image);
-  const overlay = (svc.description || '').trim();
-
-  return `
-    <article class="service-tile">
-      <h3>${svc.name}</h3>
-      <a href="${url}" class="service-imgwrap" aria-label="${svc.name}">
-        <img src="${img}" alt="${svc.name}">
-        ${overlay ? `<div class="service-overlay">${overlay}</div>` : ``}
-      </a>
-    </article>
-  `;
-}
-
-
-
-  async function init() {
-    const grid = document.getElementById('home-services-grid');
-    try {
-      const res = await fetch(JSON_URL, { cache: 'no-store' });
-      if (!res.ok) throw new Error('Failed to fetch services.json');
-      const list = await res.json();
-
-      // Enforce your “fallback”: skip anything missing required data
-      const valid = (Array.isArray(list) ? list : [])
-        .filter(isValidService);
-
-      // Randomly select up to COUNT
-      const chosen = shuffle(valid).slice(0, COUNT);
-
-      // Render (if fewer than 3 valid, we render what we have)
-      grid.innerHTML = chosen.map(renderCard).join('') ||
-        `<p style="grid-column:1/-1;">Our services are updating—see the full list on the <a href="/services.html">Services page</a>.</p>`;
-    } catch (e) {
-      console.error(e);
-      grid.innerHTML = `<p style="grid-column:1/-1;">Our services are updating—see the full list on the <a href="/services.html">Services page</a>.</p>`;
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', init);
-})();
 </script>
 
 
