@@ -87,12 +87,31 @@
 
   /* ===== Hero ===== */
   .hero{
-    padding:3rem 0; display:grid; gap:2rem;
-    grid-template-columns:1.2fr 1fr; align-items:center;
+    position:relative; display:flex; align-items:center; justify-content:center;
+    padding:6rem 2rem; min-height:550px; border-radius:16px; overflow:hidden;
+    background:linear-gradient(135deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.35) 100%),
+                url('hero-furnace.png') center/cover no-repeat;
+    background-attachment:fixed;
   }
-  .headline{ font-size:2.5rem; font-weight:800; line-height:1.2; margin:.5rem 0 }
-  .sub{ color:var(--muted); font-size:1.1rem }
-  .hero-card img{ width:100%; border-radius:12px }
+  .hero > div:first-child{ max-width:650px; z-index:10; position:relative; }
+  .headline{
+    font-size:3rem; font-weight:800; line-height:1.15; margin:0 0 1.2rem 0;
+    color:#fff; text-shadow:0 2px 8px rgba(0,0,0,.3);
+  }
+  .sub{
+    font-size:1.15rem; color:#f0f0f0; line-height:1.6; margin:0 0 2rem 0;
+    text-shadow:0 1px 4px rgba(0,0,0,.3);
+  }
+  .hero .cta{
+    font-size:1.05rem; padding:.85rem 2.2rem;
+    box-shadow:0 4px 12px rgba(0,0,0,.25);
+    transition:all .3s ease;
+  }
+  .hero .cta:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 20px rgba(0,0,0,.35);
+  }
+  .hero-card{ display:none; }
 
   /* ===== Sections / Cards ===== */
   section{ padding:2.5rem 0 }
@@ -185,8 +204,8 @@
 
   /* ===== Responsive ===== */
   @media (max-width: 900px){
-    /* Hero stacks */
-    .hero{ grid-template-columns:1fr; }
+    .hero{ padding:4rem 1.5rem; min-height:450px; }
+    .headline{ font-size:2.3rem; }
 
     /* Header: Contact Us + hamburger together on RIGHT inside white bar */
     .nav{ justify-content:space-between; }
@@ -211,8 +230,10 @@
   }
 
   @media (max-width: 600px){
-    .headline{ font-size:1.9rem; line-height:1.2; margin:.25rem 0 }
-    .sub{ font-size:1rem }
+    .hero{ padding:3rem 1.2rem; min-height:380px; background-attachment:scroll; }
+    .hero > div:first-child{ max-width:100%; }
+    .headline{ font-size:1.75rem; line-height:1.15; margin:0 0 .8rem 0; }
+    .sub{ font-size:1rem; margin:0 0 1.5rem 0; }
     .cards{ gap:.75rem }
     .service-tile h3{ font-size:1rem }
     .who img{ max-height:220px }
