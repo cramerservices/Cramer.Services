@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Plans | Cramer Services</title>
+<link rel="icon" href="/CramerLogo_transparent.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#234a7d;
+    --navy-dark:#16365c;
+    --text:#17324f;
+    --muted:#6e7c8d;
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --panel:#f2f6fb;
+    --border:#cfdceb;
+    --shadow:0 18px 40px rgba(18,42,72,.12);
+    --success:#41c36f;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--text)}
+  a{text-decoration:none}
+  .container{max-width:1180px;margin:0 auto;padding:0 24px}
+  header{background:var(--navy);color:#fff}
+  header .container{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 24px}
+  .brand{font-weight:700;color:#fff;font-size:1.1rem}
+  .header-actions{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:10px;padding:12px 20px;font-weight:600;transition:.2s ease}
+  .btn-primary{background:#fff;color:var(--navy)}
+  .btn-primary:hover{background:#eef4fb}
+  .btn-secondary{border:1px solid rgba(255,255,255,.45);color:#fff}
+  .btn-secondary:hover{background:rgba(255,255,255,.08)}
+  .hero{padding:56px 0 24px;text-align:center}
+  .eyebrow{display:inline-block;background:#e8f1fb;color:var(--navy);font-size:.85rem;font-weight:700;padding:8px 14px;border-radius:999px;margin-bottom:16px}
+  h1{font-size:clamp(2rem,4vw,3.2rem);margin:0 0 12px;color:var(--navy-dark)}
+  .lead{max-width:760px;margin:0 auto 18px;color:var(--muted);line-height:1.7}
+  .plans-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px;padding:26px 0 70px}
+  .plan-card{position:relative;background:var(--card);border:2px solid #9bb6d5;border-radius:22px;box-shadow:var(--shadow);padding:34px 32px 30px;min-height:100%}
+  .plan-card.popular{border-color:#2f5f99}
+  .badge{position:absolute;top:-14px;right:20px;background:var(--success);color:#fff;border-radius:999px;padding:10px 16px;font-weight:700;font-size:.9rem;box-shadow:0 10px 24px rgba(65,195,111,.28)}
+  .plan-name{font-size:1.1rem;font-weight:700;color:#233a59;margin:14px 0 8px}
+  .price-row{display:flex;align-items:flex-end;gap:10px;margin-bottom:22px}
+  .price{font-size:3.3rem;line-height:1;font-weight:800;color:#2d5d9b;letter-spacing:-.03em}
+  .per{color:#6a7da0;font-weight:500;padding-bottom:7px}
+  .highlight-box{background:var(--panel);border-radius:14px;padding:18px 18px 10px;margin-bottom:28px}
+  .highlight-box ul,.feature-list{margin:0;padding:0;list-style:none}
+  .highlight-box li,.feature-list li{margin:0 0 14px;line-height:1.55}
+  .feature-title{font-size:1.2rem;font-weight:700;margin:0 0 18px;color:#233a59}
+  .feature-list li{display:flex;align-items:flex-start;gap:12px;color:#324e70}
+  .feature-list li::before{content:"✓";color:var(--success);font-size:1.4rem;line-height:1;font-weight:700;margin-top:1px}
+  .plan-card .cta{margin-top:30px;width:100%;background:#2f5f99;color:#fff;border:2px solid #17324f;border-radius:10px;padding:14px 18px;font-weight:700;text-align:center;display:inline-flex;justify-content:center}
+  .plan-card .cta:hover{background:#234a7d}
+  .footer-note{padding:0 0 64px;text-align:center;color:var(--muted)}
+  .footer-note a{color:var(--navy);font-weight:600}
+  @media (max-width:900px){
+    .plans-grid{grid-template-columns:1fr}
+    .plan-card{padding:28px 22px 24px}
+    .price{font-size:2.8rem}
+    header .container{padding:16px 24px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <a class="brand" href="/index.html">Cramer Services</a>
+    <div class="header-actions">
+      <a class="btn btn-secondary" href="/index.html">Back to Home</a>
+      <a class="btn btn-primary" href="/ContactUs.html">Contact Us</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <span class="eyebrow">Membership Options</span>
+    <h1>My Plans</h1>
+    <p class="lead">Choose the maintenance plan that fits your home and comfort goals. These updated plans replace the previous subscription lineup and are now the primary membership options for Cramer Services.</p>
+  </section>
+
+  <section class="plans-grid" aria-label="My Plans membership options">
+    <article class="plan-card">
+      <h2 class="plan-name">Bronze</h2>
+      <div class="price-row">
+        <div class="price">$192</div>
+        <div class="per">/year</div>
+      </div>
+      <div class="highlight-box">
+        <ul>
+          <li><strong>2</strong> tune-ups per year</li>
+          <li><strong>10%</strong> discount on repairs</li>
+        </ul>
+      </div>
+      <h3 class="feature-title">Plan Features:</h3>
+      <ul class="feature-list">
+        <li>2 tune-ups per year</li>
+        <li>Member pricing on repairs</li>
+      </ul>
+      <a class="cta" href="/ContactUs.html">Select Plan</a>
+    </article>
+
+    <article class="plan-card popular">
+      <span class="badge">Most Popular</span>
+      <h2 class="plan-name">Silver</h2>
+      <div class="price-row">
+        <div class="price">$300</div>
+        <div class="per">/year</div>
+      </div>
+      <div class="highlight-box">
+        <ul>
+          <li><strong>2</strong> tune-ups per year</li>
+          <li><strong>15%</strong> discount on repairs</li>
+          <li><strong>Priority</strong> emergency service</li>
+        </ul>
+      </div>
+      <h3 class="feature-title">Plan Features:</h3>
+      <ul class="feature-list">
+        <li>2 tune-ups per year</li>
+        <li>1 free service call</li>
+        <li>Priority scheduling</li>
+      </ul>
+      <a class="cta" href="/ContactUs.html">Select Plan</a>
+    </article>
+
+    <article class="plan-card popular">
+      <span class="badge">Most Popular</span>
+      <h2 class="plan-name">Gold</h2>
+      <div class="price-row">
+        <div class="price">$504</div>
+        <div class="per">/year</div>
+      </div>
+      <div class="highlight-box">
+        <ul>
+          <li><strong>2</strong> tune-ups per year</li>
+          <li><strong>20%</strong> discount on repairs</li>
+          <li><strong>Priority</strong> emergency service</li>
+        </ul>
+      </div>
+      <h3 class="feature-title">Plan Features:</h3>
+      <ul class="feature-list">
+        <li>2 tune-ups per year</li>
+        <li>2 free service calls</li>
+        <li>Priority scheduling</li>
+      </ul>
+      <a class="cta" href="/ContactUs.html">Select Plan</a>
+    </article>
+
+    <article class="plan-card popular">
+      <span class="badge">Most Popular</span>
+      <h2 class="plan-name">Platinum</h2>
+      <div class="price-row">
+        <div class="price">$600</div>
+        <div class="per">/year</div>
+      </div>
+      <div class="highlight-box">
+        <ul>
+          <li><strong>2</strong> tune-ups per year</li>
+          <li><strong>20%</strong> discount on repairs</li>
+          <li><strong>Priority</strong> emergency service</li>
+        </ul>
+      </div>
+      <h3 class="feature-title">Plan Features:</h3>
+      <ul class="feature-list">
+        <li>2 tune-ups per year</li>
+        <li>2 free service calls</li>
+        <li>Priority scheduling</li>
+        <li>Hot water tank tune-up</li>
+      </ul>
+      <a class="cta" href="/ContactUs.html">Select Plan</a>
+    </article>
+  </section>
+
+  <p class="footer-note">Need help choosing? <a href="/ContactUs.html">Contact Cramer Services</a> and we’ll help match you to the right plan.</p>
+</main>
+</body>
+</html>

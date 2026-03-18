@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cramer Services | Home</title>
-  <meta name="description" content="Cramer Services — reliable home & property services hub. Fast response, warranties on every job, and subscription plans that earn credits." />
+  <meta name="description" content="Cramer Services — reliable home & property services hub. Fast response, warranties on every job, and updated maintenance plans tailored to your home and comfort needs." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -97,7 +97,7 @@
       <nav>
         <ul>
           <li><a href="#services">Services</a></li>
-          <li><a href="#plans">Subscriptions</a></li>
+          <li><a href="my-plans.html">Subscriptions</a></li>
           <li><a href="#quote">Request a Quote</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
@@ -209,7 +209,7 @@
       </details>
       <details>
         <summary>How do your subscriptions work?<span class="chev">▾</span></summary>
-        <p class="answer">Monthly plans include checkups, priority scheduling, and credits you can use toward repairs or installs. We’ll show your credit balance on estimates.</p>
+        <p class="answer">Our membership options now include Bronze, Silver, Gold, and Platinum plans with tune-ups, repair discounts, and priority benefits based on plan level.</p>
       </details>
       <details>
         <summary>Are your technicians licensed and insured?<span class="chev">▾</span></summary>
