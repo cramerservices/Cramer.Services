@@ -1,155 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Subscribe | Cramer Services</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root{ --bg:#f8f9fb; --card:#ffffff; --accent:#0d6efd; --text:#1b1f24; --muted:#6c757d; --ring:0 0 0 3px rgba(13,110,253,.25); }
-    *{box-sizing:border-box} html,body{margin:0}
-    body{font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--text)}
-    .container{max-width:900px;margin:auto;padding:24px}
-    .card{background:var(--card);border:1px solid #dee2e6;border-radius:12px;padding:20px}
-    h1{margin:.3rem 0 1rem}
-    .muted{color:var(--muted)}
-    form{display:grid;gap:.8rem;margin-top:1rem}
-    input,select,textarea{width:100%;padding:.75rem;border:1px solid #ced4da;border-radius:6px}
-    input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:var(--ring)}
-    .cta{background:var(--accent);color:#fff;font-weight:600;padding:.7rem 1rem;border:0;border-radius:6px;cursor:pointer}
-    [aria-live]{min-height:1.2em}
-    a{color:var(--accent);text-decoration:none}
-    .tos{ display:inline-flex; align-items:center; gap:.5rem; font-size:.9rem; line-height:1.1; white-space:nowrap; margin:.5rem 0; }
-    .tos input[type="checkbox"]{ width:16px; height:16px; margin:0; accent-color: var(--accent); }
-    .tos a{ text-decoration:underline; }
-  </style>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PJLV039931">
-</script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-PJLV039931');
-</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Legacy Subscription | Cramer Services</title>
+<meta http-equiv="refresh" content="0; url=/my-plans.html">
+<link rel="canonical" href="https://cramerservices.net/my-plans.html">
+<link rel="icon" href="/CramerLogo_transparent.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  body{font-family:Poppins,Arial,sans-serif;margin:0;background:#f8f9fb;color:#1b1f24;display:grid;place-items:center;min-height:100vh;padding:24px}
+  .card{max-width:720px;background:#fff;border:1px solid #dee2e6;border-radius:16px;padding:32px;text-align:center;box-shadow:0 16px 40px rgba(0,0,0,.08)}
+  h1{margin-top:0;color:#234a7d}
+  p{color:#5f6f82;line-height:1.7}
+  .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+  .btn{display:inline-block;padding:12px 18px;border-radius:10px;font-weight:600;text-decoration:none}
+  .primary{background:#234a7d;color:#fff}
+  .secondary{border:1px solid #234a7d;color:#234a7d}
+</style>
+<script>window.location.replace('/my-plans.html');</script>
 </head>
 <body>
-  <div class="container">
-    <a href="./">&larr; Back</a>
-    <div class="card">
-      <h1>Start your subscription</h1>
-      <p class="muted" id="planLine">Selected plan: <b id="planName">—</b></p>
-
-      <form id="subForm" novalidate>
-        <input type="text" name="_company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
-
-        <input id="name"   name="name"   placeholder="Full Name" required>
-        <input id="phone"  name="phone"  type="tel" placeholder="Phone Number" required>
-        <input id="email"  name="email"  type="email" placeholder="Email Address" required>
-        <select id="service" name="service" required disabled style="opacity:0.6">
-          <option value="Subscription">Subscription</option>
-        </select>
-        <textarea id="details" name="details" rows="5" placeholder="Tell us about your project (e.g., specific equipment, concerns, preferred start date)"></textarea>
-
-        <label class="tos">
-          <input type="checkbox" id="agree" required>
-          <span>I have read and agree to the
-            <a id="tosLink" href="terms-essential.html" target="_blank" rel="noopener">Subscription Terms of Service</a>.
-          </span>
-        </label>
-
-        <button class="cta" type="submit" id="payBtn">Submit Request</button>
-<small>
-  By submitting, you agree to our
-  <a href="/privacyPolicy.html" target="_blank" rel="noopener">Privacy Policy</a>.
-</small>
-
-
-        <p id="msg" class="muted" aria-live="polite"></p>
-      </form>
+  <main class="card">
+    <h1>This page has moved.</h1>
+    <p>The previous subscription details have been retired. Please use our updated <strong>My Plans</strong> page to view the current Bronze, Silver, Gold, and Platinum plan options.</p>
+    <div class="actions">
+      <a class="btn primary" href="/my-plans.html">Open My Plans</a>
+      <a class="btn secondary" href="/ContactUs.html">Contact Us</a>
     </div>
-  </div>
-
-  <!-- EmailJS SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>
-    const EMAILJS_PUBLIC_KEY = 'TDIki3rqftcomcjJC';
-    const EMAILJS_SERVICE_ID = 'service_ebrskb5';
-    const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
-
-    function qs(key){ return new URLSearchParams(location.search).get(key) || ''; }
-    function show(t,err=false){ const el=document.getElementById('msg'); el.textContent=t; el.style.color=err?'#dc3545':'#6c757d'; }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      if (!window.emailjs){ show('Could not load mail service. Refresh and try again.', true); return; }
-      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-
-      const planParam = (qs('plan') || 'essential').toLowerCase();
-      const planMap = {
-        essential: 'Essential HVAC PLAN',
-        plus: 'Plus HVAC PLAN',
-        pro: 'Pro HVAC PLAN',
-        commercial: 'Commercial HVAC PLAN'
-      };
-      document.getElementById('planName').textContent = planMap[planParam] || 'Essential HVAC PLAN';
-
-      const termsMap = {
-        essential:  'terms-essential.html',
-        plus:       'terms-plus.html',
-        pro:        'terms-pro.html',
-        commercial: 'terms-commercial.html'
-      };
-      const tosLink = document.getElementById('tosLink');
-      if (tosLink) tosLink.href = termsMap[planParam] || 'terms-essential.html';
-
-      const form = document.getElementById('subForm');
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        if (form._company && form._company.value) {
-          show('Submission blocked.', true);
-          return;
-        }
-
-        const details = form.details.value.trim();
-        const data = {
-          name:    form.name.value.trim(),
-          phone:   form.phone.value.trim(),
-          email:   form.email.value.trim(),
-          service: 'Subscription - ' + (planMap[planParam] || 'Essential HVAC PLAN'),
-          details: details,
-          message: details,
-          plan:    planMap[planParam] || 'Essential HVAC PLAN',
-          time:    new Date().toLocaleString(),
-          subject: `New subscription — ${(planMap[planParam]||'Plan')} — ${form.name.value.trim()||'Customer'}`
-        };
-
-        if (!data.name || !data.phone || !data.email || !document.getElementById('agree').checked) {
-          show('Please complete all required fields and accept the Terms.', true);
-          return;
-        }
-
-        const btn = document.getElementById('payBtn');
-        const prev = btn.textContent;
-        btn.disabled = true; btn.textContent = 'Sending…'; show('');
-
-        try {
-          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
-          // ✅ Show confirmation and keep user on page
-          show('Thank you for filling out the form — you will receive a phone call soon.');
-          form.reset();
-          document.getElementById('planName').textContent = planMap[planParam] || 'Essential HVAC PLAN';
-        } catch (err) {
-          console.warn('EmailJS failed:', err);
-          show('Sorry, we could not send your request. Please try again or call 314-267-8594.', true);
-        } finally {
-          btn.disabled = false; btn.textContent = prev;
-        }
-      });
-    });
-  </script>
+  </main>
 </body>
 </html>
