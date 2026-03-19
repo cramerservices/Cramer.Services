@@ -20,12 +20,13 @@
     .cta{display:inline-block;background:var(--accent);color:#fff;padding:.75rem 1rem;border-radius:8px;text-decoration:none;border:0;cursor:pointer;font-weight:600}
     .muted{color:var(--muted)}
   </style>
-  <!-- EmailJS SDK -->
+
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
     const EMAILJS_PUBLIC_KEY  = 'TDIki3rqftcomcjJC';
     const EMAILJS_SERVICE_ID  = 'service_ebrskb5';
     const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
+
     document.addEventListener('DOMContentLoaded', () => {
       if (window.emailjs) emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
     });
@@ -59,9 +60,17 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+    const SUPABASE_URL = 'https://qsiimareoiyrkompuobi.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_msZgwZ5Sascz_SYnTXQuQw_Km1k62pX';
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
     const $$ = sel => document.querySelector(sel);
-    function show(text, err=false){
+
+    function show(text, err = false) {
       const el = $$('#msg');
       el.textContent = text;
       el.style.color = err ? '#dc3545' : '#6c757d';
@@ -73,7 +82,6 @@
         show('Could not load mail service. Please refresh and try again.', true);
         return;
       }
-      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
       const f = $$('#contactForm');
       const card = $$('#card');
@@ -87,39 +95,57 @@
         }
 
         const details = (f.details.value || '').trim();
+
         const data = {
           subject: 'Contact Form Submission - ' + (f.service.value || 'Service Request'),
-          name:    (f.name.value || '').trim(),
-          phone:   (f.phone.value || '').trim(),
-          email:   (f.email.value || '').trim(),
+          name: (f.name.value || '').trim(),
+          phone: (f.phone.value || '').trim(),
+          email: (f.email.value || '').trim(),
           service: (f.service.value || '').trim(),
           details: details,
           message: details,
-          time:    new Date().toLocaleString()
+          time: new Date().toLocaleString()
         };
 
         if (!data.name || !data.phone || !data.email || !data.service) {
-          show('Please complete all required fields.', true); return;
+          show('Please complete all required fields.', true);
+          return;
         }
 
         const btn = f.querySelector('button[type="submit"]');
-        const prev = btn.textContent; 
-        btn.disabled = true; 
-        btn.textContent = 'Sending…'; 
+        const prev = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
         show('');
 
         try {
+          const { error: leadError } = await supabase
+            .from('crm_leads')
+            .insert([
+              {
+                full_name: data.name,
+                phone: data.phone,
+                email: data.email.toLowerCase(),
+                service_type: data.service,
+                details: data.details,
+                status: 'pending',
+                source: 'website_contact_form'
+              }
+            ]);
+
+          if (leadError) throw leadError;
+
           await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
 
           card.innerHTML = `
-            <h1>Thank you!  We will get back to you as soon as possible.</h1>
+            <h1>Thank you! We will get back to you as soon as possible.</h1>
             <p class="muted">We received your message and will be in touch soon.</p>
           `;
-
         } catch (err) {
           console.error(err);
           show('Could not send. Please try again or email cramerservicesllc@gmail.com', true);
-          btn.disabled = false; btn.textContent = prev;
+          btn.disabled = false;
+          btn.textContent = prev;
         }
       });
     });
