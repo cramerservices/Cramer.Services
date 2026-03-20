@@ -5,10 +5,21 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HVAC Maintenance Plans</title>
-<script type="module" crossorigin src="./assets/index-DstoNb-V.js"></script>
-<link rel="stylesheet" crossorigin href="./assets/index-BnOmPRlW.css">
+
+    <script>
+      (function () {
+        const redirect = sessionStorage.getItem("redirect");
+        if (redirect) {
+          sessionStorage.removeItem("redirect");
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
+
+    <script type="module" crossorigin src="./assets/index-DstoNb-V.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BnOmPRlW.css" />
   </head>
   <body>
     <div id="root"></div>
   </body>
-</html> 
+</html>
