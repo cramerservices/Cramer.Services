@@ -48,7 +48,7 @@
       "Up-front pricing by repair",
       "Diagnostic fee due at scheduling",
       "Fee is credited if repair proceeds",
-      "Limited 0–5 year warranty depending on the scope of work"
+      "Limited 0\u20135 year warranty depending on the scope of work"
     ],
     "actionType": "contact",
     "contactLink": "",
@@ -238,6 +238,78 @@
       "Inspect duct insulation",
       "Review SEER/AFUE performance ratings",
       "Provide efficiency improvement recommendations"
+    ],
+    "actionType": "contact",
+    "contactLink": "",
+    "checkoutLink": ""
+  },
+  {
+    "slug": "water-heater-repair",
+    "name": "Water Heater Repair",
+    "price": 0.0,
+    "salePrice": null,
+    "image": "WaterHeater.JPG",
+    "description": "Diagnosis and repair for tank and tankless water heaters with safety-first service.",
+    "bullets": [
+      "Check ignition/heating elements",
+      "Inspect thermostat and gas valve operation",
+      "Flush sediment when needed",
+      "Repair leaks at fittings or valves",
+      "Verify venting and safety controls"
+    ],
+    "actionType": "contact",
+    "contactLink": "",
+    "checkoutLink": ""
+  },
+  {
+    "slug": "water-heater-install-estimate",
+    "name": "Water Heater Install Estimate",
+    "price": 0.0,
+    "salePrice": null,
+    "image": "WaterHeater.JPG",
+    "description": "In-home sizing and quote for reliable water heater replacement or new installation.",
+    "bullets": [
+      "Assess household hot water demand",
+      "Recommend tank or tankless options",
+      "Confirm code and venting requirements",
+      "Provide clear installation pricing",
+      "Review timeline and warranty coverage"
+    ],
+    "actionType": "contact",
+    "contactLink": "",
+    "checkoutLink": ""
+  },
+  {
+    "slug": "light-fixture-installation",
+    "name": "Light Fixture Installation",
+    "price": 0.0,
+    "salePrice": null,
+    "image": "LightFixture.JPG",
+    "description": "Safe replacement and installation of interior and exterior light fixtures.",
+    "bullets": [
+      "Shut off and verify circuit safety",
+      "Remove existing fixture",
+      "Install mounting hardware and new fixture",
+      "Test switch/dimmer compatibility",
+      "Confirm proper grounding and operation"
+    ],
+    "actionType": "contact",
+    "contactLink": "",
+    "checkoutLink": ""
+  },
+  {
+    "slug": "smart-home-device-install",
+    "name": "Smart Home Device Install",
+    "price": 0.0,
+    "salePrice": null,
+    "image": "LightFixture.JPG",
+    "description": "Setup and installation for smart thermostats, cameras, doorbells, and lighting controls.",
+    "bullets": [
+      "Install and power device hardware",
+      "Connect to Wi-Fi and mobile app",
+      "Configure automations and schedules",
+      "Test alerts and remote controls",
+      "Walk through user settings and handoff"
     ],
     "actionType": "contact",
     "contactLink": "",
