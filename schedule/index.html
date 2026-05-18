@@ -227,8 +227,6 @@
       </div>
 
       <form id="scheduleForm">
-        <input type="text" name="_company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
-
         <div class="grid">
           <div>
             <label for="name">Full Name *</label>
@@ -430,11 +428,6 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-
-      if (form._company && form._company.value) {
-        show('Submission blocked.', 'error');
-        return;
-      }
 
       const payload = {
         action: rescheduleAppointmentId && rescheduleToken ? 'reschedule' : 'create',
