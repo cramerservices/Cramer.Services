@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Schedule Service | Cramer Services</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f8f9fb;
+      --card: #ffffff;
+      --accent: #0d6efd;
+      --text: #1b1f24;
+      --muted: #6c757d;
+      --border: #dee2e6;
+      --danger: #dc3545;
+      --success: #198754;
+      --ring: 0 0 0 3px rgba(13,110,253,.25);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Poppins, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,.05);
+    }
+
+    h1 {
+      margin: 0 0 .5rem;
+      font-size: 2rem;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    form {
+      display: grid;
+      gap: .9rem;
+      margin-top: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .9rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: .35rem;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: .75rem;
+      border: 1px solid #ced4da;
+      border-radius: 8px;
+      font-family: inherit;
+      background: #fff;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: var(--ring);
+    }
+
+    .cta {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      padding: .85rem 1.1rem;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    .cta:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: #fff;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: .75rem 1rem;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .slots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: .6rem;
+      margin-top: .5rem;
+    }
+
+    .slot {
+      border: 1px solid #ced4da;
+      background: #fff;
+      padding: .7rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .slot:hover {
+      border-color: var(--accent);
+    }
+
+    .slot.active {
+      background: #e7f1ff;
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .msg {
+      min-height: 1.25rem;
+      font-weight: 600;
+    }
+
+    .msg.error {
+      color: var(--danger);
+    }
+
+    .msg.success {
+      color: var(--success);
+    }
+
+    .notice {
+      background: #e7f1ff;
+      border: 1px solid #b6d4fe;
+      color: #084298;
+      padding: .85rem;
+      border-radius: 10px;
+      margin-top: 1rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 700px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">Cramer Services</div>
+      <a href="/">Back to Home</a>
+    </div>
+
+    <div class="card" id="card">
+      <h1>Schedule Service</h1>
+      <p class="muted">
+        Pick an available time and we’ll confirm your appointment. If the schedule needs to be adjusted, we’ll contact you.
+      </p>
+
+      <div id="rescheduleNotice" class="notice hidden">
+        You are rescheduling an existing appointment. Choose a new time below.
+      </div>
+
+      <form id="scheduleForm">
+        <input type="text" name="_company" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
+
+        <div class="grid">
+          <div>
+            <label for="name">Full Name *</label>
+            <input id="name" name="name" required>
+          </div>
+
+          <div>
+            <label for="phone">Phone *</label>
+            <input id="phone" name="phone" type="tel" required>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div>
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" required>
+          </div>
+
+          <div>
+            <label for="serviceType">Service Type *</label>
+            <select id="serviceType" name="serviceType" required>
+              <option value="">Select Service</option>
+              <option value="Diagnostic">Diagnostic</option>
+              <option value="Tune-Up">Tune-Up</option>
+              <option value="Estimate">Estimate</option>
+              <option value="Repair">Repair</option>
+              <option value="Install">Install</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label for="serviceAddress">Service Address</label>
+          <input id="serviceAddress" name="serviceAddress" placeholder="Street address, city, state">
+        </div>
+
+        <div class="grid">
+          <div>
+            <label for="appointmentDate">Date *</label>
+            <input id="appointmentDate" name="appointmentDate" type="date" required>
+          </div>
+
+          <div>
+            <label>Available Times *</label>
+            <button type="button" class="btn-secondary" id="loadTimesBtn">
+              Load Available Times
+            </button>
+          </div>
+        </div>
+
+        <div id="slots" class="slots"></div>
+
+        <div>
+          <label for="notes">Notes</label>
+          <textarea id="notes" name="notes" rows="4" placeholder="Tell us what is going on or anything we should know."></textarea>
+        </div>
+
+        <input type="hidden" id="selectedStartTime" name="selectedStartTime">
+
+        <button class="cta" type="submit" id="submitBtn">
+          Schedule Appointment
+        </button>
+
+        <div id="msg" class="msg" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    const SUPABASE_URL = 'https://qsiimareoiyrkompuobi.supabase.co';
+    const SUPABASE_ANON_KEY = 'PASTE_YOUR_ANON_KEY_HERE';
+
+    const functionUrl = `${SUPABASE_URL}/functions/v1/create-appointment`;
+
+    const form = document.getElementById('scheduleForm');
+    const msg = document.getElementById('msg');
+    const slotsEl = document.getElementById('slots');
+    const selectedStartTime = document.getElementById('selectedStartTime');
+    const loadTimesBtn = document.getElementById('loadTimesBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const card = document.getElementById('card');
+    const rescheduleNotice = document.getElementById('rescheduleNotice');
+
+    const params = new URLSearchParams(window.location.search);
+    const rescheduleAppointmentId = params.get('reschedule') || '';
+    const rescheduleToken = params.get('token') || '';
+
+    if (rescheduleAppointmentId && rescheduleToken) {
+      rescheduleNotice.classList.remove('hidden');
+      submitBtn.textContent = 'Reschedule Appointment';
+    }
+
+    function show(text, type = '') {
+      msg.textContent = text;
+      msg.className = `msg ${type}`;
+    }
+
+    function todayLocalDate() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    function setDefaultDate() {
+      const input = document.getElementById('appointmentDate');
+      input.min = todayLocalDate();
+      input.value = todayLocalDate();
+    }
+
+    async function callFunction(payload) {
+      const response = await fetch(functionUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          apikey: SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'Request failed');
+      }
+
+      return data;
+    }
+
+    async function loadTimes() {
+      try {
+        show('');
+        slotsEl.innerHTML = '';
+        selectedStartTime.value = '';
+
+        const date = document.getElementById('appointmentDate').value;
+        const serviceType = document.getElementById('serviceType').value;
+
+        if (!date || !serviceType) {
+          show('Please choose a service type and date first.', 'error');
+          return;
+        }
+
+        loadTimesBtn.disabled = true;
+        loadTimesBtn.textContent = 'Loading...';
+
+        const data = await callFunction({
+          action: 'availability',
+          date,
+          serviceType
+        });
+
+        if (!data.slots || data.slots.length === 0) {
+          slotsEl.innerHTML = '<p class="muted">No available times for this date. Please choose another date.</p>';
+          return;
+        }
+
+        data.slots.forEach((slot) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'slot';
+          btn.textContent = slot.label;
+          btn.dataset.startTime = slot.start_time;
+
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('.slot').forEach((el) => {
+              el.classList.remove('active');
+            });
+
+            btn.classList.add('active');
+            selectedStartTime.value = slot.start_time;
+          });
+
+          slotsEl.appendChild(btn);
+        });
+      } catch (error) {
+        console.error(error);
+        show(error.message || 'Could not load available times.', 'error');
+      } finally {
+        loadTimesBtn.disabled = false;
+        loadTimesBtn.textContent = 'Load Available Times';
+      }
+    }
+
+    loadTimesBtn.addEventListener('click', loadTimes);
+
+    document.getElementById('serviceType').addEventListener('change', () => {
+      slotsEl.innerHTML = '';
+      selectedStartTime.value = '';
+    });
+
+    document.getElementById('appointmentDate').addEventListener('change', () => {
+      slotsEl.innerHTML = '';
+      selectedStartTime.value = '';
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (form._company && form._company.value) {
+        show('Submission blocked.', 'error');
+        return;
+      }
+
+      const payload = {
+        action: rescheduleAppointmentId && rescheduleToken ? 'reschedule' : 'create',
+        name: form.name.value.trim(),
+        phone: form.phone.value.trim(),
+        email: form.email.value.trim(),
+        serviceAddress: form.serviceAddress.value.trim(),
+        serviceType: form.serviceType.value.trim(),
+        appointmentDate: form.appointmentDate.value,
+        startTime: selectedStartTime.value,
+        notes: form.notes.value.trim(),
+        rescheduleAppointmentId,
+        rescheduleToken
+      };
+
+      if (!payload.name || !payload.phone || !payload.email || !payload.serviceType || !payload.appointmentDate || !payload.startTime) {
+        show('Please complete all required fields and select an available time.', 'error');
+        return;
+      }
+
+      try {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Scheduling...';
+        show('');
+
+        await callFunction(payload);
+
+        card.innerHTML = `
+          <h1>Thank you!</h1>
+          <p class="muted">
+            Your appointment has been scheduled. You will receive a confirmation email shortly.
+          </p>
+          <p class="muted">
+            If we need to adjust the schedule, we will contact you.
+          </p>
+          <a class="cta" href="/">Back to Home</a>
+        `;
+      } catch (error) {
+        console.error(error);
+        show(error.message || 'Could not schedule appointment. Please try again.', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = rescheduleAppointmentId && rescheduleToken
+          ? 'Reschedule Appointment'
+          : 'Schedule Appointment';
+      }
+    });
+
+    setDefaultDate();
+  </script>
+</body>
+</html>
