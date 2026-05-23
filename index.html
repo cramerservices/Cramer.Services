@@ -46,13 +46,14 @@
   }
 
   *{ box-sizing:border-box }
-  html,body{ margin:0 }
-  body{ font-family:Poppins,Arial,sans-serif; background:var(--bg); color:var(--text) }
+  html,body{ margin:0; width:100%; max-width:100%; overflow-x:hidden; }
+  body{ font-family:Poppins,Arial,sans-serif; background:var(--bg); color:var(--text); width:100%; max-width:100%; overflow-x:hidden; }
+  img, video, iframe{ max-width:100%; }
 
   a{ color:var(--accent); text-decoration:none }
   a:hover{ text-decoration:underline }
 
-  .container{ max-width:1100px; margin:auto; padding:0 1rem }
+  .container{ width:100%; max-width:1100px; margin:auto; padding:0 1rem }
 
   /* ===== Header ===== */
   header{
@@ -232,11 +233,28 @@
   }
 
   @media (max-width: 600px){
-    .hero{ padding:3rem 1.2rem; min-height:380px; background-attachment:scroll; }
+    .container{ padding-left:1rem; padding-right:1rem; }
+    .container.nav{ padding:.5rem .75rem !important; gap:.4rem; width:100%; max-width:100%; }
+    a.brand img{ width:150px; max-width:38vw; height:auto; }
+    .nav > .cta:first-of-type{ display:none; } /* hide top Schedule Service button on phones */
+    .nav > .cta{ font-size:.9rem; padding:.55rem .75rem; margin-left:auto; }
+    .hamburger{ padding:.35rem; margin-left:.25rem; flex-shrink:0; }
+    header{ width:100%; max-width:100%; overflow:hidden; }
+
+    .hero{
+      width:calc(100% - 2rem);
+      max-width:calc(100% - 2rem);
+      margin-left:1rem;
+      margin-right:1rem;
+      padding:2rem 1rem;
+      min-height:380px;
+      background-attachment:scroll;
+    }
     .hero > div:first-child{ max-width:100%; }
     .headline{ font-size:1.75rem; line-height:1.15; margin:0 0 .8rem 0; }
     .sub{ font-size:1rem; margin:0 0 1.5rem 0; }
     .cards{ gap:.75rem }
+    .card{ width:100%; }
     .service-tile h3{ font-size:1rem }
     .who img{ max-height:220px }
     footer .container{ text-align:center; font-size:.95rem }
