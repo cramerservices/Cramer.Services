@@ -65,6 +65,7 @@
   .nav{ display:flex; align-items:center; justify-content:flex-start; gap:1rem; padding:.8rem 0 }
   .nav nav{ margin-left:auto }
   .nav > .cta{ margin-left:.75rem }
+  .mobile-menu-item{ display:none; }
   .container.nav{ padding:0 !important } /* tighten header */
 
   .brand{ display:flex; gap:.6rem; align-items:center; font-weight:800 }
@@ -150,7 +151,7 @@
   .who p{ color:var(--muted); margin:.4rem 0 }
   .who figure{ margin:0; position:relative }
   .who img{
-    width:100%; max-height:300px; object-fit:cover;
+    width:100%; max-height:300px; object-fit:cover; object-position:center top;
     border-radius:14px; box-shadow:0 16px 36px rgba(0,0,0,.12); display:block;
   }
 
@@ -210,18 +211,31 @@
     .hero{ padding:4rem 1.5rem; min-height:450px; }
     .headline{ font-size:2.3rem; }
 
-    /* Header: Contact Us + hamburger together on RIGHT inside white bar */
+    /* Header: keep every menu option inside the hamburger on tablets/phones */
     .nav{ justify-content:space-between; }
-    .cta{ margin-left:auto; padding:.65rem 1.2rem; white-space:nowrap; }
-    .hamburger{ display:block; margin-left:.5rem; position:static; }
+    .nav nav{ margin-left:0; }
+    .desktop-cta{ display:none; }
+    .mobile-menu-item{ display:block; }
+    .hamburger{ display:block; margin-left:auto; position:static; }
 
     /* Hide nav links until toggled */
     header nav ul{
       display:none; position:absolute; top:100%; left:0; right:0;
       margin:0; padding:.75rem 1rem; background:var(--card);
       border-top:1px solid #dee2e6; flex-direction:column; gap:.6rem; z-index:60;
+      box-shadow:0 10px 24px rgba(0,0,0,.08);
     }
     header nav ul.show{ display:flex; }
+    header nav a{ display:block; padding:.75rem 1rem; }
+
+    /* iPad/tablet fix: stop people photos from cropping faces */
+    .who img{
+      height:auto;
+      max-height:none;
+      object-fit:contain;
+      object-position:center top;
+    }
+    .hero{ background-position:center top; }
 
     /* Who section stacks; SPECIAL CASE: item 2 photo BELOW text */
     .who, .who:nth-child(even){ grid-template-columns:1fr; }
@@ -235,11 +249,9 @@
   @media (max-width: 600px){
     .container{ padding-left:1rem; padding-right:1rem; }
     .container.nav{ padding:.5rem .75rem !important; gap:.4rem; width:100%; max-width:100%; }
-    a.brand img{ width:150px; max-width:38vw; height:auto; }
-    .nav > .cta:first-of-type{ display:none; } /* hide top Schedule Service button on phones */
-    .nav > .cta{ font-size:.9rem; padding:.55rem .75rem; margin-left:auto; }
-    .hamburger{ padding:.35rem; margin-left:.25rem; flex-shrink:0; }
-    header{ width:100%; max-width:100%; overflow:hidden; }
+    a.brand img{ width:150px; max-width:60vw; height:auto; }
+    .hamburger{ padding:.35rem; margin-left:auto; flex-shrink:0; }
+    header{ width:100%; max-width:100%; overflow:visible; }
 
     .hero{
       width:calc(100% - 2rem);
@@ -316,19 +328,20 @@
 <body>
 <header>
   <div class="container nav">
-    <a class="brand" href="#home">
+    <a class="brand" href="index.html#home" aria-label="Cramer Services home">
       <img src="LogoNameTrans.png" alt="Cramer Services Logo">
     </a>
 
     <nav>
       <ul>
-        <li><a href="index.html" class="active">Home</a></li>
         <li><a href="https://cramerservices.github.io/Plans/">Subscriptions</a></li>
+        <li class="mobile-menu-item"><a href="/schedule/">Schedule Service</a></li>
+        <li class="mobile-menu-item"><a href="ContactUs.html">Contact Us</a></li>
       </ul>
     </nav>
 
-    <a class="cta" href="/schedule/">Schedule Service</a>
-<a class="cta" href="ContactUs.html">Contact Us</a>
+    <a class="cta desktop-cta" href="/schedule/">Schedule Service</a>
+<a class="cta desktop-cta" href="ContactUs.html">Contact Us</a>
     <!-- Hamburger moved to the far right -->
     <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">☰</button>
   </div>
