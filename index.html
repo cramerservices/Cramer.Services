@@ -151,7 +151,7 @@
   .who p{ color:var(--muted); margin:.4rem 0 }
   .who figure{ margin:0; position:relative }
   .who img{
-    width:100%; max-height:300px; object-fit:cover; object-position:center top;
+    width:100%; max-height:300px; object-fit:cover;
     border-radius:14px; box-shadow:0 16px 36px rgba(0,0,0,.12); display:block;
   }
 
@@ -228,15 +228,6 @@
     header nav ul.show{ display:flex; }
     header nav a{ display:block; padding:.75rem 1rem; }
 
-    /* iPad/tablet fix: stop people photos from cropping faces */
-    .who img{
-      height:auto;
-      max-height:none;
-      object-fit:contain;
-      object-position:center top;
-    }
-    .hero{ background-position:center top; }
-
     /* Who section stacks; SPECIAL CASE: item 2 photo BELOW text */
     .who, .who:nth-child(even){ grid-template-columns:1fr; }
     .who-wrap .who:nth-of-type(2) > div{ order:1; }     /* text first */
@@ -244,6 +235,18 @@
 
     /* Tighten */
     a.brand img{ height:50px; width:auto; }
+  }
+
+
+  /* iPad/tablet only: stop people photos from cropping faces without changing phone layout */
+  @media (min-width: 601px) and (max-width: 900px){
+    .who img{
+      height:auto;
+      max-height:none;
+      object-fit:contain;
+      object-position:center top;
+    }
+    .hero{ background-position:center top; }
   }
 
   @media (max-width: 600px){
@@ -268,13 +271,25 @@
     .cards{ gap:.75rem }
     .card{ width:100%; }
     .service-tile h3{ font-size:1rem }
-    .who img{ max-height:220px }
+    .who img{ max-height:220px; object-fit:cover; object-position:center; }
     footer .container{ text-align:center; font-size:.95rem }
   }
 
   /* Contact section: inline on desktop, stacked lines on mobile */
   .contact-info .ci{ display:inline-block; margin-right:.75rem; }
   .contact-info .ci:not(:last-child)::after{ content:"•"; margin-left:.75rem; color:var(--muted); }
+
+  /* iPad/tablet only: stop people photos from cropping faces without changing phone layout */
+  @media (min-width: 601px) and (max-width: 900px){
+    .who img{
+      height:auto;
+      max-height:none;
+      object-fit:contain;
+      object-position:center top;
+    }
+    .hero{ background-position:center top; }
+  }
+
   @media (max-width: 600px){
     .contact-info .ci{ display:block; margin:.25rem 0; }
     .contact-info .ci::after{ content:""; } /* remove separators */
