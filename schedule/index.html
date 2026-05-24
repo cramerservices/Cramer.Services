@@ -25,8 +25,9 @@
     body { margin: 0; font-family: Poppins, Arial, sans-serif; background: var(--bg); color: var(--text); }
     a { color: var(--accent); text-decoration: none; }
     .wrap { max-width: 860px; margin: 2rem auto; padding: 1rem; }
-    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
-    .brand { font-weight: 800; font-size: 1.1rem; }
+    .topbar { display: flex; align-items: center; justify-content: flex-start; gap: 1rem; margin-bottom: 1rem; }
+    .brand-logo { display: inline-flex; align-items: center; text-decoration: none; }
+    .brand-logo img { height: 58px; width: 280px; max-width: 70vw; object-fit: contain; display: block; }
     .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; box-shadow: 0 8px 24px rgba(0,0,0,.05); }
     h1 { margin: 0 0 .5rem; font-size: 2rem; }
     .muted { color: var(--muted); }
@@ -60,15 +61,16 @@
     .calendar-date.blank { visibility: hidden; }
     .calendar-helper { margin-top: .5rem; font-size: .9rem; color: var(--muted); }
     .loading-calendar { grid-column: 1 / -1; color: var(--muted); padding: .75rem 0; }
-    @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } h1 { font-size: 1.6rem; } .topbar { align-items: flex-start; flex-direction: column; } }
+    @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } h1 { font-size: 1.6rem; } .topbar { align-items: flex-start; } .brand-logo img { height: 48px; width: 210px; max-width: 80vw; } }
   </style>
 </head>
 
 <body>
   <div class="wrap">
     <div class="topbar">
-      <div class="brand">Cramer Services</div>
-      <a href="/">Back to Home</a>
+      <a class="brand-logo" href="/" aria-label="Cramer Services Home">
+        <img src="/CramerLogoText.png" alt="Cramer Services Logo">
+      </a>
     </div>
 
     <div class="card" id="card">
@@ -99,7 +101,7 @@
           </div>
         </div>
 
-        <div><label for="serviceAddress">Service Address</label><input id="serviceAddress" name="serviceAddress" placeholder="Street address, city, state"></div>
+        <div><label for="serviceAddress">Service Address *</label><input id="serviceAddress" name="serviceAddress" placeholder="Street address, city, state" required></div>
 
         <div class="grid">
           <div>
@@ -125,7 +127,7 @@
 
         <div id="slots" class="slots"></div>
 
-        <div><label for="notes">Notes</label><textarea id="notes" name="notes" rows="4" placeholder="Tell us what is going on or anything we should know."></textarea></div>
+        <div><label for="notes">Notes *</label><textarea id="notes" name="notes" rows="4" placeholder="Tell us what is going on or anything we should know." required></textarea></div>
 
         <input type="hidden" id="selectedStartTime" name="selectedStartTime">
         <button class="cta" type="submit" id="submitBtn">Schedule Appointment</button>
@@ -362,8 +364,8 @@
         rescheduleToken
       };
 
-      if (!payload.name || !payload.phone || !payload.email || !payload.serviceType || !payload.appointmentDate || !payload.startTime) {
-        show('Please complete all required fields, choose an available date, and select a time.', 'error');
+      if (!payload.name || !payload.phone || !payload.email || !payload.serviceAddress || !payload.serviceType || !payload.appointmentDate || !payload.startTime || !payload.notes) {
+        show('Please complete all required fields, including service address and notes, choose an available date, and select a time.', 'error');
         return;
       }
 
