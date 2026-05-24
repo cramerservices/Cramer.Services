@@ -11,7 +11,10 @@
     :root{--bg:#f8f9fb;--card:#fff;--accent:#0d6efd;--text:#1b1f24;--muted:#6c757d;--ring:0 0 0 3px rgba(13,110,253,.25)}
     *{box-sizing:border-box}
     body{margin:0;font-family:Poppins,Arial,sans-serif;background:var(--bg);color:var(--text)}
-    .wrap{max-width:720px;margin:2rem auto;padding:1rem}
+    .wrap{max-width:720px;margin:1.25rem auto 2rem;padding:1rem}
+    .topbar{display:flex;align-items:center;justify-content:flex-start;margin-bottom:1rem}
+    .brand-logo{display:inline-flex;align-items:center;text-decoration:none}
+    .brand-logo img{height:58px;width:280px;max-width:70vw;object-fit:contain;display:block}
     .card{background:var(--card);border:1px solid #dee2e6;border-radius:12px;padding:1rem 1.2rem}
     h1{margin:.2rem 0 1rem}
     form{display:grid;gap:.8rem;margin-top:1rem}
@@ -19,6 +22,7 @@
     input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:var(--ring)}
     .cta{display:inline-block;background:var(--accent);color:#fff;padding:.75rem 1rem;border-radius:8px;text-decoration:none;border:0;cursor:pointer;font-weight:600}
     .muted{color:var(--muted)}
+    @media (max-width:700px){.brand-logo img{height:48px;width:210px;max-width:80vw}}
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -34,6 +38,12 @@
 </head>
 <body>
   <div class="wrap">
+    <div class="topbar">
+      <a class="brand-logo" href="/" aria-label="Cramer Services Home">
+        <img src="/CramerLogoText.png" alt="Cramer Services Logo">
+      </a>
+    </div>
+
     <div class="card" id="card">
       <h1>Contact Us</h1>
       <p class="muted">We’d love to hear from you. Fill out the form and we’ll get back to you as soon as possible.</p>
@@ -44,6 +54,7 @@
         <input name="name" placeholder="Full Name" required>
         <input name="phone" type="tel" inputmode="tel" placeholder="Phone Number" required>
         <input name="email" type="email" placeholder="Email Address" required>
+        <input name="serviceAddress" placeholder="Service Address" required>
         <select name="service" required>
           <option value="">Select Service Type</option>
           <option value="Electrical">Electrical</option>
@@ -52,7 +63,7 @@
           <option value="Multiple Services">Multiple Services</option>
           <option value="Other">Other</option>
         </select>
-        <textarea name="details" rows="5" placeholder="Tell us about your project (e.g., issue description, service needed, preferred timeline)"></textarea>
+        <textarea name="details" rows="5" placeholder="Tell us about your project (e.g., issue description, service needed, preferred timeline)" required></textarea>
 
         <button class="cta" type="submit">Send Request</button>
         <p id="msg" class="muted" aria-live="polite"></p>
@@ -101,14 +112,18 @@
           name: (f.name.value || '').trim(),
           phone: (f.phone.value || '').trim(),
           email: (f.email.value || '').trim(),
+          serviceAddress: (f.serviceAddress.value || '').trim(),
+          address: (f.serviceAddress.value || '').trim(),
           service: (f.service.value || '').trim(),
           details: details,
-          message: details,
+          message: `Service Address: ${(f.serviceAddress.value || '').trim()}
+
+Notes: ${details}`,
           time: new Date().toLocaleString()
         };
 
-        if (!data.name || !data.phone || !data.email || !data.service) {
-          show('Please complete all required fields.', true);
+        if (!data.name || !data.phone || !data.email || !data.serviceAddress || !data.service || !data.details) {
+          show('Please complete all required fields, including service address and notes.', true);
           return;
         }
 
@@ -127,7 +142,9 @@
                 phone: data.phone,
                 email: data.email.toLowerCase(),
                 service_type: data.service,
-                details: data.details,
+                details: `Service Address: ${data.serviceAddress}
+
+Notes: ${data.details}`,
                 status: 'pending',
                 source: 'website_contact_form'
               }
