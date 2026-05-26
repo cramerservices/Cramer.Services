@@ -322,6 +322,52 @@
 }
 
 
+
+  /* ===== Cramer AI Chatbot ===== */
+  .cramer-chat-launcher{
+    position:fixed; right:22px; bottom:22px; z-index:9999;
+    width:64px; height:64px; border-radius:999px; border:0;
+    background:linear-gradient(135deg,#0d6efd,#06b6d4); color:#fff;
+    box-shadow:0 14px 34px rgba(13,110,253,.35); cursor:pointer;
+    display:flex; align-items:center; justify-content:center; font-size:28px;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .cramer-chat-launcher:hover{ transform:translateY(-2px); box-shadow:0 18px 42px rgba(13,110,253,.42); }
+  .cramer-chat-panel{
+    position:fixed; right:22px; bottom:98px; z-index:9999;
+    width:min(390px, calc(100vw - 32px)); height:min(620px, calc(100vh - 128px));
+    background:#fff; border:1px solid #dbeafe; border-radius:22px; overflow:hidden;
+    box-shadow:0 24px 70px rgba(15,23,42,.22); display:none; flex-direction:column;
+  }
+  .cramer-chat-panel.open{ display:flex; }
+  .cramer-chat-header{
+    background:linear-gradient(135deg,#0f172a,#0d6efd); color:#fff; padding:16px;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+  }
+  .cramer-chat-title{ display:flex; align-items:center; gap:10px; min-width:0; }
+  .cramer-chat-mark{
+    width:38px; height:38px; border-radius:12px; background:rgba(255,255,255,.16);
+    display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0;
+  }
+  .cramer-chat-title strong{ display:block; font-size:15px; line-height:1.15; }
+  .cramer-chat-title span{ display:block; font-size:12px; opacity:.85; margin-top:2px; }
+  .cramer-chat-close{ background:rgba(255,255,255,.12); color:#fff; border:0; border-radius:10px; padding:7px 10px; cursor:pointer; }
+  .cramer-chat-messages{ flex:1; padding:16px; overflow:auto; background:#f8fafc; display:flex; flex-direction:column; gap:10px; }
+  .cramer-chat-message{ max-width:88%; padding:11px 13px; border-radius:16px; font-size:14px; line-height:1.45; white-space:pre-wrap; }
+  .cramer-chat-message.bot{ background:#fff; border:1px solid #e2e8f0; color:#1e293b; border-bottom-left-radius:6px; }
+  .cramer-chat-message.user{ background:#0d6efd; color:#fff; align-self:flex-end; border-bottom-right-radius:6px; }
+  .cramer-chat-quick{ display:flex; flex-wrap:wrap; gap:8px; padding:12px 16px; background:#fff; border-top:1px solid #e5e7eb; }
+  .cramer-chat-quick button{ border:1px solid #bfdbfe; background:#eff6ff; color:#0f4fb8; padding:8px 10px; border-radius:999px; font-size:12px; font-weight:700; cursor:pointer; }
+  .cramer-chat-inputbar{ display:flex; gap:8px; padding:12px; border-top:1px solid #e5e7eb; background:#fff; }
+  .cramer-chat-inputbar textarea{ resize:none; height:44px; max-height:90px; flex:1; border-radius:12px; padding:10px 12px; font-size:14px; }
+  .cramer-chat-send{ border:0; border-radius:12px; background:#0d6efd; color:#fff; font-weight:800; padding:0 14px; cursor:pointer; }
+  .cramer-chat-send:disabled{ opacity:.55; cursor:not-allowed; }
+  .cramer-chat-note{ font-size:11px; color:#64748b; padding:0 16px 10px; background:#fff; }
+  @media (max-width:600px){
+    .cramer-chat-launcher{ right:16px; bottom:16px; width:58px; height:58px; }
+    .cramer-chat-panel{ right:10px; left:10px; bottom:84px; width:auto; height:min(620px, calc(100vh - 104px)); }
+  }
+
 </style>
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PJLV039931">
@@ -836,6 +882,127 @@
     ]
   }
 }
+</script>
+
+
+<!-- Cramer Services AI Chatbot -->
+<div id="cramerChatPanel" class="cramer-chat-panel" aria-live="polite">
+  <div class="cramer-chat-header">
+    <div class="cramer-chat-title">
+      <div class="cramer-chat-mark">💬</div>
+      <div>
+        <strong>Cramer Services Assistant</strong>
+        <span>Ask about services, plans, or scheduling</span>
+      </div>
+    </div>
+    <button id="cramerChatClose" class="cramer-chat-close" type="button" aria-label="Close chat">✕</button>
+  </div>
+  <div id="cramerChatMessages" class="cramer-chat-messages"></div>
+  <div class="cramer-chat-quick">
+    <button type="button" data-chat-prompt="What services do you offer?">Services</button>
+    <button type="button" data-chat-prompt="How much are your maintenance plans?">Plans</button>
+    <button type="button" data-chat-prompt="Are you available Friday at 2:00 PM?">Check Availability</button>
+    <button type="button" data-chat-prompt="I need to schedule service.">Schedule Service</button>
+  </div>
+  <div class="cramer-chat-inputbar">
+    <textarea id="cramerChatInput" placeholder="Type your question..." rows="1"></textarea>
+    <button id="cramerChatSend" class="cramer-chat-send" type="button">Send</button>
+  </div>
+  <div class="cramer-chat-note">AI can make mistakes. For exact pricing, availability, or urgent needs, call/text 314-210-4318.</div>
+</div>
+<button id="cramerChatLauncher" class="cramer-chat-launcher" type="button" aria-label="Open Cramer Services chat">💬</button>
+
+<script>
+  (function(){
+    // After you deploy the Supabase function, paste the Function URL here.
+    // Example: https://YOUR_PROJECT_REF.supabase.co/functions/v1/website-ai-chat
+    const CRAMER_CHAT_FUNCTION_URL = 'PASTE_YOUR_WEBSITE_AI_CHAT_FUNCTION_URL_HERE';
+
+    const panel = document.getElementById('cramerChatPanel');
+    const launcher = document.getElementById('cramerChatLauncher');
+    const closeBtn = document.getElementById('cramerChatClose');
+    const messagesEl = document.getElementById('cramerChatMessages');
+    const input = document.getElementById('cramerChatInput');
+    const sendBtn = document.getElementById('cramerChatSend');
+    const quickBtns = document.querySelectorAll('[data-chat-prompt]');
+
+    const messages = [
+      { role: 'assistant', content: 'Hi! I can answer questions about Cramer Services, explain our maintenance plans, check schedule availability, or help start a service request.' }
+    ];
+
+    function renderMessages(){
+      messagesEl.innerHTML = '';
+      messages.forEach((msg) => {
+        const div = document.createElement('div');
+        div.className = 'cramer-chat-message ' + (msg.role === 'user' ? 'user' : 'bot');
+        div.textContent = msg.content;
+        messagesEl.appendChild(div);
+      });
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function setOpen(open){
+      panel.classList.toggle('open', open);
+      if(open) setTimeout(() => input.focus(), 50);
+    }
+
+    async function sendMessage(text){
+      const content = (text || input.value || '').trim();
+      if(!content) return;
+
+      messages.push({ role: 'user', content });
+      input.value = '';
+      renderMessages();
+
+      if(!CRAMER_CHAT_FUNCTION_URL || CRAMER_CHAT_FUNCTION_URL.includes('PASTE_YOUR')){
+        messages.push({ role: 'assistant', content: 'The chatbot is installed, but the Supabase Function URL still needs to be pasted into the website code.' });
+        renderMessages();
+        return;
+      }
+
+      sendBtn.disabled = true;
+      const thinking = { role: 'assistant', content: 'Checking...' };
+      messages.push(thinking);
+      renderMessages();
+
+      try {
+        const response = await fetch(CRAMER_CHAT_FUNCTION_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages })
+        });
+
+        const data = await response.json();
+        messages.pop();
+
+        if(!response.ok || !data.success){
+          throw new Error(data.error || 'Chat request failed');
+        }
+
+        messages.push({ role: 'assistant', content: data.answer || 'I do not want to give you the wrong information. Please call or text Cramer Services at 314-210-4318 so we can confirm.' });
+      } catch (err) {
+        messages.pop();
+        messages.push({ role: 'assistant', content: 'Sorry, I had trouble answering that. Please call or text Cramer Services at 314-210-4318 so we can confirm.' });
+        console.error('Cramer chat error:', err);
+      } finally {
+        sendBtn.disabled = false;
+        renderMessages();
+      }
+    }
+
+    launcher.addEventListener('click', () => { setOpen(!panel.classList.contains('open')); renderMessages(); });
+    closeBtn.addEventListener('click', () => setOpen(false));
+    sendBtn.addEventListener('click', () => sendMessage());
+    input.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' && !e.shiftKey){
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+    quickBtns.forEach((btn) => btn.addEventListener('click', () => sendMessage(btn.getAttribute('data-chat-prompt'))));
+
+    renderMessages();
+  })();
 </script>
 
 </body>
