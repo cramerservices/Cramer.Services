@@ -908,7 +908,7 @@
     <textarea id="cramerChatInput" placeholder="Type your question..." rows="1"></textarea>
     <button id="cramerChatSend" class="cramer-chat-send" type="button">Send</button>
   </div>
-  <div class="cramer-chat-note">AI can make mistakes. For exact pricing, availability, or urgent needs, call/text 314-210-4318.</div>
+  <div class="cramer-chat-note">AI can make mistakes. For exact pricing, availability, or urgent needs, call/text 314-267-8594 or email cramerservicesllc@gmail.com.</div>
 </div>
 <button id="cramerChatLauncher" class="cramer-chat-launcher" type="button" aria-label="Open Cramer Services chat">💬</button>
 
@@ -916,7 +916,7 @@
   (function(){
     // After you deploy the Supabase function, paste the Function URL here.
     // Example: https://YOUR_PROJECT_REF.supabase.co/functions/v1/website-ai-chat
-  const CRAMER_CHAT_FUNCTION_URL = 'https://qsiimareoiyrkompuobi.supabase.co/functions/v1/website-ai-chat';
+    const CRAMER_CHAT_FUNCTION_URL = 'PASTE_YOUR_WEBSITE_AI_CHAT_FUNCTION_URL_HERE';
 
     const panel = document.getElementById('cramerChatPanel');
     const launcher = document.getElementById('cramerChatLauncher');
@@ -979,10 +979,10 @@
           throw new Error(data.error || 'Chat request failed');
         }
 
-        messages.push({ role: 'assistant', content: data.answer || 'I do not want to give you the wrong information. Please call or text Cramer Services at 314-210-4318 so we can confirm.' });
+        messages.push({ role: 'assistant', content: data.answer || 'I do not want to give you the wrong information. Please call or text Cramer Services at 314-267-8594 or email cramerservicesllc@gmail.com so we can confirm.' });
       } catch (err) {
         messages.pop();
-        messages.push({ role: 'assistant', content: 'Sorry, I had trouble answering that. Please call or text Cramer Services at 314-210-4318 so we can confirm.' });
+        messages.push({ role: 'assistant', content: 'Sorry, I had trouble answering that. Please call or text Cramer Services at 314-267-8594 or email cramerservicesllc@gmail.com so we can confirm.' });
         console.error('Cramer chat error:', err);
       } finally {
         sendBtn.disabled = false;
