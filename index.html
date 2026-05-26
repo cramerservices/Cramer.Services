@@ -368,6 +368,47 @@
     .cramer-chat-panel{ right:10px; left:10px; bottom:84px; width:auto; height:min(620px, calc(100vh - 104px)); }
   }
 
+
+  /* ===== Service Area Map ===== */
+  .service-area-grid{
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:1rem;
+    align-items:stretch;
+    margin-top:1rem;
+  }
+  .service-area-card{
+    background:var(--card);
+    border:1px solid #dee2e6;
+    border-radius:12px;
+    padding:1rem;
+  }
+  .service-area-card h3{
+    margin-top:0;
+  }
+  .service-area-list{
+    margin:.75rem 0 0 1.1rem;
+    color:var(--muted);
+  }
+  .service-area-list li{
+    margin:.35rem 0;
+  }
+  .service-area-map{
+    height:380px;
+    width:100%;
+    border-radius:12px;
+    overflow:hidden;
+    border:1px solid #dee2e6;
+    background:#eef2ff;
+  }
+  .leaflet-popup-content{
+    font-family:Poppins,Arial,sans-serif;
+  }
+  @media (max-width:900px){
+    .service-area-grid{ grid-template-columns:1fr; }
+    .service-area-map{ height:320px; }
+  }
+
 </style>
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PJLV039931">
@@ -379,6 +420,10 @@
 
   gtag('config', 'G-PJLV039931');
 </script>
+
+  <!-- Leaflet map styles for service area map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
 </head>
 
 
@@ -396,6 +441,7 @@
     <nav>
       <ul>
         <li><a href="https://cramerservices.github.io/Plans/">Subscriptions</a></li>
+        <li><a href="#service-area">Service Area</a></li>
         <li class="mobile-menu-item"><a href="/schedule/">Schedule Service</a></li>
         <li class="mobile-menu-item"><a href="ContactUs.html">Contact Us</a></li>
       </ul>
@@ -564,6 +610,29 @@
   </div>
 </section>
 
+
+
+
+<section id="service-area" class="container">
+  <h2>Service Area</h2>
+  <p class="muted">Serving the Greater St. Louis area, including surrounding residential and small business properties. The map below shows our standard service area within roughly 40 miles of Clayton, Missouri.</p>
+
+  <div class="service-area-grid">
+    <div class="service-area-card">
+      <h3>40-mile radius from Clayton, MO</h3>
+      <p class="muted">If your property is inside or near the highlighted area, there is a good chance we can help. If you are unsure, contact Cramer Services and we can confirm availability for your address.</p>
+      <ul class="service-area-list">
+        <li>Centered on Clayton, Missouri</li>
+        <li>Approximate 40-mile service radius</li>
+        <li>Residential and small business properties</li>
+        <li>Repairs, maintenance, tune-ups, installs, and project work</li>
+        <li>Jobs outside the highlighted area may still be possible depending on scheduling</li>
+      </ul>
+    </div>
+
+    <div id="serviceAreaMap" class="service-area-map" aria-label="Map showing the Cramer Services service area within 40 miles of Clayton, Missouri"></div>
+  </div>
+</section>
 
 
 <!-- Who Cramer Services Helps -->
@@ -846,8 +915,13 @@
     "description": "Scheduling and after-hours availability may vary. Contact Cramer Services to confirm availability."
   },
   "areaServed": {
-    "@type": "City",
-    "name": "St. Louis"
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": 38.6426,
+      "longitude": -90.3237
+    },
+    "geoRadius": "40 mi"
   },
   "serviceType": ["Handyman Services", "Home Renovation Services", "Property Maintenance"],
   "hasOfferCatalog": {
@@ -1001,6 +1075,38 @@
     quickBtns.forEach((btn) => btn.addEventListener('click', () => sendMessage(btn.getAttribute('data-chat-prompt'))));
 
     renderMessages();
+  })();
+</script>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+  (function(){
+    const mapEl = document.getElementById('serviceAreaMap');
+    if(!mapEl || typeof L === 'undefined') return;
+
+    const clayton = [38.6426, -90.3237];
+    const radiusMeters = 64374; // approximately 40 miles
+
+    const map = L.map('serviceAreaMap', { scrollWheelZoom: false });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const circle = L.circle(clayton, {
+      radius: radiusMeters,
+      color: '#0d6efd',
+      weight: 2,
+      fillColor: '#0d6efd',
+      fillOpacity: 0.18
+    }).addTo(map);
+
+    L.marker(clayton)
+      .addTo(map)
+      .bindPopup('<strong>Cramer Services service area center</strong><br>Clayton, MO<br>Approx. 40-mile standard radius');
+
+    map.fitBounds(circle.getBounds(), { padding: [18, 18] });
   })();
 </script>
 
