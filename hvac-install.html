@@ -318,7 +318,7 @@
       <a href="/privacyPolicy.html">Privacy Policy</a>
     </div>
   </footer>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="assets/js/cramer-lead-email.js"></script>
 
  <script>
   // Year
@@ -350,11 +350,8 @@
     tick();
   })();
 
-  // ===== EmailJS silent submit for HVAC Install form =====
+  // ===== Supabase/Resend silent submit for HVAC Install form =====
   // (Reuses the same keys as your Contact Us page)
-  const EMAILJS_PUBLIC_KEY  = 'TDIki3rqftcomcjJC';
-  const EMAILJS_SERVICE_ID  = 'service_ebrskb5';
-  const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
 
   // Elements
   const form = document.getElementById('installForm');
@@ -368,12 +365,12 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    if (!window.emailjs) {
-      console.error('EmailJS SDK failed to load');
+    if (!window.CramerEmail) {
+      console.error('Supabase/Resend SDK failed to load');
       show('Could not load mail service. Please refresh and try again.', true);
       return;
     }
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
   });
 
   form.addEventListener('submit', async (e) => {
@@ -397,7 +394,7 @@
     if (btn){ btn.disabled = true; btn.textContent = 'Submitting…'; }
     show('');
 
-    // Map to your EmailJS template
+    // Map to your Supabase/Resend template
     const details = data.details || '';
     const templateParams = {
       subject: 'HVAC Install Estimate Request',
@@ -412,7 +409,7 @@
     };
 
     try {
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+      await CramerEmail.send(templateParams);
 
       // Success UI (matches the style/feel we used on the other page)
       card.innerHTML = `

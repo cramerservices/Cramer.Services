@@ -230,12 +230,9 @@
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 
-<!-- EmailJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<!-- Supabase/Resend SDK -->
+<script src="assets/js/cramer-lead-email.js"></script>
 <script>
-  const EMAILJS_PUBLIC_KEY = 'TDIki3rqftcomcjJC';
-  const EMAILJS_SERVICE_ID = 'service_ebrskb5';
-  const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
 
   function show(text, isError=false){
     const el = document.getElementById('formMsg');
@@ -244,11 +241,11 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    if (!window.emailjs) {
+    if (!window.CramerEmail) {
       show('Could not load mail service. Please refresh and try again.', true);
       return;
     }
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
 
     const form = document.getElementById('electricalForm');
     form.addEventListener('submit', async (e) => {
@@ -283,11 +280,11 @@
       show('');
 
       try {
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
+        await CramerEmail.send(data);
         show('Thank you! We received your request and will contact you soon.');
         form.reset();
       } catch (err) {
-        console.error('EmailJS error:', err);
+        console.error('Supabase/Resend error:', err);
         show('Could not send your request. Please try again or call 314-267-8594.', true);
       } finally {
         btn.disabled = false;

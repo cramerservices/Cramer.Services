@@ -444,7 +444,7 @@
 
 
 
-  
+
 <body>
 <header>
   <div class="container nav">
@@ -717,7 +717,7 @@
     </details>
   </div>
 </section>
-  
+
 <section id="contact" class="container">
   <h2>Contact</h2>
 <p class="muted contact-info">
@@ -729,7 +729,7 @@
 
 <footer>
   <div class="container">
-    © <span id="year"></span> Cramer Services. All rights reserved. | 
+    © <span id="year"></span> Cramer Services. All rights reserved. |
     <a href="privacyPolicy.html">Privacy Policy</a>
   </div>
 </footer>
@@ -761,22 +761,15 @@
 </script>
 
 
-  
+
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 
-<!-- EmailJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<!-- Secure Supabase/Resend form sender -->
+<script src="assets/js/cramer-lead-email.js"></script>
 
-<!-- EmailJS wiring -->
 <script>
-  // ====== CONFIG: replace with your actual values ======
-  const EMAILJS_PUBLIC_KEY = 'TDIki3rqftcomcjJC';
-  const EMAILJS_SERVICE_ID = 'service_ebrskb5';
-  const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
-  // =====================================================
-
   function showMsg(text, isError=false) {
     const el = document.getElementById('formMsg');
     el.textContent = text;
@@ -784,13 +777,13 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    if (!window.emailjs) {
-      console.error('EmailJS SDK failed to load');
+    if (!window.CramerEmail) {
+      console.error('Supabase/Resend SDK failed to load');
       showMsg('Could not load mail service. Please refresh and try again.', true);
       return;
     }
 
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
 
     const form = document.getElementById('quoteForm');
     if (!form) return;
@@ -839,7 +832,7 @@
       showMsg('');
 
       try {
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
+        await CramerEmail.send(data);
 
         // Success UI
         showMsg('Thanks! Your request has been sent. We’ll get back to you soon.');
@@ -858,17 +851,8 @@
 
         form.reset();
       } catch (err) {
-        console.error('EmailJS error:', err);
-        const msg = String(err?.text || err?.message || '');
-        if (msg.includes('The user ID is required')) {
-          showMsg('Email service not initialized. Check your PUBLIC key.', true);
-        } else if (msg.toLowerCase().includes('service')) {
-          showMsg('Service ID not found. Double-check your Service ID.', true);
-        } else if (msg.toLowerCase().includes('template')) {
-          showMsg('Template ID not found, or variable names differ from the form.', true);
-        } else {
-          showMsg('Could not send your request. Please try again or email us directly.', true);
-        }
+        console.error('Supabase/Resend error:', err);
+        showMsg(err?.message || 'Could not send your request. Please try again or email us directly.', true);
       } finally {
         btn.disabled = false;
         btn.textContent = prev;

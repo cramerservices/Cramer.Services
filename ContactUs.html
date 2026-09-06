@@ -30,16 +30,7 @@
     .muted{color:var(--muted)}
   </style>
 
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>
-    const EMAILJS_PUBLIC_KEY  = 'TDIki3rqftcomcjJC';
-    const EMAILJS_SERVICE_ID  = 'service_ebrskb5';
-    const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
-
-    document.addEventListener('DOMContentLoaded', () => {
-      if (window.emailjs) emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-    });
-  </script>
+  <script src="assets/js/cramer-lead-email.js"></script>
 </head>
 <body>
   <header>
@@ -78,14 +69,7 @@
     </div>
   </div>
 
-  <script type="module">
-    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-
-    const SUPABASE_URL = 'https://qsiimareoiyrkompuobi.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_msZgwZ5Sascz_SYnTXQuQw_Km1k62pX';
-
-    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
+  <script>
     const $$ = sel => document.querySelector(sel);
 
     function show(text, err = false) {
@@ -95,8 +79,8 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      if (!window.emailjs) {
-        console.error('EmailJS SDK failed to load');
+      if (!window.CramerEmail) {
+        console.error('Supabase/Resend SDK failed to load');
         show('Could not load mail service. Please refresh and try again.', true);
         return;
       }
@@ -113,6 +97,7 @@
         }
 
         const details = (f.details.value || '').trim();
+        const serviceAddress = (f.serviceAddress.value || '').trim();
 
         const data = {
           subject: 'Contact Form Submission - ' + (f.service.value || 'Service Request'),
@@ -123,7 +108,8 @@
           serviceAddress: serviceAddress,
           address: serviceAddress,
           details: details,
-          message: combinedMessage,
+          message: details,
+          source: 'website_contact_form',
           time: new Date().toLocaleString()
         };
 
@@ -139,23 +125,7 @@
         show('');
 
         try {
-          const { error: leadError } = await supabase
-            .from('crm_leads')
-            .insert([
-              {
-                full_name: data.name,
-                phone: data.phone,
-                email: data.email.toLowerCase(),
-                service_type: data.service,
-                details: data.message,
-                status: 'pending',
-                source: 'website_contact_form'
-              }
-            ]);
-
-          if (leadError) throw leadError;
-
-          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
+          await CramerEmail.send(data);
 
           card.innerHTML = `
             <h1>Thank you! We will get back to you as soon as possible.</h1>

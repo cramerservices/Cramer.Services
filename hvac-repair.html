@@ -141,7 +141,7 @@
 
 /* Keep sticky CTA from covering content on phones */
 @media (max-width: 900px){
-  .hero{ 
+  .hero{
     grid-template-columns: 1fr;
     padding-left: 1rem;   /* match .container padding */
     padding-right: 1rem;  /* match .container padding */
@@ -155,7 +155,7 @@
   .sticky-cta .btn{ font-size: 16px; padding: .85rem 1rem; }
 }
 
-  
+
 @media (max-width: 600px){
 
   /* Layout + spacing */
@@ -279,7 +279,7 @@
           <option value="HVAC - Other repair">HVAC - Other repair</option>
         </select>
         <textarea name="details" rows="5" placeholder="Tell us about your project (e.g., issue description, equipment details, preferred timeline)"></textarea>
-       
+
         <button class="btn btn-primary" type="submit">Request Service</button>
        <small>
   By submitting, you agree to our
@@ -393,16 +393,11 @@
     "address":{"@type":"PostalAddress","addressLocality":"St. Louis","addressRegion":"MO","addressCountry":"US"}
   }
   </script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="assets/js/cramer-lead-email.js"></script>
 <script>
-  // Same keys as your main Contact page
-  const EMAILJS_PUBLIC_KEY  = 'TDIki3rqftcomcjJC';
-  const EMAILJS_SERVICE_ID  = 'service_ebrskb5';
-  const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
-
   document.addEventListener('DOMContentLoaded', () => {
-    if (!window.emailjs) return console.error('EmailJS SDK failed to load on repair page.');
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    if (!window.CramerEmail) return console.error('Supabase/Resend SDK failed to load on repair page.');
+
 const card = document.getElementById('service'); // the form card container
 
     const form = document.getElementById('repairForm');
@@ -440,7 +435,7 @@ const card = document.getElementById('service'); // the form card container
       if (msg) { msg.textContent = ''; msg.style.color = '#6c757d'; }
 
      try {
-  await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data);
+  await CramerEmail.send(data);
 
   // Replace the form with a clean thank-you (same feel as other page)
   card.innerHTML = `
@@ -451,7 +446,7 @@ const card = document.getElementById('service'); // the form card container
     </p>
   `;
 } catch (err) {
-  console.error('EmailJS (repair) error:', err);
+  console.error('Supabase/Resend (repair) error:', err);
   if (msg) { msg.textContent = 'Could not send. Please try again or call 314-267-8594.'; msg.style.color = '#dc3545'; }
 } finally {
   if (btn) { btn.disabled = false; btn.textContent = prev || 'Request Service'; }

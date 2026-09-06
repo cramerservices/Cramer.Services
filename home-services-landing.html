@@ -164,7 +164,7 @@
           <option value="Other">Other</option>
         </select>
         <textarea name="details" rows="5" placeholder="Tell us about your project (e.g., issue description, service needed, preferred timeline)"></textarea>
-        
+
         <button class="btn btn-primary" type="submit">Request My Estimate</button>
         <small>By submitting, you agree to our <a href="/privacyPolicy.html" target="_blank" rel="noopener">Privacy Policy</a>. We never sell your data.</small>
         <div id="formMsg" role="status" style="min-height:1.2em;margin-top:.4rem;color:var(--muted)"></div>
@@ -262,7 +262,7 @@
     </div>
   </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="assets/js/cramer-lead-email.js"></script>
 
   <script>
     // Year
@@ -294,10 +294,7 @@
       tick();
     })();
 
-   // === EmailJS configuration (reuse the same keys as ContactUs) ===
-const EMAILJS_PUBLIC_KEY  = 'TDIki3rqftcomcjJC';
-const EMAILJS_SERVICE_ID  = 'service_ebrskb5';
-const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
+   // === Supabase/Resend configuration (reuse the same keys as ContactUs) ===
 
 // Wire up the form
 const form = document.getElementById('leadForm');
@@ -311,12 +308,12 @@ function show(text, isError = false){
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (!window.emailjs) {
-    console.error('EmailJS SDK failed to load');
+  if (!window.CramerEmail) {
+    console.error('Supabase/Resend SDK failed to load');
     show('Could not load mail service. Please refresh and try again.', true);
     return;
   }
-  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
 });
 
 form.addEventListener('submit', async (e) => {
@@ -354,7 +351,7 @@ form.addEventListener('submit', async (e) => {
   };
 
   try {
-    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+    await CramerEmail.send(templateParams);
 
     // Replace the form UI with a thank-you (same UX you use on ContactUs)
     card.innerHTML = `

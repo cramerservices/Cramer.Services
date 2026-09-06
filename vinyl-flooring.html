@@ -135,16 +135,8 @@
 
   </style>
 
-  <!-- EmailJS SDK + init (no handler here) -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>
-    const EMAILJS_PUBLIC_KEY  = 'TDIki3rqftcomcjJC';
-    const EMAILJS_SERVICE_ID  = 'service_ebrskb5';
-    const EMAILJS_TEMPLATE_ID = 'template_b95xw46';
-    document.addEventListener('DOMContentLoaded', () => {
-      if (window.emailjs) emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-    });
-  </script>
+  <!-- Secure Supabase/Resend form sender -->
+  <script src="assets/js/cramer-lead-email.js"></script>
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PJLV039931">
 </script>
@@ -333,8 +325,8 @@
       submitBtn.textContent = 'Submitting…';
 
       try {
-        if (!window.emailjs) throw new Error('EmailJS not loaded');
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailData);
+        if (!window.CramerEmail) throw new Error('Supabase/Resend not loaded');
+        await CramerEmail.send(emailData);
         success.style.display = 'block';
         form.reset();
 
@@ -354,4 +346,3 @@
   </script>
 </body>
 </html>
-
