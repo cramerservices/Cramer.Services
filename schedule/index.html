@@ -69,6 +69,13 @@
     .calendar-date.blank { visibility: hidden; }
     .calendar-helper { margin-top: .5rem; font-size: .9rem; color: var(--muted); }
     .loading-calendar { grid-column: 1 / -1; color: var(--muted); padding: .75rem 0; }
+    .photo-upload { border: 1px dashed #9db9d7; border-radius: 12px; padding: 1rem; background: #f7fbff; }
+    .photo-upload input { padding: .55rem; background: #fff; }
+    .photo-help { margin: .45rem 0 0; font-size: .86rem; color: var(--muted); }
+    .photo-preview { display: grid; grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); gap: .65rem; margin-top: .75rem; }
+    .photo-preview figure { margin: 0; }
+    .photo-preview img { width: 100%; height: 88px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); display: block; }
+    .photo-preview figcaption { margin-top: .25rem; font-size: .72rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } h1 { font-size: 1.6rem; } .topbar { align-items: flex-start; flex-direction: column; } }
   </style>
 </head>
@@ -139,6 +146,13 @@
 
         <div><label for="notes">Notes *</label><textarea id="notes" name="notes" rows="4" placeholder="Tell us what is going on or anything we should know." required></textarea></div>
 
+        <div class="photo-upload">
+          <label for="servicePhotos">Photos of the equipment or problem (optional)</label>
+          <input id="servicePhotos" name="servicePhotos" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+          <p class="photo-help">Add up to 4 photos, such as the equipment label, thermostat, leak, ice, or error code.</p>
+          <div id="photoPreview" class="photo-preview" aria-live="polite"></div>
+        </div>
+
         <input type="hidden" id="selectedStartTime" name="selectedStartTime">
         <button class="cta" type="submit" id="submitBtn">Schedule Appointment</button>
         <div id="msg" class="msg" aria-live="polite"></div>
@@ -164,9 +178,72 @@
     const calendarHelper = document.getElementById('calendarHelper');
     const prevMonthBtn = document.getElementById('prevMonthBtn');
     const nextMonthBtn = document.getElementById('nextMonthBtn');
+    const servicePhotos = document.getElementById('servicePhotos');
+    const photoPreview = document.getElementById('photoPreview');
 
     let calendarDate = new Date();
     let monthAvailability = [];
+
+    function selectedPhotoFiles() {
+      return Array.from(servicePhotos.files || []).slice(0, 4);
+    }
+
+    function renderPhotoPreview() {
+      photoPreview.innerHTML = '';
+      const files = selectedPhotoFiles();
+      if ((servicePhotos.files || []).length > 4) {
+        show('Only the first 4 photos will be included.', 'error');
+      }
+      files.forEach((file) => {
+        const figure = document.createElement('figure');
+        const image = document.createElement('img');
+        const caption = document.createElement('figcaption');
+        const objectUrl = URL.createObjectURL(file);
+        image.src = objectUrl;
+        image.alt = '';
+        image.onload = () => URL.revokeObjectURL(objectUrl);
+        caption.textContent = file.name;
+        figure.append(image, caption);
+        photoPreview.appendChild(figure);
+      });
+    }
+
+    function compressPhoto(file) {
+      return new Promise((resolve, reject) => {
+        if (file.size > 10 * 1024 * 1024) {
+          reject(new Error(`${file.name} is larger than 10 MB.`));
+          return;
+        }
+        const reader = new FileReader();
+        reader.onerror = () => reject(new Error(`Could not read ${file.name}.`));
+        reader.onload = () => {
+          const image = new Image();
+          image.onerror = () => reject(new Error(`${file.name} is not a supported image.`));
+          image.onload = () => {
+            const maxDimension = 1400;
+            const scale = Math.min(1, maxDimension / Math.max(image.width, image.height));
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.max(1, Math.round(image.width * scale));
+            canvas.height = Math.max(1, Math.round(image.height * scale));
+            const context = canvas.getContext('2d');
+            context.drawImage(image, 0, 0, canvas.width, canvas.height);
+            resolve({
+              name: file.name.replace(/\.[^.]+$/, '') + '.jpg',
+              type: 'image/jpeg',
+              data: canvas.toDataURL('image/jpeg', 0.76)
+            });
+          };
+          image.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function preparePhotos() {
+      return Promise.all(selectedPhotoFiles().map(compressPhoto));
+    }
+
+    servicePhotos.addEventListener('change', renderPhotoPreview);
 
     const params = new URLSearchParams(window.location.search);
     const rescheduleAppointmentId = params.get('reschedule') || '';
@@ -360,6 +437,13 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      let photos = [];
+      try {
+        photos = await preparePhotos();
+      } catch (error) {
+        show(error.message || 'One of the selected photos could not be prepared.', 'error');
+        return;
+      }
       const payload = {
         action: rescheduleAppointmentId && rescheduleToken ? 'reschedule' : 'create',
         name: form.name.value.trim(),
@@ -370,6 +454,7 @@
         appointmentDate: form.appointmentDate.value,
         startTime: selectedStartTime.value,
         notes: form.notes.value.trim(),
+        photos,
         rescheduleAppointmentId,
         rescheduleToken
       };

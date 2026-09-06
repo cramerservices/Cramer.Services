@@ -135,6 +135,54 @@
   .card:hover{ box-shadow:0 6px 18px rgba(0,0,0,.08) }
   .icon{ font-size:2rem; margin-bottom:.5rem; display:block }
 
+  /* ===== Google Reviews ===== */
+  .reviews-panel{
+    margin-top:1.25rem; padding:2rem; border-radius:18px;
+    background:linear-gradient(135deg,#0b315c,#0d6efd); color:#fff;
+    display:grid; grid-template-columns:auto 1fr auto; gap:1.5rem; align-items:center;
+    box-shadow:0 18px 42px rgba(13,110,253,.2);
+  }
+  .review-score{ font-size:3rem; font-weight:800; line-height:1; }
+  .review-stars{ color:#ffd166; font-size:1.25rem; letter-spacing:.12rem; margin:.4rem 0; }
+  .reviews-panel h3{ margin:0 0 .35rem; font-size:1.35rem; }
+  .reviews-panel p{ margin:0; color:#e8f2ff; }
+  .reviews-panel .review-link{
+    background:#fff; color:#0b5ed7; padding:.8rem 1.1rem; border-radius:8px;
+    font-weight:700; white-space:nowrap;
+  }
+  .reviews-panel .review-link:hover{ text-decoration:none; background:#eef6ff; }
+
+  /* ===== Customer Dashboard Preview ===== */
+  .portal-preview{
+    display:grid; grid-template-columns:.85fr 1.15fr; gap:2rem; align-items:center;
+    margin-top:1.25rem;
+  }
+  .portal-copy h2{ margin-top:0; }
+  .portal-list{ padding:0; margin:1rem 0 1.4rem; list-style:none; display:grid; gap:.65rem; }
+  .portal-list li::before{ content:'✓'; color:var(--green); font-weight:800; margin-right:.65rem; }
+  .portal-window{
+    background:#fff; border:1px solid #dce5ef; border-radius:16px; overflow:hidden;
+    box-shadow:0 18px 42px rgba(15,42,75,.14);
+  }
+  .portal-window-bar{ display:flex; gap:.4rem; padding:.8rem 1rem; background:#edf3f9; }
+  .portal-window-bar span{ width:9px; height:9px; border-radius:50%; background:#b6c6d7; }
+  .portal-window-body{ padding:1.15rem; }
+  .portal-membership{
+    background:linear-gradient(135deg,#173f70,#0d6efd); color:#fff;
+    border-radius:12px; padding:1.1rem; display:flex; justify-content:space-between; gap:1rem;
+  }
+  .portal-membership small,.portal-membership strong{ display:block; }
+  .portal-membership strong{ font-size:1.2rem; margin-top:.2rem; }
+  .portal-benefits{ display:grid; grid-template-columns:1fr 1fr; gap:.7rem; margin:1rem 0; }
+  .portal-benefit{ border:1px solid #dce5ef; border-radius:10px; padding:.8rem; }
+  .portal-benefit strong{ display:block; color:#0b5ed7; font-size:1.35rem; }
+  .portal-history{ border-top:1px solid #e5e7eb; padding-top:.8rem; }
+  .portal-history-row{ display:flex; justify-content:space-between; gap:1rem; padding:.45rem 0; font-size:.85rem; }
+  .portal-status{ color:var(--green); font-weight:700; }
+
+  /* ===== Mobile Action Bar ===== */
+  .mobile-action-bar{ display:none; }
+
   /* ===== Choose Us ===== */
   .choose-us{
     display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -294,6 +342,26 @@
     .service-tile h3{ font-size:1rem }
     .who img{ max-height:220px; object-fit:cover; object-position:center; }
     footer .container{ text-align:center; font-size:.95rem }
+    body{ padding-bottom:72px; }
+    .reviews-panel{ grid-template-columns:1fr; text-align:center; padding:1.5rem; gap:.8rem; }
+    .reviews-panel .review-link{ width:100%; }
+    .portal-preview{ grid-template-columns:1fr; gap:1.25rem; }
+    .portal-membership{ align-items:flex-start; }
+    .mobile-action-bar{
+      display:grid; grid-template-columns:repeat(3,1fr); position:fixed;
+      left:0; right:0; bottom:0; z-index:9998; background:#fff;
+      border-top:1px solid #d9e3ed; box-shadow:0 -8px 24px rgba(15,42,75,.12);
+    }
+    .mobile-action-bar a{
+      min-height:64px; display:flex; flex-direction:column; justify-content:center;
+      align-items:center; gap:.1rem; color:#0b315c; font-size:.78rem; font-weight:700;
+      border-right:1px solid #e5e7eb;
+    }
+    .mobile-action-bar a:last-child{ border-right:0; }
+    .mobile-action-bar a:hover{ text-decoration:none; background:#eef6ff; }
+    .mobile-action-bar span{ font-size:1.2rem; line-height:1; }
+    .cramer-chat-launcher{ bottom:82px; }
+    .cramer-chat-panel{ bottom:148px; height:min(560px,calc(100vh - 168px)); }
   }
 
   /* Contact section: inline on desktop, stacked lines on mobile */
@@ -385,8 +453,8 @@
   .cramer-chat-send:disabled{ opacity:.55; cursor:not-allowed; }
   .cramer-chat-note{ font-size:11px; color:#64748b; padding:0 16px 10px; background:#fff; }
   @media (max-width:600px){
-    .cramer-chat-launcher{ right:16px; bottom:16px; width:58px; height:58px; }
-    .cramer-chat-panel{ right:10px; left:10px; bottom:84px; width:auto; height:min(620px, calc(100vh - 104px)); }
+    .cramer-chat-launcher{ right:16px; bottom:82px; width:58px; height:58px; }
+    .cramer-chat-panel{ right:10px; left:10px; bottom:148px; width:auto; height:min(560px, calc(100vh - 168px)); }
   }
 
   /* ===== Service Area Map ===== */
@@ -528,28 +596,6 @@
   </div>
 </section>
 
-<section id="hvac-maintenance" class="service-section container">
-  <h2>Indoor Comfort & Preventive Maintenance</h2>
-  <p class="muted">Preventive HVAC care and comfort solutions for homeowners, landlords, and small businesses.</p>
-  <div class="cards">
-    <div class="card">
-      <h3>Seasonal HVAC Tune-Ups</h3>
-      <p class="muted">A/C and furnace tune-ups to help catch issues early and improve system performance.</p>
-    </div>
-    <div class="card">
-      <h3>Rental Property HVAC Service</h3>
-      <p class="muted">Fast HVAC diagnostics, maintenance, and repairs for landlords and rental turnovers.</p>
-    </div>
-    <div class="card">
-      <h3>Airflow & Comfort Issues</h3>
-      <p class="muted">Help with weak airflow, hot rooms, poor cooling, thermostat issues, and comfort concerns.</p>
-    </div>
-    <div class="card">
-      <h3>Custom HVAC Requests</h3>
-      <p class="muted">Need help with something specific? We can inspect the system, explain the issue, and provide repair or replacement options.</p>
-    </div>
-  </div>
-</section>
 <section id="choose-us" class="container">
   <h2 style="text-align:center;">Why Choose Cramer Services?</h2>
   <div class="choose-us">
@@ -571,19 +617,56 @@
   </div>
 </section>
 
-<!-- WHAT WE DO -->
-<section id="what-we-do" class="container">
-  <h2>What We Do</h2>
-  <p class="muted">A single place to schedule heating, cooling, maintenance, and comfort services.</p>
-  <div class="cards">
-    <div class="card"><h3>HVAC Repairs</h3><p class="muted">Diagnose and repair heating and cooling issues with clear communication and no surprises.</p></div>
-    <div class="card"><h3>System Installations</h3><p class="muted">Air conditioners, furnaces, coils, thermostats, and mini-splits installed professionally.</p></div>
-    <div class="card"><h3>Replacement Projects</h3><p class="muted">From estimate to installation, we help you choose the right system and complete the job properly.</p></div>
-    <div class="card"><h3>Preventive Maintenance</h3><p class="muted">Seasonal tune-ups and system checks to keep your HVAC equipment running smoothly.</p></div>
-    <div class="card"><h3>Urgent Service Requests</h3><p class="muted">After-hours support may be available depending on technician availability. Contact Cramer Services to confirm the soonest available appointment.</p></div>
-    <div class="card"><h3>Custom Requests</h3><p class="muted">Have a unique HVAC issue? We’ll inspect it, explain it, and quote your options.</p></div>
+<section id="reviews" class="container">
+  <h2>Trusted by St. Louis Customers</h2>
+  <p class="muted">See what customers say about their experience with Cramer Services.</p>
+  <div class="reviews-panel">
+    <div aria-label="5 out of 5 stars">
+      <div class="review-score">5.0</div>
+      <div class="review-stars" aria-hidden="true">★★★★★</div>
+    </div>
+    <div>
+      <h3>Excellent rating on Google</h3>
+      <p>Based on 8 verified Google reviews.</p>
+    </div>
+    <a class="review-link" href="https://www.google.com/maps/search/?api=1&amp;query=Cramer+Services&amp;query_place_id=ChIJp5SBzX0WQKwRDKjkGFoOS0g" target="_blank" rel="noopener noreferrer">Read Google Reviews</a>
   </div>
 </section>
+
+<section id="customer-dashboard" class="container">
+  <div class="portal-preview">
+    <div class="portal-copy">
+      <h2>Your HVAC Information in One Place</h2>
+      <p class="muted">Customers can sign in anytime to review their membership and service information.</p>
+      <ul class="portal-list">
+        <li>Membership and remaining benefits</li>
+        <li>Equipment and service history</li>
+        <li>Invoices, estimates and inspection reports</li>
+        <li>Service photos and documents</li>
+      </ul>
+      <a class="cta" href="https://cramerservices.github.io/Plans/#/login">Open Customer Dashboard</a>
+    </div>
+    <div class="portal-window" aria-label="Example customer dashboard">
+      <div class="portal-window-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="portal-window-body">
+        <div class="portal-membership">
+          <div><small>Current Membership</small><strong>Silver Plan</strong></div>
+          <div><small>Status</small><strong>Active</strong></div>
+        </div>
+        <div class="portal-benefits">
+          <div class="portal-benefit"><strong>1</strong><small>Tune-up remaining</small></div>
+          <div class="portal-benefit"><strong>1</strong><small>Free service remaining</small></div>
+        </div>
+        <div class="portal-history">
+          <strong>Recent service history</strong>
+          <div class="portal-history-row"><span>Seasonal HVAC tune-up</span><span class="portal-status">Complete</span></div>
+          <div class="portal-history-row"><span>Inspection report</span><span>View report</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="plans" class="container">
   <h2>Subscriptions</h2>
   <p class="muted">Our HVAC maintenance plans help keep your system running properly with tune-ups, priority scheduling, and repair discounts.</p>
@@ -598,7 +681,7 @@
 
     <div class="card">
       <h3>Silver</h3>
-      <p>$300/year • 2 tune-ups per year • 15% discount on repairs • 2 free service calls • Priority scheduling and emergency service</p>
+      <p>$300/year • 1 tune-up per year • 15% discount on repairs • 1 free service • Priority scheduling and emergency service</p>
       <div class="plan-actions">
         <a class="btn-secondary" href="https://cramerservices.github.io/Plans/">View Plan</a>
       </div>
@@ -624,6 +707,7 @@
   <div style="margin-top:1rem; text-align:center;">
    <a class="btn-secondary" href="https://cramerservices.github.io/Plans/">Open My Plans</a>
   </div>
+  <p class="muted" style="text-align:center;margin-top:1rem;">Tune-up and free-service benefits reset when the annual membership renews.</p>
 </section>
 
 
@@ -733,6 +817,12 @@
     <a href="privacyPolicy.html">Privacy Policy</a>
   </div>
 </footer>
+
+<nav class="mobile-action-bar" aria-label="Quick contact actions">
+  <a href="tel:+13142678594"><span aria-hidden="true">☎</span>Call</a>
+  <a href="sms:+13142678594"><span aria-hidden="true">💬</span>Text</a>
+  <a href="/schedule/"><span aria-hidden="true">📅</span>Schedule</a>
+</nav>
 
 
 <script>
